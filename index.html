@@ -415,9 +415,6 @@
       border-color: rgba(255, 255, 255, 0.5);
     }
 
-    .theme-blue { background: linear-gradient(45deg, #3b82f6, #8b5cf6); }
-    .theme-green { background: linear-gradient(45deg, #10b981, #06d6a0); }
-    .theme-purple { background: linear-gradient(45deg, #8b5cf6, #ec4899); }
     .theme-orange { background: linear-gradient(45deg, #f59e0b, #ef4444); }
 
     /* Responsive */
@@ -439,14 +436,6 @@
 <body>
   <div class="bg-canvas">
     <div class="grid-pattern"></div>
-  </div>
-
-  <!-- Theme Selector -->
-  <div class="theme-selector">
-    <div class="theme-btn theme-blue" data-theme="blue" title="Midnight Blue"></div>
-    <div class="theme-btn theme-green" data-theme="green" title="Forest Walk"></div>
-    <div class="theme-btn theme-purple" data-theme="purple" title="Royal Purple"></div>
-    <div class="theme-btn theme-orange" data-theme="orange" title="Sunset Orange"></div>
   </div>
 
   <div class="container">
@@ -596,16 +585,7 @@
   <script>
     // Theme System
     const themes = {
-      blue: {
-        primary: '#3b82f6',
-        secondary: '#8b5cf6',
-        tertiary: '#06d6a0'
-      },
-      green: {
-        primary: '#10b981',
-        secondary: '#06d6a0',
-        tertiary: '#3b82f6'
-      },
+
       purple: {
         primary: '#8b5cf6',
         secondary: '#ec4899',
@@ -632,6 +612,10 @@
         setTheme(theme);
       });
     });
+    window.onload = function() {
+  setTheme('orange');
+};
+
   </script>
 </body>
 </html>
