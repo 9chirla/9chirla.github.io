@@ -509,8 +509,29 @@
         </div>
       </div>
     </section>
+    <section class="section" id="resume">
+  <h2 class="section-title">Resume</h2>
+  <!-- Download Button -->
+  <a href="resume.pdf" download class="social-link" style="width: fit-content;">
+    <span class="social-icon">
+      <span class="material-icons">download</span>
+    </span>
+    <span>Download Resume</span>
+  </a>
+
+  <!-- View Button -->
+  <button onclick="document.getElementById('resumeModal').style.display='flex'" class="social-link" style="width: fit-content;">
+    <span class="social-icon">
+      <span class="material-icons">visibility</span>
+    </span>
+    <span>View Resume</span>
+  </button>
+</section>
+
+
 
     <section class="section" id="contact">
+
       <h2 class="section-title">Let's Connect</h2>
       <div class="socials-grid">
         <a class="social-link" href="https://linkedin.com/in/chirla" target="_blank" aria-label="LinkedIn">
@@ -554,12 +575,6 @@
   <script>
     // Theme System
     const themes = {
-
-      purple: {
-        primary: '#8b5cf6',
-        secondary: '#ec4899',
-        tertiary: '#06d6a0'
-      },
       orange: {
         primary: '#f59e0b',
         secondary: '#ef4444',
@@ -586,5 +601,13 @@
 };
 
   </script>
+<!-- Resume Modal -->
+<div id="resumeModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
+  <div style="background:var(--glass-bg); padding:2rem; border-radius:12px; max-width:90%; max-height:90%; overflow:auto; position:relative;">
+    <span onclick="document.getElementById('resumeModal').style.display='none'" style="position:absolute; top:1rem; right:1rem; cursor:pointer; font-size:1.5rem; color:var(--text-primary);">×</span>
+    <iframe src="assets/resume.pdf" width="100%" height="600px" style="border:none; border-radius:8px;"></iframe>
+  </div>
+</div>
+
 </body>
 </html>
