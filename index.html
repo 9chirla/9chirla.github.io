@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Naveen Reddy Chirla | Portfolio</title>
+  <title>Naveen Chirla | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
     :root {
-      --bg-primary: #0f0f23;
-      --bg-secondary: #1a1a2e;
+      --bg-primary: #674ea7;
+      --bg-secondary: #000000;
       --accent-primary: #3b82f6;
       --accent-secondary: #8b5cf6;
       --accent-tertiary: #06d6a0;
@@ -19,7 +19,7 @@
       --glass-bg: rgba(255, 255, 255, 0.05);
       --glass-border: rgba(255, 255, 255, 0.1);
       --shadow-glow: 0 8px 32px rgba(59, 130, 246, 0.15);
-      --handwritten: 'JetBrains Mono', monospace;
+      --handwritten: 'JetBrains Bold', monospace;
     }
 
     * {
@@ -29,7 +29,7 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: JetBrains Mono;
       background: var(--bg-primary);
       color: var(--text-primary);
       line-height: 1.6;
@@ -47,26 +47,27 @@
       width: 100%;
       height: 100%;
       z-index: -1;
-      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      background: linear-gradient(125deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     }
 
-    .grid-pattern {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image:
-        linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
-      background-size: 50px 50px;
-      animation: grid-move 20s linear infinite;
-      pointer-events: none;
+    .grid-bg {
+      background-image: radial-gradient(#888 1px, transparent 1px);
+      background-size: 30px 20px;
+      animation: pulse 20s infinite;
     }
+
+@keyframes pulse {
+  0%, 100% {
+    background-size: 20px 20px;
+  }
+  50% {
+    background-size: 30px 30px;
+  }
+}
 
     @keyframes grid-move {
       0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
+      200% { transform: translate(50px, 50px); }
     }
 
     .container {
@@ -94,14 +95,14 @@
     }
 
     .profile-pic {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
+      width: 240px;
+      height: 240px;
+      border-radius: 47%;
       background-image: url('https://i.imgur.com/cbib91X.jpeg');
       background-size: cover;
       background-position: center;
       margin: auto;
-      border: 4px solid var(--accent-primary);
+      border: 3px solid var(--accent-primary);
       box-shadow: 0 8px 32px rgba(59, 130, 246, 0.25), 0 0 0 8px rgba(59,130,246,0.06);
       position: relative;
       transition: box-shadow 0.4s, border 0.4s;
@@ -132,10 +133,10 @@
     }
 
     h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
+      font-size: 3.5rem;
+      font-weight: 1200;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      background: linear-gradient(155deg, var(--accent-primary), var(--accent-secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -146,12 +147,79 @@
       color: var(--text-secondary);
       font-family: 'JetBrains Mono', monospace;
       margin-bottom: 0.5rem;
+      letter-spacing: 0.5px;
+      position: relative;
+      padding-left: 1rem;
+      transition: all 0.3s ease;
     }
 
+    .subtitle::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-color, #ff6bcb);
+      box-shadow: 0 0 6px var(--accent-color, #ff6bcb);
+    }
+
+    .subtitle:hover {
+      color: var(--accent-color, #ff6bcb);
+      transform: translateX(2px);
+    }
+
+    /* Variant: secondary subtitle with different vibe */
     .subtitle.secondary {
-      font-size: 1rem;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
+       .subtitle.secondary::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-color, #ff6bcb);
+      box-shadow: 0 0 6px var(--accent-color, #ff6bcb);
+    }
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      10%, 90% { opacity: 1; }
+    }
+
+    .typing-container {
+      position: relative;
+      display: inline-block;
+      min-height: 1.5em;
+    }
+
+    .typing-phrase {
+      position: absolute;
+      opacity: 0;
+      animation: fadeInOut 6s linear infinite;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #ff6bcb;
+      animation-timing-function: steps(30, end);
+    }
+
+    .typing-phrase:nth-child(1) { animation-delay: 0s; }
+    .typing-phrase:nth-child(2) { animation-delay: 2s; }
+    .typing-phrase:nth-child(3) { animation-delay: 2s; }
+
+    }
     }
 
     .section {
@@ -199,10 +267,16 @@
       color: var(--text-secondary);
       transition: color 0.3s;
     }
-
+    .resume-icon {
+      font-size: 3.8rem;
+      color: var(--accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
     }
 
@@ -221,8 +295,8 @@
       content: '';
       position: absolute;
       top: 0;
-      left: -100%;
-      width: 100%;
+      left: -70%;
+      width: -80%;
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.13), transparent);
       transition: left 0.5s ease;
@@ -239,13 +313,13 @@
     }
 
     .project-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 4.5rem;
+      margin-bottom: 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--accent-primary);
-      height: 48px;
+      height: 58px;
     }
 
     .project-title {
@@ -319,7 +393,7 @@
 
     .skill-desc {
       font-size: 0.8rem;
-      color: var(--text-muted);
+      color: #000000;
       line-height: 1.4;
       margin-top: 0.3rem;
     }
@@ -404,28 +478,44 @@
 </head>
 <body>
   <div class="bg-canvas">
-    <div class="grid-pattern"></div>
+    <div class="grid-bg"></div>
   </div>
 
   <div class="container">
     <header class="header">
       <div class="profile-container">
-        <div class="profile-pic" aria-label="Naveen Reddy Chirla's Profile Picture"></div>
+        <div class="profile-pic" aria-label="Naveen Chirla's Profile Picture"></div>
       </div>
-      <h1>Naveen Reddy Chirla</h1>
+      <h1>Naveen Chirla</h1>
       <p class="subtitle">Turning data into decisions, one insight at a time.</p>
-      <p class="subtitle secondary">Data Analyst | Business Intelligence | Python Developer</p>
+      <p class="subtitle secondary" style="position: relative;">
+        <span class="typing-container" id="typewriter"></span>
+      </p>
+
+
+
     </header>
 
     <section class="section" id="bio">
       <h2 class="section-title">About Me</h2>
       <p class="bio">
-        I’m Naveen—a data enthusiast who thrives on making sense of numbers and helping businesses find clarity in chaos.
+        I’m Naveen — a data enthusiast who thrives on making sense of numbers and helping businesses find clarity in chaos.
         After years of wrangling spreadsheets and SQL queries, I’ve learned that data is only as powerful as the stories it tells.
         Currently sharpening my skills in a Master’s program while building tools that bridge the gap between raw data and real-world action.
       </p>
-    </section>
 
+    </section>
+      </div>
+      <section class=" " id="resume" style="display: flex; justify-content: center; padding: 1.5rem ;margin-bottom: 2rem;">
+  <div style="display: justify-content: center; padding: 0 rem 0;">
+    <a href = "https://docs.google.com/gview?url=https://9chirla.github.io/assets/resume.pdf&embedded=true" target class="social-link" style="width: fit-content;">
+      <span class="resume-icon">
+        <span class="material-icons">description</span>
+      </span>
+      <span>Resume</span>
+    </a>
+  </div>
+      </section>
     <section class="section" id="projects">
       <h2 class="section-title">Featured Projects</h2>
       <div class="projects-grid">
@@ -509,24 +599,6 @@
         </div>
       </div>
     </section>
-    <section class="section" id="resume">
-  <h2 class="section-title">Resume</h2>
-  <!-- Download Button -->
-  <a href="resume.pdf" download class="social-link" style="width: fit-content;">
-    <span class="social-icon">
-      <span class="material-icons">download</span>
-    </span>
-    <span>Download Resume</span>
-  </a>
-
-  <!-- View Button -->
-  <button onclick="document.getElementById('resumeModal').style.display='flex'" class="social-link" style="width: fit-content;">
-    <span class="social-icon">
-      <span class="material-icons">visibility</span>
-    </span>
-    <span>View Resume</span>
-  </button>
-</section>
 
 
 
@@ -570,8 +642,6 @@
     <footer>
       <p>&copy; 2025 Naveen Reddy Chirla • Built by hand, fueled by curiosity</p>
     </footer>
-  </div>
-
   <script>
     // Theme System
     const themes = {
@@ -603,11 +673,50 @@
   </script>
 <!-- Resume Modal -->
 <div id="resumeModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
-  <div style="background:var(--glass-bg); padding:2rem; border-radius:12px; max-width:90%; max-height:90%; overflow:auto; position:relative;">
-    <span onclick="document.getElementById('resumeModal').style.display='none'" style="position:absolute; top:1rem; right:1rem; cursor:pointer; font-size:1.5rem; color:var(--text-primary);">×</span>
-    <iframe src="assets/resume.pdf" width="100%" height="600px" style="border:none; border-radius:8px;"></iframe>
+  <div style="width:100vw; height:100vh; padding:0; margin:0; overflow:hidden; position:relative;">
+    <span onclick="document.getElementById('resumeModal').style.display='none'" style="position:absolute; top:1rem; right:1rem; cursor:pointer; font-size:2rem; color:white; background:none; border:none;">&times;</span>
+    <iframe src="https://9chirla.github.io/assets/resume.pdf"></iframe>
+
+
+
+<script>
+document.addEventListener('keydown', function(event) {
+  if (event.key === "Escape") {
+    document.getElementById('resumeModal').style.display = 'none';
+  }
+});
+</script>
+
   </div>
 </div>
+<script>
+  const phrases = ["Data Analyst", "Business Intelligence", "Python Developer"];
+  const el = document.getElementById("typewriter");
+  let currentPhrase = 0;
+  let currentChar = 0;
+  let isDeleting = false;
+
+  function type() {
+    const fullText = phrases[currentPhrase];
+    el.textContent = fullText.substring(0, currentChar) + (isDeleting ? '' : '|');
+
+    if (!isDeleting && currentChar < fullText.length) {
+      currentChar++;
+      setTimeout(type, 100);
+    } else if (isDeleting && currentChar > 0) {
+      currentChar--;
+      setTimeout(type, 50);
+    } else {
+      isDeleting = !isDeleting;
+      if (!isDeleting) {
+        currentPhrase = (currentPhrase + 1) % phrases.length;
+      }
+      setTimeout(type, 1000);
+    }
+  }
+
+  type();
+</script>
 
 </body>
 </html>
