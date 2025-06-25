@@ -161,19 +161,6 @@
       transform: translateX(2px);
     }
 
-    /* Variant: secondary subtitle with different vibe */
-      .subtitle.secondary::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent-color, #ff6bcb);
-      box-shadow: 0 0 6px var(--accent-color, #ff6bcb);
-    }
 
 
     @keyframes typing {
@@ -230,7 +217,7 @@
     }
 
     .section-title {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
       margin-top: 0.5rem;
@@ -243,12 +230,12 @@
     .section-title::after {
       content: '';
       position: absolute;
-      bottom: -8px;
+      bottom: -5px;
       left: 0;
       width: 60px;
       height: 3px;
       background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-      border-radius: 2px;
+      border-radius: 5px;
     }
 
     .bio {
