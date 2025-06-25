@@ -71,11 +71,13 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
       padding: 2rem;
       position: relative;
+      border-radius: 20px;
       z-index: 1;
+      overflow: hidden
     }
 
     .header {
@@ -211,27 +213,31 @@
     }
 
     .section {
+      margin: 1.5rem 0;
       margin-bottom: 4rem;
       backdrop-filter: blur(20px);
-      background: var(--glass-bg);
-      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.01);
+      padding: 3rem 2.5rem;
       border-radius: 24px;
       border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 24px rgba(59, 130, 246, 0.08);
       position: relative;
       transition: all 0.3s ease;
-      box-shadow: 0 2px 16px rgba(59, 130, 246, 0.05);
+      overflow: hidden;
     }
 
     .section:hover {
       background: rgba(255, 255, 255, 0.08);
-      transform: translateY(-2px) scale(1.01);
+      transform: translateY(-2px) scale(1.011);
       box-shadow: 0 12px 40px rgba(59, 130, 246, 0.08);
+      border-radius: 24px;
     }
 
     .section-title {
       font-size: 1.8rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
+      margin-top: 0.5rem;
       color: var(--text-primary);
       position: relative;
       display: inline-block;
@@ -261,16 +267,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    .projects {
+      margin: 2rem 0;
+      padding: 2.5rem 2rem;
+    }
     }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1rem;
     }
 
     .project-card {
       background: var(--glass-bg);
-      padding: 2rem;
+      padding: 1rem;
       border-radius: 20px;
       border: 1px solid var(--glass-border);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -299,15 +309,21 @@
       border-color: var(--accent-primary);
       box-shadow: 0 20px 40px rgba(59, 130, 246, 0.13);
     }
+    .center-card {
+      grid-column: 1 / -1; /* span full width of the grid */
+      max-width: 500px;    /* optional: limit width */
+      margin: 0 auto;      /* center horizontally */
+      text-align: center;  /* center text inside */
+    }
 
     .project-icon {
-      font-size: 4.5rem;
-      margin-bottom: 3rem;
+      font-size: 6.5rem;
+      margin-bottom: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--accent-primary);
-      height: 58px;
+      height: 38px;
     }
 
     .project-title {
@@ -381,7 +397,7 @@
 
     .skill-desc {
       font-size: 0.8rem;
-      color: #000000;
+      color: #a8b2d1;
       line-height: 1.4;
       margin-top: 0.3rem;
     }
@@ -480,9 +496,6 @@
       </p>
       <p class="subtitle">Turning data into decisions, one insight at a time.</p>
 
-
-
-
     </header>
 
     <section class="section" id="bio">
@@ -494,16 +507,16 @@
       </p>
 
     </section>
-      </div>
+
       <section class=" " id="resume" style="display: flex; justify-content: center; padding: 1.5rem ;margin-bottom: 2rem;">
-  <div style="display: justify-content: center; padding: 0 rem 0;">
+    <div style="display: justify-content: center; padding: 0 rem 0;">
     <a href = "https://docs.google.com/gview?url=https://9chirla.github.io/assets/resume.pdf&embedded=true" target="_blank" rel="noopener noreferrer" class="social-link" style="width: fit-content;">
       <span class="resume-icon">
         <span class="material-icons">description</span>
       </span>
       <span>Resume</span>
     </a>
-  </div>
+    </div>
       </section>
     <section class="section" id="projects">
       <h2 class="section-title">Featured Projects</h2>
@@ -528,7 +541,7 @@
             The result? Campaigns that hit the mark 25% more often.
           </p>
         </div>
-        <div class="project-card">
+        <div class="project-card center-card">
           <div class="project-icon">
             <span class="material-icons">trending_up</span>
           </div>
@@ -540,6 +553,7 @@
         </div>
       </div>
     </section>
+
 
     <section class="section" id="skills">
       <h2 class="section-title">Technical Skills</h2>
@@ -623,14 +637,16 @@
           <span class="social-icon">
             <span class="material-icons">phone</span>
           </span>
-          <span>+44 7717 298365</span>
+          <span>Phone</span>
         </a>
       </div>
-    </section>
 
+
+    </section>
     <footer>
       <p>&copy; 2025 Naveen Reddy Chirla • Built by hand, fueled by curiosity</p>
     </footer>
+  </div>
   <script>
     // Theme System
     const themes = {
