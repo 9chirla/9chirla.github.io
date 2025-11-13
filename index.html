@@ -158,9 +158,11 @@
       box-shadow: 0 0 60px rgba(0, 255, 136, 0.4);
       position: relative;
       z-index: 2;
-      /* Fallback gradient if image doesn't load */
-      background-color: var(--bg-card);
-      background-blend-mode: overlay;
+      /* Remove blur */
+      filter: none;
+      -webkit-filter: none;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
     }
 
     /* If image fails to load, show a placeholder */
@@ -183,8 +185,8 @@
       background: linear-gradient(45deg, var(--accent-electric), var(--accent-info), var(--accent-warning));
       border-radius: 24px;
       z-index: 1;
-      opacity: 0.3;
-      filter: blur(30px);
+      opacity: 0.2;
+      filter: blur(20px);
       animation: rotate-gradient 8s linear infinite;
     }
 
@@ -478,6 +480,106 @@
       background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.02), transparent);
     }
 
+    /* Cinema Breaks - Integrated Movie Moments */
+    .cinema-break {
+      margin: 4rem 0;
+      position: relative;
+    }
+
+    .cinema-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      background: var(--card-bg);
+      border: 2px solid var(--border-subtle);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s;
+      min-height: 300px;
+    }
+
+    .cinema-content:hover {
+      border-color: var(--accent-electric);
+      box-shadow: 0 20px 60px rgba(0, 255, 136, 0.15);
+      transform: translateY(-5px);
+    }
+
+    .cinema-image {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(0.2);
+      transition: all 0.4s;
+      position: relative;
+    }
+
+    .cinema-content:hover .cinema-image {
+      filter: grayscale(0);
+      transform: scale(1.05);
+    }
+
+    /* Film grain effect */
+    .cinema-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+      pointer-events: none;
+      mix-blend-mode: overlay;
+    }
+
+    .cinema-text {
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .cinema-quote {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.3;
+      position: relative;
+    }
+
+    .cinema-quote::before {
+      content: '"';
+      position: absolute;
+      left: -1.5rem;
+      top: -0.5rem;
+      font-size: 4rem;
+      color: var(--accent-electric);
+      opacity: 0.3;
+      font-family: Georgia, serif;
+    }
+
+    .cinema-response {
+      font-size: 1.1rem;
+      color: var(--accent-warning);
+      font-family: 'Fira Code', monospace;
+      padding-left: 1rem;
+      border-left: 3px solid var(--accent-warning);
+      font-style: italic;
+    }
+
+    /* Alternate layout for second break */
+    .cinema-break:nth-child(odd) .cinema-content {
+      grid-template-columns: 1fr 2fr;
+    }
+
+    .cinema-break:nth-child(odd) .cinema-image {
+      order: 2;
+    }
+
+    .cinema-break:nth-child(odd) .cinema-text {
+      order: 1;
+    }
+
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -572,9 +674,12 @@
 
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       margin-top: 4rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .contact-card {
@@ -690,6 +795,27 @@
         order: 2;
       }
 
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cinema-content {
+        grid-template-columns: 1fr;
+      }
+
+      .cinema-break:nth-child(odd) .cinema-content {
+        grid-template-columns: 1fr;
+      }
+
+      .cinema-image {
+        order: 1 !important;
+        min-height: 250px;
+      }
+
+      .cinema-text {
+        order: 2 !important;
+      }
+
       .profile-wrapper {
         width: 350px;
         height: 450px;
@@ -740,6 +866,18 @@
         display: none;
       }
 
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cinema-quote {
+        font-size: 1.3rem;
+      }
+
+      .cinema-response {
+        font-size: 0.95rem;
+      }
+
       .profile-wrapper {
         width: 280px;
         height: 380px;
@@ -776,27 +914,225 @@
       }
     }
 
-    /* Cursor Trail Effect */
-    .cursor-trail {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--accent-electric);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s;
-      opacity: 0;
+    /* Premium Comedy Gold Cursor */
+    body {
+      cursor: none !important;
     }
 
-    .cursor-trail.active {
-      opacity: 0.5;
+    * {
+      cursor: none !important;
+    }
+
+    /* Main Premium Cursor - A literal money bag */
+    .custom-cursor {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.05s ease;
+      font-size: 32px;
+      filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.8));
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-5px) rotate(5deg); }
+    }
+
+    /* Different cursor states for different vibes */
+    .cursor-default { content: '💰'; }
+    .cursor-hover { content: '🚀'; }
+    .cursor-click { content: '💥'; }
+    .cursor-fast { content: '⚡'; }
+
+    /* Premium glow effect */
+    .custom-cursor::after {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.3), transparent);
+      border-radius: 50%;
+      z-index: -1;
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.5); opacity: 0.8; }
+    }
+
+    /* Money trail - dollar signs */
+    .cursor-money {
+      position: fixed;
+      font-size: 24px;
+      pointer-events: none;
+      z-index: 9999;
+      animation: money-float 1s ease-out;
+      filter: drop-shadow(0 0 5px rgba(0, 255, 136, 0.8));
+    }
+
+    @keyframes money-float {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0.5) rotate(360deg);
+      }
+    }
+
+    /* Premium sparkles */
+    .cursor-sparkle {
+      position: fixed;
+      font-size: 20px;
+      pointer-events: none;
+      z-index: 9998;
+      animation: sparkle-pop 0.6s ease-out;
+    }
+
+    @keyframes sparkle-pop {
+      0% {
+        opacity: 1;
+        transform: scale(0) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.5) rotate(180deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0) rotate(360deg);
+      }
+    }
+
+    /* Fire trail for speed */
+    .cursor-fire {
+      position: fixed;
+      font-size: 28px;
+      pointer-events: none;
+      z-index: 9997;
+      animation: fire-trail 0.4s ease-out;
+    }
+
+    @keyframes fire-trail {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.3) translateY(20px);
+      }
+    }
+
+    /* Click explosion - multiple emojis */
+    .cursor-boom {
+      position: fixed;
+      font-size: 32px;
+      pointer-events: none;
+      z-index: 9996;
+      animation: boom-explosion 0.6s ease-out;
+      filter: drop-shadow(0 0 10px rgba(255, 51, 102, 0.8));
+    }
+
+    @keyframes boom-explosion {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(0.5) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(720deg);
+      }
+    }
+
+    /* Rocket trail */
+    .cursor-rocket-trail {
+      position: fixed;
+      width: 3px;
+      height: 20px;
+      background: linear-gradient(180deg, #ff3366, transparent);
+      pointer-events: none;
+      z-index: 9995;
+      animation: rocket-trail 0.3s ease-out;
+      box-shadow: 0 0 10px #ff3366;
+    }
+
+    @keyframes rocket-trail {
+      0% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scaleY(0) translateY(30px);
+      }
+    }
+
+    /* Premium wave effect */
+    .cursor-premium-wave {
+      position: fixed;
+      border: 3px solid gold;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9994;
+      animation: premium-wave 0.8s ease-out;
+      box-shadow: 0 0 20px gold, inset 0 0 20px gold;
+    }
+
+    @keyframes premium-wave {
+      0% {
+        width: 20px;
+        height: 20px;
+        opacity: 1;
+      }
+      100% {
+        width: 120px;
+        height: 120px;
+        opacity: 0;
+      }
+    }
+
+    /* Confetti on click */
+    .cursor-confetti {
+      position: fixed;
+      font-size: 18px;
+      pointer-events: none;
+      z-index: 9993;
+      animation: confetti-fall 1s ease-out;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100px) rotate(720deg);
+      }
+    }
+
+    /* Hide on mobile */
+    @media (max-width: 768px) {
+      body, * {
+        cursor: auto !important;
+      }
+      .custom-cursor, .cursor-money, .cursor-sparkle, .cursor-fire,
+      .cursor-boom, .cursor-rocket-trail, .cursor-premium-wave, .cursor-confetti {
+        display: none !important;
+      }
     }
   </style>
 </head>
 <body>
   <div class="matrix-bg" id="matrixBg"></div>
-  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- Premium Comedy Cursor -->
+  <div class="custom-cursor" id="customCursor">💰</div>
 
   <!-- Nav -->
   <nav>
@@ -822,8 +1158,8 @@
         </div>
 
         <p class="hero-subtext">
-          Most analysts show you charts. I show you <span class="highlight">money</span>. 
-          Former spreadsheet warrior turned profit-generating machine. 
+          Most analysts show you charts. I show you <span class="highlight">money</span>.
+          Former spreadsheet warrior turned profit-generating machine.
           Currently turning datasets into decisions that actually matter.
         </p>
 
@@ -983,11 +1319,12 @@
       </div>
     </section>
 
-    <!-- Skills -->
+        <!-- Skills with Integrated Cinema Breaks -->
     <section class="skills-section" id="skills">
       <h2 class="section-title">Can I Actually Do This?</h2>
       <p class="section-subtitle">// Spoiler: Yes. Here's the proof.</p>
 
+      <!-- First set of skills -->
       <div class="skills-grid">
         <div class="skill-card" data-proficiency="95">
           <div class="skill-icon">
@@ -1011,17 +1348,6 @@
           </div>
         </div>
 
-        <div class="skill-card" data-proficiency="88">
-          <div class="skill-icon">
-            <span class="material-icons">bar_chart</span>
-          </div>
-          <div class="skill-name">Tableau</div>
-          <div class="skill-level">Dashboards that don't lie</div>
-          <div class="proficiency-bar">
-            <div class="proficiency-fill" style="width: 88%"></div>
-          </div>
-        </div>
-
         <div class="skill-card" data-proficiency="85">
           <div class="skill-icon">
             <span class="material-icons">model_training</span>
@@ -1032,7 +1358,21 @@
             <div class="proficiency-fill" style="width: 85%"></div>
           </div>
         </div>
+      </div>
 
+      <!-- Cinema Break 1: The Doubt -->
+      <div class="cinema-break">
+        <div class="cinema-content">
+          <div class="cinema-image" style="background-image: url('assets/811baf92-df6d-46f4-9410-5711bd81c29b_text.gif');"></div>
+          <div class="cinema-text">
+            <div class="cinema-quote">"How do I know you can deliver?"</div>
+            <div class="cinema-response">→ Every hiring manager, ever</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second set of skills -->
+      <div class="skills-grid" style="margin-top: 3rem;">
         <div class="skill-card" data-proficiency="92">
           <div class="skill-icon">
             <span class="material-icons">grid_on</span>
@@ -1055,14 +1395,27 @@
           </div>
         </div>
       </div>
+
+      <!-- Cinema Break 2: The Standard -->
+      <div class="cinema-break">
+        <div class="cinema-content">
+          <div class="cinema-image" style="background-image: url('assets/1620806083381.png');"></div>
+          <div class="cinema-text">
+            <div class="cinema-quote">"That's my bar. My bar is here."</div>
+            <div class="cinema-response">→ So I set my own standards</div>
+          </div>
+        </div>
+      </div>
     </section>
+
+
 
     <!-- Contact -->
     <section class="contact-section" id="contact">
       <div class="contact-cta">
         <h2>Let's Build Something</h2>
         <p>
-          If you're tired of analysts who just make pretty charts and want someone who actually moves the needle, 
+          If you're tired of analysts who just make pretty charts and want someone who actually moves the needle,
           let's talk. I promise to bring data, not excuses.
         </p>
 
@@ -1117,8 +1470,8 @@
       If you found this, you're either a developer or just really bored.<br>
       Either way, we should talk. I like curious people.
     </p>
-    <button onclick="document.getElementById('easterEgg').classList.remove('active')" 
-            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric); 
+    <button onclick="document.getElementById('easterEgg').classList.remove('active')"
+            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric);
                    color: var(--bg-dark); border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
       Close
     </button>
@@ -1144,18 +1497,162 @@
     }
     matrixBg.innerHTML = matrix;
 
-    // Cursor trail effect
-    const trail = document.getElementById('cursorTrail');
-    document.addEventListener('mousemove', (e) => {
-      trail.style.left = e.clientX + 'px';
-      trail.style.top = e.clientY + 'px';
-      trail.classList.add('active');
-    });
+    // PREMIUM COMEDY CURSOR 💰🚀
+    const cursor = document.getElementById('customCursor');
+    if (!cursor) {
+      console.error('Cursor element not found!');
+    } else {
+      let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+      let lastX = mouseX, lastY = mouseY;
+      let velocity = 0;
+      let frameCount = 0;
+      let currentEmoji = '💰';
+
+      const emojis = { default: '💰', hover: '🚀', click: '💥', fast: '⚡', superFast: '🔥' };
+      const moneyEmojis = ['💵', '💴', '💶', '💷', '💸'];
+      const sparkleEmojis = ['✨', '⭐', '🌟', '💫', '⚡'];
+      const clickEmojis = ['💥', '💯', '🎯', '🔥', '⚡', '💪', '🚀'];
+      const confettiEmojis = ['🎉', '🎊', '🎈', '🎆', '🎇', '✨'];
+
+      // Set initial position
+      cursor.style.left = (mouseX - 20) + 'px';
+      cursor.style.top = (mouseY - 20) + 'px';
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        const dx = mouseX - lastX;
+        const dy = mouseY - lastY;
+        velocity = Math.sqrt(dx * dx + dy * dy);
+
+        cursor.style.left = (mouseX - 20) + 'px';
+        cursor.style.top = (mouseY - 20) + 'px';
+
+        if (velocity > 40) {
+          cursor.textContent = emojis.superFast;
+          if (frameCount % 2 === 0) createFire(mouseX, mouseY);
+        } else if (velocity > 20) {
+          cursor.textContent = emojis.fast;
+        } else {
+          cursor.textContent = currentEmoji;
+        }
+
+        frameCount++;
+        if (frameCount % 5 === 0) createMoney(mouseX, mouseY);
+        if (frameCount % 8 === 0) createSparkle(mouseX, mouseY);
+        if (currentEmoji === emojis.hover && frameCount % 3 === 0) createRocketTrail(mouseX, mouseY);
+
+        lastX = mouseX;
+        lastY = mouseY;
+      });
+
+      document.addEventListener('mousedown', (e) => {
+        cursor.textContent = emojis.click;
+        createPremiumWave(e.clientX, e.clientY);
+
+        for (let i = 0; i < 12; i++) {
+          setTimeout(() => createBoom(e.clientX, e.clientY, clickEmojis[Math.floor(Math.random() * clickEmojis.length)]), i * 30);
+        }
+        for (let i = 0; i < 20; i++) {
+          setTimeout(() => createConfetti(e.clientX, e.clientY), i * 20);
+        }
+        setTimeout(() => { cursor.textContent = currentEmoji; }, 300);
+      });
+
+      const interactiveElements = document.querySelectorAll('a, button, .btn, .contact-card, .project-card, .skill-card');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          currentEmoji = emojis.hover;
+          cursor.textContent = emojis.hover;
+          cursor.style.transform = 'scale(1.3) rotate(15deg)';
+          createPremiumWave(mouseX, mouseY);
+          for (let i = 0; i < 5; i++) setTimeout(() => createSparkle(mouseX, mouseY), i * 50);
+        });
+        el.addEventListener('mouseleave', () => {
+          currentEmoji = emojis.default;
+          cursor.textContent = emojis.default;
+          cursor.style.transform = 'scale(1) rotate(0deg)';
+        });
+      });
+
+      function createMoney(x, y) {
+        const money = document.createElement('div');
+        money.className = 'cursor-money';
+        money.textContent = moneyEmojis[Math.floor(Math.random() * moneyEmojis.length)];
+        money.style.left = (x - 12) + 'px';
+        money.style.top = (y - 12) + 'px';
+        document.body.appendChild(money);
+        setTimeout(() => money.remove(), 1000);
+      }
+
+      function createSparkle(x, y) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'cursor-sparkle';
+        sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+        sparkle.style.left = (x + (Math.random() - 0.5) * 40) + 'px';
+        sparkle.style.top = (y + (Math.random() - 0.5) * 40) + 'px';
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 600);
+      }
+
+      function createFire(x, y) {
+        const fire = document.createElement('div');
+        fire.className = 'cursor-fire';
+        fire.textContent = '🔥';
+        fire.style.left = (x - 14) + 'px';
+        fire.style.top = (y - 14) + 'px';
+        document.body.appendChild(fire);
+        setTimeout(() => fire.remove(), 400);
+      }
+
+      function createBoom(x, y, emoji) {
+        const boom = document.createElement('div');
+        boom.className = 'cursor-boom';
+        boom.textContent = emoji;
+        boom.style.left = (x - 16) + 'px';
+        boom.style.top = (y - 16) + 'px';
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 50 + Math.random() * 80;
+        boom.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
+        boom.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
+        document.body.appendChild(boom);
+        setTimeout(() => boom.remove(), 600);
+      }
+
+      function createRocketTrail(x, y) {
+        const trail = document.createElement('div');
+        trail.className = 'cursor-rocket-trail';
+        trail.style.left = (x - 1.5) + 'px';
+        trail.style.top = y + 'px';
+        document.body.appendChild(trail);
+        setTimeout(() => trail.remove(), 300);
+      }
+
+      function createPremiumWave(x, y) {
+        const wave = document.createElement('div');
+        wave.className = 'cursor-premium-wave';
+        wave.style.left = (x - 10) + 'px';
+        wave.style.top = (y - 10) + 'px';
+        document.body.appendChild(wave);
+        setTimeout(() => wave.remove(), 800);
+      }
+
+      function createConfetti(x, y) {
+        const confetti = document.createElement('div');
+        confetti.className = 'cursor-confetti';
+        confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
+        confetti.style.left = (x + (Math.random() - 0.5) * 100) + 'px';
+        confetti.style.top = (y - 20) + 'px';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1000);
+      }
+    }
 
     // Konami code easter egg
     let konamiCode = [];
     const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    
+
     document.addEventListener('keydown', (e) => {
       konamiCode.push(e.key);
       if (konamiCode.length > konamiPattern.length) {
