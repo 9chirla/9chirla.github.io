@@ -108,19 +108,18 @@
     /* Hero Section - The "Oh Shit" Moment */
     .hero {
       min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 400px;
+      display: flex;
       align-items: center;
       gap: 4rem;
       padding-top: 100px;
     }
 
     .hero-left {
-      order: 1;
+      flex: 1;
     }
 
     .hero-right {
-      order: 2;
+      flex: 0 0 400px;
       position: relative;
     }
 
@@ -128,26 +127,59 @@
     .profile-wrapper {
       position: relative;
       width: 400px;
-      height: 400px;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .name-highlight {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent-electric);
+      line-height: 1;
+      font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+      text-align: center;
+      margin-bottom: 1rem;
     }
 
     .profile-image {
-      width: 100%;
-      height: 100%;
+      width: 400px;
+      height: 400px;
       border-radius: 24px;
-      background-image: url('assets/FullSizeRender2.jpg');
+      /* Try multiple possible paths */
+      background-image: url('assets/FullSizeRender2.jpg'), url('./assets/FullSizeRender2.jpg'), url('../assets/FullSizeRender2.jpg');
       background-size: cover;
       background-position: center;
       border: 3px solid var(--accent-electric);
       box-shadow: 0 0 60px rgba(0, 255, 136, 0.4);
       position: relative;
       z-index: 2;
+      /* Fallback gradient if image doesn't load */
+      background-color: var(--bg-card);
+      background-blend-mode: overlay;
+    }
+
+    /* If image fails to load, show a placeholder */
+    .profile-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+      border-radius: 24px;
+      z-index: -1;
     }
 
     .profile-wrapper::before {
       content: '';
       position: absolute;
-      inset: -20px;
+      top: 60px;
+      left: -20px;
+      right: -20px;
+      bottom: 60px;
       background: linear-gradient(45deg, var(--accent-electric), var(--accent-info), var(--accent-warning));
       border-radius: 24px;
       z-index: 1;
@@ -162,10 +194,6 @@
     }
 
     .profile-badge {
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
       background: var(--bg-dark);
       border: 2px solid var(--accent-electric);
       padding: 1rem 2rem;
@@ -176,17 +204,7 @@
       z-index: 3;
       box-shadow: 0 10px 40px rgba(0, 255, 136, 0.4);
       white-space: nowrap;
-    }
-
-    .name-highlight {
-      font-size: 5rem;
-      font-weight: 900;
-      color: var(--accent-electric);
-      margin-bottom: 1rem;
-      line-height: 1;
-      font-family: 'Space Grotesk', sans-serif;
-      text-transform: uppercase;
-      letter-spacing: -0.05em;
+      text-align: center;
     }
 
     .glitch-text {
@@ -659,14 +677,13 @@
     /* Responsive */
     @media (max-width: 1024px) {
       .hero {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 3rem;
       }
 
       .hero-right {
         order: 1;
-        display: flex;
-        justify-content: center;
+        flex: 0 0 auto;
       }
 
       .hero-left {
@@ -675,12 +692,16 @@
 
       .profile-wrapper {
         width: 350px;
+        height: 450px;
+      }
+
+      .profile-image {
+        width: 350px;
         height: 350px;
       }
 
       .name-highlight {
-        font-size: 4rem;
-        text-align: center;
+        font-size: 2.5rem;
       }
 
       .glitch-text {
@@ -721,6 +742,11 @@
 
       .profile-wrapper {
         width: 280px;
+        height: 380px;
+      }
+
+      .profile-image {
+        width: 280px;
         height: 280px;
       }
 
@@ -730,7 +756,7 @@
       }
 
       .name-highlight {
-        font-size: 2.5rem;
+        font-size: 2rem;
       }
 
       .glitch-text {
@@ -789,7 +815,6 @@
   <div class="container">
     <section class="hero" id="home">
       <div class="hero-left">
-        <div class="name-highlight">NAVEEN CHIRLA</div>
         <div class="glitch-text">
           <div class="line1">I don't just</div>
           <div class="line2">analyze data.</div>
@@ -797,8 +822,8 @@
         </div>
 
         <p class="hero-subtext">
-          Most analysts show you charts. I show you <span class="highlight">money</span>.
-          Former spreadsheet warrior turned profit-generating machine.
+          Most analysts show you charts. I show you <span class="highlight">money</span>. 
+          Former spreadsheet warrior turned profit-generating machine. 
           Currently turning datasets into decisions that actually matter.
         </p>
 
@@ -838,6 +863,7 @@
 
       <div class="hero-right">
         <div class="profile-wrapper">
+          <div class="name-highlight">NAVEEN<br>CHIRLA</div>
           <div class="profile-image"></div>
           <div class="profile-badge">Data Analyst • Python • ML</div>
         </div>
@@ -1036,7 +1062,7 @@
       <div class="contact-cta">
         <h2>Let's Build Something</h2>
         <p>
-          If you're tired of analysts who just make pretty charts and want someone who actually moves the needle,
+          If you're tired of analysts who just make pretty charts and want someone who actually moves the needle, 
           let's talk. I promise to bring data, not excuses.
         </p>
 
@@ -1091,8 +1117,8 @@
       If you found this, you're either a developer or just really bored.<br>
       Either way, we should talk. I like curious people.
     </p>
-    <button onclick="document.getElementById('easterEgg').classList.remove('active')"
-            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric);
+    <button onclick="document.getElementById('easterEgg').classList.remove('active')" 
+            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric); 
                    color: var(--bg-dark); border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
       Close
     </button>
@@ -1129,7 +1155,7 @@
     // Konami code easter egg
     let konamiCode = [];
     const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-
+    
     document.addEventListener('keydown', (e) => {
       konamiCode.push(e.key);
       if (konamiCode.length > konamiPattern.length) {
