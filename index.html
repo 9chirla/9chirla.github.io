@@ -3,711 +3,1161 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Naveen Chirla | Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <title>Naveen Chirla | Data Analyst Who Actually Ships</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
-    :root {
-      --bg-primary: #674ea7;
-      --bg-secondary: #000000;
-      --accent-primary: #3b82f6;
-      --accent-secondary: #8b5cf6;
-      --accent-tertiary: #06d6a0;
-      --text-primary: #ffffff;
-      --text-secondary: #a1a1aa;
-      --text-muted: #71717a;
-      --glass-bg: rgba(255, 255, 255, 0.08);
-      --glass-border: rgba(255, 255, 255, 0.1);
-      --shadow-glow: 0 8px 32px rgba(59, 130, 246, 0.15);
-      --handwritten: 'JetBrains Bold', monospace;
-    }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --bg-dark: #0d0d0d;
+      --bg-card: #1a1a1a;
+      --accent-electric: #00ff88;
+      --accent-warning: #ff3366;
+      --accent-info: #00d4ff;
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --border-subtle: #2a2a2a;
+    }
+
     body {
-      font-family: JetBrains Mono;
-      background: var(--bg-primary);
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--bg-dark);
       color: var(--text-primary);
       line-height: 1.6;
       overflow-x: hidden;
-      position: relative;
-      background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-      background-blend-mode: overlay;
-      opacity: 0.98;
     }
 
-    .bg-canvas {
+    /* Animated Matrix Background */
+    .matrix-bg {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      background: linear-gradient(125deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      z-index: 0;
+      opacity: 0.03;
+      pointer-events: none;
     }
 
-    .grid-bg {
-      background-image: radial-gradient(#888 1px, transparent 1px);
-      background-size: 30px 20px;
-      animation: pulse 20s infinite;
+    /* Terminal-style Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 5%;
+      backdrop-filter: blur(20px);
+      background: rgba(13, 13, 13, 0.9);
+      border-bottom: 1px solid var(--accent-electric);
+      z-index: 1000;
+      font-family: 'Fira Code', monospace;
     }
 
-    @keyframes pulse {
-      0%, 100% {
-        background-size: 20px 20px;
-      }
-      50% {
-        background-size: 30px 30px;
-      }
+    .nav-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    @keyframes grid-move {
-      0% { transform: translate(0, 0); }
-      200% { transform: translate(50px, 50px); }
+    .terminal-prompt {
+      color: var(--accent-electric);
+      font-size: 1.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-electric);
+    }
+
+    .nav-links a::before {
+      content: '> ';
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .nav-links a:hover::before {
+      opacity: 1;
     }
 
     .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5%;
       position: relative;
-      border-radius: 20px;
       z-index: 1;
-      overflow: hidden
     }
 
-    .header {
-      text-align: center;
-      padding: 4rem 0 2rem;
+    /* Hero Section - The "Oh Shit" Moment */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      align-items: center;
+      gap: 4rem;
+      padding-top: 100px;
+    }
+
+    .hero-left {
+      order: 1;
+    }
+
+    .hero-right {
+      order: 2;
       position: relative;
     }
 
-    .profile-container {
+    /* Profile Image with Attitude */
+    .profile-wrapper {
       position: relative;
-      display: inline-block;
-      margin-bottom: 2rem;
-      transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55);
-    }
-    .profile-container:hover {
-      transform: scale(1.05) rotate(-2deg);
+      width: 400px;
+      height: 400px;
     }
 
-    .profile-pic {
-      width: 240px;
-      height: 240px;
-      border-radius: 47%;
-      background-image: url(assets/FullSizeRender 2.jpg);
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 24px;
+      background-image: url('assets/FullSizeRender2.jpg');
       background-size: cover;
       background-position: center;
-      margin: auto;
-      border: 3px solid var(--accent-primary);
-      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.25), 0 0 0 8px rgba(59,130,246,0.06);
+      border: 3px solid var(--accent-electric);
+      box-shadow: 0 0 60px rgba(0, 255, 136, 0.4);
       position: relative;
-      transition: box-shadow 0.4s, border 0.4s;
+      z-index: 2;
     }
 
-    .profile-pic:hover {
-      box-shadow: 0 16px 48px rgba(59, 130, 246, 0.4), 0 0 0 12px rgba(139,92,246,0.08);
-      border-color: var(--accent-secondary);
-    }
-
-    .profile-container::before {
+    .profile-wrapper::before {
       content: '';
       position: absolute;
-      top: -18px;
-      left: -18px;
-      right: -18px;
-      bottom: -18px;
-      border-radius: 50%;
-      background: conic-gradient(var(--accent-primary), var(--accent-secondary), var(--accent-tertiary), var(--accent-primary));
-      z-index: -1;
-      animation: rotate-slow 10s linear infinite;
-      opacity: 0.22;
-      filter: blur(2px);
+      inset: -20px;
+      background: linear-gradient(45deg, var(--accent-electric), var(--accent-info), var(--accent-warning));
+      border-radius: 24px;
+      z-index: 1;
+      opacity: 0.3;
+      filter: blur(30px);
+      animation: rotate-gradient 8s linear infinite;
     }
 
-    @keyframes rotate-slow {
-      to { transform: rotate(360deg); }
+    @keyframes rotate-gradient {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 1200;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(155deg, var(--accent-primary), var(--accent-secondary));
+    .profile-badge {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-dark);
+      border: 2px solid var(--accent-electric);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-family: 'Fira Code', monospace;
+      font-weight: 700;
+      color: var(--accent-electric);
+      z-index: 3;
+      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.4);
+      white-space: nowrap;
+    }
+
+    .name-highlight {
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--accent-electric);
+      margin-bottom: 1rem;
+      line-height: 1;
+      font-family: 'Space Grotesk', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.05em;
+    }
+
+    .glitch-text {
+      font-size: 7rem;
+      font-weight: 700;
+      line-height: 0.9;
+      margin-bottom: 2rem;
+      position: relative;
+      animation: glitch-skew 3s infinite;
+    }
+
+    @keyframes glitch-skew {
+      0% { transform: skew(0deg); }
+      1% { transform: skew(-2deg); }
+      2% { transform: skew(0deg); }
+      99% { transform: skew(0deg); }
+      100% { transform: skew(-2deg); }
+    }
+
+    .glitch-text .line1 {
+      color: var(--text-secondary);
+    }
+
+    .glitch-text .line2 {
+      background: linear-gradient(45deg, var(--accent-electric), var(--accent-info));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .subtitle {
-      font-size: 1.1rem;
+    .hero-subtext {
+      font-size: 1.5rem;
       color: var(--text-secondary);
-      font-family: 'JetBrains Mono', monospace;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.5px;
+      max-width: 700px;
+      margin-bottom: 3rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .hero-subtext .highlight {
+      color: var(--accent-electric);
+      border-bottom: 2px solid var(--accent-electric);
+    }
+
+    /* Reality Check Stats */
+    .reality-check {
+      background: var(--bg-card);
+      border: 2px solid var(--accent-warning);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      max-width: 800px;
+    }
+
+    .reality-title {
+      color: var(--accent-warning);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .reality-title::before {
+      content: '⚠️ ';
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--accent-electric);
+      font-family: 'Fira Code', monospace;
+    }
+
+    .stat-label {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .cta-section {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Fira Code', monospace;
+      border: 2px solid;
+    }
+
+    .btn-primary {
+      background: var(--accent-electric);
+      color: var(--bg-dark);
+      border-color: var(--accent-electric);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--accent-electric);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-electric);
+      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+    }
+
+    .scroll-indicator {
+      font-family: 'Fira Code', monospace;
+      color: var(--text-secondary);
+      margin-top: 4rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+
+    /* The "I Actually Know My Shit" Section */
+    .proof-section {
+      padding: 8rem 0;
       position: relative;
-      padding-left: 1rem;
-      transition: all 0.3s ease;
     }
-
-
-    .subtitle:hover {
-      color: var(--accent-color, #ff6bcb);
-      transform: translateX(2px);
-    }
-
-
-
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
-    @keyframes blink {
-      50% { border-color: transparent }
-    }
-    @keyframes fadeInOut {
-      0%, 100% { opacity: 0; }
-      10%, 90% { opacity: 1; }
-    }
-
-    .typing-container {
-      position: relative;
-      display: inline-block;
-      min-height: 1.5em;
-    }
-
-    .typing-phrase {
-      position: absolute;
-      opacity: 0;
-      animation: fadeInOut 6s linear infinite;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 2px solid #ff6bcb;
-      animation-timing-function: steps(30, end);
-    }
-
-    .typing-phrase:nth-child(1) { animation-delay: 0s; }
-    .typing-phrase:nth-child(2) { animation-delay: 2s; }
-    .typing-phrase:nth-child(3) { animation-delay: 2s; }
-
-    }
-    }
-
-    .section {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      backdrop-filter: blur(30px) saturate(180%);
-      -webkit-backdrop-filter: blur(30px) saturate(180%);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-      transition: all 0.4s ease;
-      padding: 1.5rem 2rem;
-
-    }
-
-
-    .section:hover {
-      background: rgba(255, 255, 255, 0.02); /* softer glow */
-      transform: translateY(-1px) scale(1.005); /* gentler lift */
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.06); /* subtler shadow */
-    }
-
-
 
     .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      margin-top: 0.5rem;
-      color: var(--text-primary);
-      position: relative;
-      display: inline-block;
-      letter-spacing: 0.5px;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 90%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-      border-radius: 5px;
-    }
-
-    .bio {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: var(--text-secondary);
-      transition: color 0.3s;
-    }
-    .resume-icon {
-      font-size: 3.8rem;
-      color: var(--accent-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    .projects {
-      margin: 2rem 0;
-      padding: 2.5rem 2rem;
-    }
-    }
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-      gap: 1rem;
-    }
-
-    .project-card {
-      background: var(--glass-bg);
-      padding: 1rem;
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 2px 12px rgba(59, 130, 246, 0.06);
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -70%;
-      width: -80%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.13), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .project-card:hover::before {
-      left: 100%;
-    }
-
-    .project-card:hover {
-      transform: translateY(-8px) scale(1.025);
-      border-color: var(--accent-primary);
-      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.13);
-    }
-    .center-card {
-      grid-column: 1 / -1; /* span full width of the grid */
-      max-width: 500px;    /* optional: limit width */
-      margin: 0 auto;      /* center horizontally */
-      text-align: center;  /* center text inside */
-    }
-
-    .project-icon {
-      font-size: 6.5rem;
+      font-size: 3.5rem;
+      font-weight: 700;
       margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-primary);
-      height: 38px;
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      margin-bottom: 4rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Before/After Comparison Cards */
+    .comparison-grid {
+      display: grid;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .comparison-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 3rem;
+      position: relative;
+      transition: all 0.3s;
+    }
+
+    .comparison-card:hover {
+      border-color: var(--accent-electric);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0, 255, 136, 0.1);
+    }
+
+    .project-badge {
+      position: absolute;
+      top: -15px;
+      left: 30px;
+      background: var(--accent-warning);
+      color: var(--bg-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: 'Fira Code', monospace;
     }
 
     .project-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-electric);
     }
 
-    .project-description {
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .before, .after {
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+
+    .before {
+      background: rgba(255, 51, 102, 0.1);
+      border: 1px solid rgba(255, 51, 102, 0.3);
+    }
+
+    .after {
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+    }
+
+    .before-after h4 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      font-family: 'Fira Code', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .before h4 { color: var(--accent-warning); }
+    .after h4 { color: var(--accent-electric); }
+
+    .metric {
+      font-size: 2.5rem;
+      font-weight: 900;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .metric-label {
       color: var(--text-secondary);
-      line-height: 1.6;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .tech-tag {
+      padding: 0.5rem 1rem;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: 'Fira Code', monospace;
+      color: var(--accent-electric);
+    }
+
+    /* Skills - The "Can You Actually Do This?" Section */
+    .skills-section {
+      padding: 8rem 0;
+      background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.02), transparent);
     }
 
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
     }
 
-    .skill-badge {
-      background: var(--glass-bg);
-      padding: 1.5rem 1rem;
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       border-radius: 16px;
-      border: 1px solid var(--glass-border);
+      padding: 2rem;
       text-align: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
+      transition: all 0.3s;
       position: relative;
       overflow: hidden;
     }
 
-    .skill-badge::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.2), transparent);
-      transition: all 0.3s ease;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-    }
-
-    .skill-badge:hover::after {
-      width: 200px;
-      height: 200px;
-    }
-
-    .skill-badge:hover {
-      transform: translateY(-5px) scale(1.04);
-      border-color: var(--accent-primary);
-      box-shadow: 0 10px 25px rgba(59, 130, 246, 0.13);
-    }
-
-    .skill-icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--accent-primary);
-      text-align: center;
-    }
-
-    .skill-name {
-      font-weight: 500;
-      color: var(--text-primary);
-      position: relative;
-      z-index: 1;
-    }
-
-    .skill-desc {
-      font-size: 0.8rem;
-      color: #a8b2d1;
-      line-height: 1.4;
-      margin-top: 0.3rem;
-    }
-
-    .socials-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .social-link {
-      background: var(--glass-bg);
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.2rem 1.5rem;
-      border-radius: 16px;
-      border: 1px solid var(--glass-border);
-      color: var(--text-primary);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .social-link::before {
+    .skill-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-      transition: left 0.5s ease;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+      transition: left 0.5s;
     }
 
-    .social-link:hover::before {
+    .skill-card:hover::before {
       left: 100%;
     }
 
-    .social-link:hover {
-      transform: translateX(8px) scale(1.03);
-      border-color: var(--accent-primary);
-      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.13);
+    .skill-card:hover {
+      border-color: var(--accent-electric);
+      transform: translateY(-10px);
     }
 
-    .social-icon {
-      font-size: 1.3rem;
-      color: var(--accent-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .skill-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--accent-electric);
     }
 
-    footer {
-      margin-top: 4rem;
+    .skill-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-level {
+      font-family: 'Fira Code', monospace;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .proficiency-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--border-subtle);
+      border-radius: 2px;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+
+    .proficiency-fill {
+      height: 100%;
+      background: var(--accent-electric);
+      transition: width 1s ease;
+    }
+
+    /* Contact - The "Let's Actually Talk" Section */
+    .contact-section {
+      padding: 8rem 0;
+    }
+
+    .contact-cta {
+      max-width: 800px;
+      margin: 0 auto;
       text-align: center;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-family: var(--handwritten);
+    }
+
+    .contact-cta h2 {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-cta p {
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border-subtle);
+      border-radius: 16px;
       padding: 2rem;
-      letter-spacing: 0.5px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0;
+      background: var(--accent-electric);
+      transition: height 0.3s;
+      z-index: -1;
+    }
+
+    .contact-card:hover::after {
+      height: 100%;
+    }
+
+    .contact-card:hover {
+      border-color: var(--accent-electric);
+      color: var(--bg-dark);
+      transform: scale(1.05);
+    }
+
+    .contact-card:hover .contact-icon {
+      color: var(--bg-dark);
+    }
+
+    .contact-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-electric);
+      transition: color 0.3s;
+    }
+
+    .contact-label {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* Terminal Footer */
+    footer {
+      padding: 3rem 0;
+      border-top: 1px solid var(--border-subtle);
+      font-family: 'Fira Code', monospace;
+      color: var(--text-secondary);
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-terminal {
+      color: var(--accent-electric);
+    }
+
+    /* Easter Egg */
+    .konami-activated {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--bg-card);
+      border: 2px solid var(--accent-electric);
+      padding: 3rem;
+      border-radius: 16px;
+      z-index: 10000;
+      display: none;
+      text-align: center;
+    }
+
+    .konami-activated.active {
+      display: block;
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      .container { padding: 1rem; }
-      h1 { font-size: 2rem; }
-      .section { padding: 2rem; margin-bottom: 2rem; }
-      .projects-grid, .skills-grid, .socials-grid {
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .hero-right {
+        order: 1;
+        display: flex;
+        justify-content: center;
+      }
+
+      .hero-left {
+        order: 2;
+      }
+
+      .profile-wrapper {
+        width: 350px;
+        height: 350px;
+      }
+
+      .name-highlight {
+        font-size: 4rem;
+        text-align: center;
+      }
+
+      .glitch-text {
+        font-size: 4rem;
+        text-align: center;
+      }
+
+      .hero-subtext {
+        text-align: center;
+        margin: 0 auto 2rem;
+      }
+
+      .reality-check {
+        margin: 0 auto 2rem;
+      }
+
+      .cta-section {
+        justify-content: center;
+      }
+
+      .scroll-indicator {
+        text-align: center;
+      }
+
+      .before-after {
         grid-template-columns: 1fr;
       }
-      .theme-selector {
-        top: 1rem;
-        right: 1rem;
-        padding: 0.5rem;
+
+      .stats-row {
+        grid-template-columns: 1fr;
       }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .profile-wrapper {
+        width: 280px;
+        height: 280px;
+      }
+
+      .profile-badge {
+        font-size: 0.85rem;
+        padding: 0.75rem 1.5rem;
+      }
+
+      .name-highlight {
+        font-size: 2.5rem;
+      }
+
+      .glitch-text {
+        font-size: 3rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+      }
+
+      .contact-cta h2 {
+        font-size: 2.5rem;
+      }
+
+      .cta-section {
+        flex-direction: column;
+      }
+    }
+
+    /* Cursor Trail Effect */
+    .cursor-trail {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--accent-electric);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s;
+      opacity: 0;
+    }
+
+    .cursor-trail.active {
+      opacity: 0.5;
     }
   </style>
 </head>
 <body>
-  <div class="bg-canvas">
-    <div class="grid-bg"></div>
-  </div>
+  <div class="matrix-bg" id="matrixBg"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
 
-  <div class="container">
-    <header class="header">
-      <div class="profile-container">
-        <div class="profile-pic" aria-label="Naveen Chirla's Profile Picture"></div>
-      </div>
-      <h1>Naveen Chirla</h1>
-      <p class="subtitle secondary" style="position: relative;">
-        <span class="typing-container" id="typewriter"></span>
-      </p>
-      <p class="subtitle">Turning data into decisions, one insight at a time.</p>
-
-    </header>
-
-    <section class="section" id="bio">
-      <h2 class="section-title">About Me</h2>
-      <p class="bio">
-        I’m Naveen — a data enthusiast who thrives on making sense of numbers and helping businesses find clarity in chaos.
-        After years of wrangling spreadsheets and SQL queries, I’ve learned that data is only as powerful as the stories it tells.
-        Currently sharpening my skills in a Master’s program while building tools that bridge the gap between raw data and real-world action.
-      </p>
-
-    </section>
-
-      <section class=" " id="resume" style="display: flex; justify-content: center; padding: 1.5rem ;margin-bottom: 2rem;">
-    <div style="display: justify-content: center; padding: 0 rem 0;">
-    <a href = "https://docs.google.com/gview?url=https://9chirla.github.io/assets/resume.pdf&embedded=true" target="_blank" rel="noopener noreferrer" class="social-link" style="width: fit-content;">
-      <span class="resume-icon">
-        <span class="material-icons">description</span>
-      </span>
-      <span>Resume</span>
-    </a>
+  <!-- Nav -->
+  <nav>
+    <div class="nav-content">
+      <div class="terminal-prompt">naveen@portfolio:~$</div>
+      <ul class="nav-links">
+        <li><a href="#home">home</a></li>
+        <li><a href="#proof">proof</a></li>
+        <li><a href="#skills">skills</a></li>
+        <li><a href="#contact">contact</a></li>
+      </ul>
     </div>
-      </section>
-    <section class="section" id="projects">
-      <h2 class="section-title">Featured Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-icon">
-            <span class="material-icons">analytics</span>
-          </div>
-          <h3 class="project-title">Interactive Sales Dashboard</h3>
-          <p class="project-description">
-            I built this dashboard after noticing how hard it was for sales teams to spot trends on the fly.
-            Using Python for the backend and Tableau for visuals, it now gives real-time KPI updates—cutting decision time by 40% and making meetings a lot more productive.
-          </p>
+  </nav>
+
+  <!-- Hero -->
+  <div class="container">
+    <section class="hero" id="home">
+      <div class="hero-left">
+        <div class="name-highlight">NAVEEN CHIRLA</div>
+        <div class="glitch-text">
+          <div class="line1">I don't just</div>
+          <div class="line2">analyze data.</div>
+          <div class="line1">I make it profitable.</div>
         </div>
-        <div class="project-card">
-          <div class="project-icon">
-            <span class="material-icons">group</span>
+
+        <p class="hero-subtext">
+          Most analysts show you charts. I show you <span class="highlight">money</span>.
+          Former spreadsheet warrior turned profit-generating machine.
+          Currently turning datasets into decisions that actually matter.
+        </p>
+
+        <div class="reality-check">
+          <div class="reality-title">REALITY CHECK: What I Actually Delivered</div>
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="stat-number">40%</div>
+              <div class="stat-label">Faster Decisions</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">95%</div>
+              <div class="stat-label">Forecast Accuracy</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">25%</div>
+              <div class="stat-label">ROI Increase</div>
+            </div>
           </div>
-          <h3 class="project-title">Customer Segmentation Analysis</h3>
-          <p class="project-description">
-            I implemented clustering algorithms to uncover hidden customer groups, giving marketing teams a clearer picture of who they’re talking to.
-            The result? Campaigns that hit the mark 25% more often.
-          </p>
         </div>
-        <div class="project-card center-card">
-          <div class="project-icon">
-            <span class="material-icons">trending_up</span>
-          </div>
-          <h3 class="project-title">Predictive Demand Forecasting</h3>
-          <p class="project-description">
-            By applying advanced time series models, I helped reduce guesswork in inventory planning.
-            The system now predicts demand with 95% accuracy, trimming excess stock and saving costs.
-          </p>
+
+        <div class="cta-section">
+          <a href="#proof" class="btn btn-primary">
+            See The Receipts
+            <span class="material-icons">arrow_forward</span>
+          </a>
+          <a href="https://docs.google.com/gview?url=https://9chirla.github.io/assets/resume.pdf&embedded=true" target="_blank" class="btn btn-secondary">
+            <span class="material-icons">description</span>
+            Download Resume
+          </a>
+        </div>
+
+        <div class="scroll-indicator">
+          ↓ scroll to see what I've actually built ↓
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="profile-wrapper">
+          <div class="profile-image"></div>
+          <div class="profile-badge">Data Analyst • Python • ML</div>
         </div>
       </div>
     </section>
 
+    <!-- Projects -->
+    <section class="proof-section" id="proof">
+      <h2 class="section-title">The Receipts</h2>
+      <p class="section-subtitle">// Projects that actually shipped and made money</p>
 
-    <section class="section" id="skills">
-      <h2 class="section-title">Technical Skills</h2>
+      <div class="comparison-grid">
+        <!-- Project 1 -->
+        <div class="comparison-card">
+          <span class="project-badge">SHIPPED ✓</span>
+          <h3 class="project-title">Sales Dashboard That Doesn't Suck</h3>
+          <p class="section-subtitle" style="margin-bottom: 2rem;">
+            Built a real-time dashboard after watching sales teams waste 2 hours every morning on spreadsheet archaeology.
+          </p>
+
+          <div class="before-after">
+            <div class="before">
+              <h4>Before (The Pain)</h4>
+              <div class="metric">2hrs</div>
+              <div class="metric-label">Daily reporting time</div>
+              <br>
+              <div class="metric">5+</div>
+              <div class="metric-label">Manual spreadsheets</div>
+            </div>
+            <div class="after">
+              <h4>After (The Win)</h4>
+              <div class="metric">5min</div>
+              <div class="metric-label">Real-time updates</div>
+              <br>
+              <div class="metric">40%</div>
+              <div class="metric-label">Faster decisions</div>
+            </div>
+          </div>
+
+          <div class="tech-stack">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Tableau</span>
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">REST API</span>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="comparison-card">
+          <span class="project-badge">SHIPPED ✓</span>
+          <h3 class="project-title">Customer Segmentation (Not BS)</h3>
+          <p class="section-subtitle" style="margin-bottom: 2rem;">
+            Marketing was basically throwing darts blindfolded. Implemented clustering to actually see who their customers are.
+          </p>
+
+          <div class="before-after">
+            <div class="before">
+              <h4>Before (The Mess)</h4>
+              <div class="metric">15%</div>
+              <div class="metric-label">Campaign success rate</div>
+              <br>
+              <div class="metric">$$$</div>
+              <div class="metric-label">Wasted ad spend</div>
+            </div>
+            <div class="after">
+              <h4>After (The Money)</h4>
+              <div class="metric">40%</div>
+              <div class="metric-label">Success rate</div>
+              <br>
+              <div class="metric">25%</div>
+              <div class="metric-label">ROI increase</div>
+            </div>
+          </div>
+
+          <div class="tech-stack">
+            <span class="tech-tag">K-Means</span>
+            <span class="tech-tag">Scikit-learn</span>
+            <span class="tech-tag">Pandas</span>
+            <span class="tech-tag">Matplotlib</span>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="comparison-card">
+          <span class="project-badge">SHIPPED ✓</span>
+          <h3 class="project-title">Demand Forecasting (Actually Accurate)</h3>
+          <p class="section-subtitle" style="margin-bottom: 2rem;">
+            Inventory was either overstocked or out of stock. Built a model that predicts demand better than their "gut feeling."
+          </p>
+
+          <div class="before-after">
+            <div class="before">
+              <h4>Before (The Chaos)</h4>
+              <div class="metric">60%</div>
+              <div class="metric-label">Forecast accuracy</div>
+              <br>
+              <div class="metric">High</div>
+              <div class="metric-label">Storage costs</div>
+            </div>
+            <div class="after">
+              <h4>After (The Science)</h4>
+              <div class="metric">95%</div>
+              <div class="metric-label">Model accuracy</div>
+              <br>
+              <div class="metric">30%</div>
+              <div class="metric-label">Cost reduction</div>
+            </div>
+          </div>
+
+          <div class="tech-stack">
+            <span class="tech-tag">ARIMA</span>
+            <span class="tech-tag">Prophet</span>
+            <span class="tech-tag">Time Series</span>
+            <span class="tech-tag">Python</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="skills-section" id="skills">
+      <h2 class="section-title">Can I Actually Do This?</h2>
+      <p class="section-subtitle">// Spoiler: Yes. Here's the proof.</p>
+
       <div class="skills-grid">
-        <div class="skill-badge">
-          <span class="skill-icon">
+        <div class="skill-card" data-proficiency="95">
+          <div class="skill-icon">
             <span class="material-icons">code</span>
-          </span>
+          </div>
           <div class="skill-name">Python</div>
-          <div class="skill-desc">Scripting, automation, data pipelines</div>
+          <div class="skill-level">Daily driver, not just tutorials</div>
+          <div class="proficiency-bar">
+            <div class="proficiency-fill" style="width: 95%"></div>
+          </div>
         </div>
-        <div class="skill-badge">
-          <span class="skill-icon">
-            <span class="material-icons">bar_chart</span>
-          </span>
-          <div class="skill-name">Tableau</div>
-          <div class="skill-desc">Dashboards, visual analytics</div>
-        </div>
-        <div class="skill-badge">
-          <span class="skill-icon">
+
+        <div class="skill-card" data-proficiency="90">
+          <div class="skill-icon">
             <span class="material-icons">storage</span>
-          </span>
+          </div>
           <div class="skill-name">SQL</div>
-          <div class="skill-desc">Data wrangling, complex queries</div>
+          <div class="skill-level">Complex joins in my sleep</div>
+          <div class="proficiency-bar">
+            <div class="proficiency-fill" style="width: 90%"></div>
+          </div>
         </div>
-        <div class="skill-badge">
-          <span class="skill-icon">
-            <span class="material-icons">grid_on</span>
-          </span>
-          <div class="skill-name">Excel</div>
-          <div class="skill-desc">Quick analysis, reporting</div>
+
+        <div class="skill-card" data-proficiency="88">
+          <div class="skill-icon">
+            <span class="material-icons">bar_chart</span>
+          </div>
+          <div class="skill-name">Tableau</div>
+          <div class="skill-level">Dashboards that don't lie</div>
+          <div class="proficiency-bar">
+            <div class="proficiency-fill" style="width: 88%"></div>
+          </div>
         </div>
-        <div class="skill-badge">
-          <span class="skill-icon">
-            <span class="material-icons">insights</span>
-          </span>
-          <div class="skill-name">Power BI</div>
-          <div class="skill-desc">Business intelligence</div>
-        </div>
-        <div class="skill-badge">
-          <span class="skill-icon">
+
+        <div class="skill-card" data-proficiency="85">
+          <div class="skill-icon">
             <span class="material-icons">model_training</span>
-          </span>
+          </div>
           <div class="skill-name">Machine Learning</div>
-          <div class="skill-desc">Predictive modeling, clustering</div>
+          <div class="skill-level">Production models, not Kaggle</div>
+          <div class="proficiency-bar">
+            <div class="proficiency-fill" style="width: 85%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-proficiency="92">
+          <div class="skill-icon">
+            <span class="material-icons">grid_on</span>
+          </div>
+          <div class="skill-name">Excel</div>
+          <div class="skill-level">Pivot tables are my playground</div>
+          <div class="proficiency-bar">
+            <div class="proficiency-fill" style="width: 92%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card" data-proficiency="87">
+          <div class="skill-icon">
+            <span class="material-icons">insights</span>
+          </div>
+          <div class="skill-name">Power BI</div>
+          <div class="skill-level">Enterprise-grade reporting</div>
+          <div class="proficiency-bar">
+            <div class="proficiency-fill" style="width: 87%"></div>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+      <div class="contact-cta">
+        <h2>Let's Build Something</h2>
+        <p>
+          If you're tired of analysts who just make pretty charts and want someone who actually moves the needle,
+          let's talk. I promise to bring data, not excuses.
+        </p>
 
+        <div class="contact-grid">
+          <a href="https://linkedin.com/in/chirla" target="_blank" class="contact-card">
+            <div class="contact-icon">
+              <span class="material-icons">work</span>
+            </div>
+            <div class="contact-label">LinkedIn</div>
+          </a>
 
-    <section class="section" id="contact">
+          <a href="https://github.com/9chirla" target="_blank" class="contact-card">
+            <div class="contact-icon">
+              <span class="material-icons">code</span>
+            </div>
+            <div class="contact-label">GitHub</div>
+          </a>
 
-      <h2 class="section-title">Let's Connect</h2>
-      <div class="socials-grid">
-        <a class="social-link" href="https://linkedin.com/in/chirla" target="_blank" aria-label="LinkedIn">
-          <span class="social-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68zm1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-          </span>
-          <span>LinkedIn</span>
-        </a>
-        <a class="social-link" href="https://twitter.com/9chirla" target="_blank" aria-label="Twitter">
-          <span class="social-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M19.633 7.997c.013.175.013.349.013.523 0 5.325-4.053 11.461-11.46 11.461-2.282 0-4.402-.661-6.186-1.809.324.037.636.05.973.05a8.07 8.07 0 0 0 5.001-1.721 4.036 4.036 0 0 1-3.767-2.793c.249.037.499.062.761.062.361 0 .724-.05 1.061-.137a4.027 4.027 0 0 1-3.23-3.953v-.05c.537.299 1.16.486 1.82.511a4.022 4.022 0 0 1-1.796-3.354c0-.748.199-1.434.548-2.032a11.457 11.457 0 0 0 8.306 4.215c-.062-.3-.1-.611-.1-.923a4.026 4.026 0 0 1 4.028-4.028c1.16 0 2.207.486 2.943 1.272a7.957 7.957 0 0 0 2.556-.973 4.02 4.02 0 0 1-1.771 2.22 8.073 8.073 0 0 0 2.319-.624 8.645 8.645 0 0 1-2.019 2.083z"/></svg>
-          </span>
-          <span>Twitter</span>
-        </a>
-        <a class="social-link" href="https://github.com/9chirla" target="_blank" aria-label="GitHub">
-          <span class="social-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          </span>
-          <span>GitHub</span>
-        </a>
-        <a class="social-link" href="mailto:9chirla@gmail.com" aria-label="Email">
-          <span class="social-icon">
-            <span class="material-icons">email</span>
-          </span>
-          <span>Email Me</span>
-        </a>
-        <a class="social-link" href="tel:+447717298365" aria-label="Phone">
-          <span class="social-icon">
-            <span class="material-icons">phone</span>
-          </span>
-          <span>Phone</span>
-        </a>
+          <a href="mailto:9chirla@gmail.com" class="contact-card">
+            <div class="contact-icon">
+              <span class="material-icons">email</span>
+            </div>
+            <div class="contact-label">Email</div>
+          </a>
+
+          <a href="tel:+447717298365" class="contact-card">
+            <div class="contact-icon">
+              <span class="material-icons">phone</span>
+            </div>
+            <div class="contact-label">Call Me</div>
+          </a>
+        </div>
       </div>
-
-
     </section>
-    <footer>
-      <p>&copy; 2025 Naveen Reddy Chirla • Built by hand, fueled by curiosity</p>
-    </footer>
   </div>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-terminal">
+        naveen@2025:~$ Built with attitude, backed by results
+      </div>
+      <div>
+        © 2025 Naveen Chirla
+      </div>
+    </div>
+  </footer>
+
+  <!-- Easter Egg -->
+  <div class="konami-activated" id="easterEgg">
+    <h3 style="color: var(--accent-electric); margin-bottom: 1rem;">🎯 You found it!</h3>
+    <p style="color: var(--text-secondary);">
+      If you found this, you're either a developer or just really bored.<br>
+      Either way, we should talk. I like curious people.
+    </p>
+    <button onclick="document.getElementById('easterEgg').classList.remove('active')"
+            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric);
+                   color: var(--bg-dark); border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+      Close
+    </button>
+  </div>
+
   <script>
-    // Theme System
-    const themes = {
-      orange: {
-        primary: '#f59e0b',
-        secondary: '#ef4444',
-        tertiary: '#8b5cf6'
-      }
-    };
-
-    function setTheme(themeName) {
-      const theme = themes[themeName];
-      const root = document.documentElement;
-      root.style.setProperty('--accent-primary', theme.primary);
-      root.style.setProperty('--accent-secondary', theme.secondary);
-      root.style.setProperty('--accent-tertiary', theme.tertiary);
-    }
-
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const theme = btn.getAttribute('data-theme');
-        setTheme(theme);
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
       });
     });
-    window.onload = function() {
-  setTheme('orange');
-};
 
-  </script>
-<!-- Resume Modal -->
-<div id="resumeModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
-  <div style="width:100vw; height:100vh; padding:0; margin:0; overflow:hidden; position:relative;">
-    <span onclick="document.getElementById('resumeModal').style.display='none'" style="position:absolute; top:1rem; right:1rem; cursor:pointer; font-size:2rem; color:white; background:none; border:none;">&times;</span>
-    <iframe src="https://9chirla.github.io/assets/resume.pdf"></iframe>
-
-
-
-<script>
-document.addEventListener('keydown', function(event) {
-  if (event.key === "Escape") {
-    document.getElementById('resumeModal').style.display = 'none';
-  }
-});
-</script>
-
-  </div>
-</div>
-<script>
-  const phrases = ["Data Analyst", "Business Intelligence", "Python Developer"];
-  const el = document.getElementById("typewriter");
-  let currentPhrase = 0;
-  let currentChar = 0;
-  let isDeleting = false;
-
-  function type() {
-    const fullText = phrases[currentPhrase];
-    el.textContent = fullText.substring(0, currentChar) + (isDeleting ? '' : '|');
-
-    if (!isDeleting && currentChar < fullText.length) {
-      currentChar++;
-      setTimeout(type, 100);
-    } else if (isDeleting && currentChar > 0) {
-      currentChar--;
-      setTimeout(type, 50);
-    } else {
-      isDeleting = !isDeleting;
-      if (!isDeleting) {
-        currentPhrase = (currentPhrase + 1) % phrases.length;
-      }
-      setTimeout(type, 1000);
+    // Matrix background effect
+    const matrixBg = document.getElementById('matrixBg');
+    const chars = '01';
+    let matrix = '';
+    for (let i = 0; i < 100; i++) {
+      matrix += chars.charAt(Math.floor(Math.random() * chars.length)) + ' ';
     }
-  }
+    matrixBg.innerHTML = matrix;
 
-  type();
-</script>
+    // Cursor trail effect
+    const trail = document.getElementById('cursorTrail');
+    document.addEventListener('mousemove', (e) => {
+      trail.style.left = e.clientX + 'px';
+      trail.style.top = e.clientY + 'px';
+      trail.classList.add('active');
+    });
 
+    // Konami code easter egg
+    let konamiCode = [];
+    const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+    document.addEventListener('keydown', (e) => {
+      konamiCode.push(e.key);
+      if (konamiCode.length > konamiPattern.length) {
+        konamiCode.shift();
+      }
+      if (JSON.stringify(konamiCode) === JSON.stringify(konamiPattern)) {
+        document.getElementById('easterEgg').classList.add('active');
+        konamiCode = [];
+      }
+    });
+
+    // Animate proficiency bars on scroll
+    const observerOptions = {
+      threshold: 0.5
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fills = entry.target.querySelectorAll('.proficiency-fill');
+          fills.forEach(fill => {
+            fill.style.width = fill.style.width;
+          });
+        }
+      });
+    }, observerOptions);
+
+    document.querySelector('.skills-grid') && observer.observe(document.querySelector('.skills-grid'));
+  </script>
 </body>
 </html>
