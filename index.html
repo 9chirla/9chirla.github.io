@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Naveen Chirla | Data Analyst Who Actually Ships</title>
+  <title>Naveen Chirla | Data Analyst</title>
+  <meta name="description" content="Data analyst specializing in predictive modeling, SQL optimization, and business intelligence. 3+ years turning data into revenue.">
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -30,9 +32,144 @@
       color: var(--text-primary);
       line-height: 1.6;
       overflow-x: hidden;
+      cursor: none;
     }
 
-    /* Animated Matrix Background */
+    body.cursor-disabled {
+      cursor: auto;
+    }
+
+    body.cursor-disabled #customCursor {
+      display: none;
+    }
+
+    /* Custom Cursor */
+    #customCursor {
+      position: fixed;
+      font-size: 32px;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+      will-change: transform;
+    }
+
+    .cursor-money, .cursor-sparkle, .cursor-fire, .cursor-boom, 
+    .cursor-rocket-trail, .cursor-premium-wave, .cursor-confetti {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      font-size: 20px;
+    }
+
+    .cursor-money {
+      animation: float-money 1s ease-out forwards;
+    }
+
+    @keyframes float-money {
+      to {
+        transform: translateY(-60px);
+        opacity: 0;
+      }
+    }
+
+    .cursor-sparkle {
+      animation: sparkle-pop 0.6s ease-out forwards;
+    }
+
+    @keyframes sparkle-pop {
+      0% { transform: scale(0); opacity: 1; }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(0.8); opacity: 0; }
+    }
+
+    .cursor-fire {
+      animation: fire-fade 0.4s ease-out forwards;
+    }
+
+    @keyframes fire-fade {
+      to {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    .cursor-boom {
+      animation: boom-explode 0.6s ease-out forwards;
+    }
+
+    @keyframes boom-explode {
+      to {
+        transform: translate(var(--tx), var(--ty)) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    .cursor-rocket-trail {
+      width: 3px;
+      height: 20px;
+      background: linear-gradient(to bottom, var(--accent-electric), transparent);
+      animation: trail-fade 0.3s ease-out forwards;
+    }
+
+    @keyframes trail-fade {
+      to {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+    }
+
+    .cursor-premium-wave {
+      width: 20px;
+      height: 20px;
+      border: 3px solid var(--accent-electric);
+      border-radius: 50%;
+      animation: premium-wave 0.8s ease-out forwards;
+    }
+
+    @keyframes premium-wave {
+      to {
+        width: 80px;
+        height: 80px;
+        opacity: 0;
+      }
+    }
+
+    .cursor-confetti {
+      animation: confetti-fall 1s ease-out forwards;
+    }
+
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Cursor Toggle Button */
+    .cursor-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-electric);
+      color: var(--accent-electric);
+      padding: 12px 20px;
+      border-radius: 50px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
+    }
+
+    .cursor-toggle:hover {
+      background: var(--accent-electric);
+      color: var(--bg-dark);
+      transform: scale(1.05);
+    }
+
+    /* Matrix Background */
     .matrix-bg {
       position: fixed;
       top: 0;
@@ -42,19 +179,22 @@
       z-index: 0;
       opacity: 0.03;
       pointer-events: none;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      color: var(--accent-electric);
+      overflow: hidden;
     }
 
-    /* Terminal-style Navbar */
+    /* Navbar */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
       padding: 1rem 5%;
       backdrop-filter: blur(20px);
-      background: rgba(13, 13, 13, 0.9);
-      border-bottom: 1px solid var(--accent-electric);
+      background: rgba(13, 13, 13, 0.95);
+      border-bottom: 1px solid var(--border-subtle);
       z-index: 1000;
-      font-family: 'Fira Code', monospace;
     }
 
     .nav-content {
@@ -65,9 +205,11 @@
       align-items: center;
     }
 
-    .terminal-prompt {
+    .nav-logo {
+      font-family: 'Fira Code', monospace;
       color: var(--accent-electric);
-      font-size: 1.2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
     }
 
     .nav-links {
@@ -80,21 +222,11 @@
       color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.3s;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     .nav-links a:hover {
       color: var(--accent-electric);
-    }
-
-    .nav-links a::before {
-      content: '> ';
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .nav-links a:hover::before {
-      opacity: 1;
     }
 
     .container {
@@ -105,12 +237,12 @@
       z-index: 1;
     }
 
-    /* Hero Section - The "Oh Shit" Moment */
+    /* Hero Section */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      gap: 4rem;
+      gap: 5rem;
       padding-top: 100px;
     }
 
@@ -123,11 +255,9 @@
       position: relative;
     }
 
-    /* Profile Image with Attitude */
     .profile-wrapper {
       position: relative;
       width: 400px;
-      height: 500px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -135,37 +265,29 @@
     }
 
     .name-highlight {
-      font-size: 3rem;
+      font-size: 2.5rem;
       font-weight: 900;
       color: var(--accent-electric);
       line-height: 1;
-      font-family: 'Space Grotesk', sans-serif;
       text-transform: uppercase;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .profile-image {
       width: 400px;
       height: 400px;
       border-radius: 24px;
-      /* Try multiple possible paths */
       background-image: url('assets/FullSizeRender 2.jpg');
       background-size: cover;
       background-position: center;
       border: 3px solid var(--accent-electric);
-      box-shadow: 0 0 60px rgba(0, 255, 136, 0.4);
+      box-shadow: 0 0 60px rgba(0, 255, 136, 0.3);
       position: relative;
       z-index: 2;
-      /* Remove blur */
-      filter: none;
-      -webkit-filter: none;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
     }
 
-    /* If image fails to load, show a placeholder */
     .profile-image::after {
       content: '';
       position: absolute;
@@ -185,8 +307,8 @@
       background: linear-gradient(45deg, var(--accent-electric), var(--accent-info), var(--accent-warning));
       border-radius: 24px;
       z-index: 1;
-      opacity: 0.2;
-      filter: blur(20px);
+      opacity: 0.15;
+      filter: blur(25px);
       animation: rotate-gradient 8s linear infinite;
     }
 
@@ -198,32 +320,20 @@
     .profile-badge {
       background: var(--bg-dark);
       border: 2px solid var(--accent-electric);
-      padding: 1rem 2rem;
+      padding: 0.75rem 1.5rem;
       border-radius: 50px;
       font-family: 'Fira Code', monospace;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--accent-electric);
       z-index: 3;
-      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.4);
-      white-space: nowrap;
-      text-align: center;
+      font-size: 0.9rem;
     }
 
     .glitch-text {
-      font-size: 7rem;
+      font-size: 6rem;
       font-weight: 700;
-      line-height: 0.9;
-      margin-bottom: 2rem;
-      position: relative;
-      animation: glitch-skew 3s infinite;
-    }
-
-    @keyframes glitch-skew {
-      0% { transform: skew(0deg); }
-      1% { transform: skew(-2deg); }
-      2% { transform: skew(0deg); }
-      99% { transform: skew(0deg); }
-      100% { transform: skew(-2deg); }
+      line-height: 0.95;
+      margin-bottom: 1.5rem;
     }
 
     .glitch-text .line1 {
@@ -238,355 +348,398 @@
     }
 
     .hero-subtext {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       color: var(--text-secondary);
-      max-width: 700px;
-      margin-bottom: 3rem;
-      font-family: 'Fira Code', monospace;
+      max-width: 650px;
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
     }
 
     .hero-subtext .highlight {
       color: var(--accent-electric);
-      border-bottom: 2px solid var(--accent-electric);
+      font-weight: 600;
     }
 
-    /* Reality Check Stats */
-    .reality-check {
-      background: var(--bg-card);
-      border: 2px solid var(--accent-warning);
-      border-radius: 16px;
-      padding: 2rem;
+    /* Quick Stats */
+    .quick-stats {
+      display: flex;
+      gap: 3rem;
       margin-bottom: 3rem;
-      max-width: 800px;
-    }
-
-    .reality-title {
-      color: var(--accent-warning);
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-      font-family: 'Fira Code', monospace;
-    }
-
-    .reality-title::before {
-      content: '⚠️ ';
-    }
-
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      flex-wrap: wrap;
     }
 
     .stat-item {
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
-    .stat-number {
-      font-size: 3rem;
-      font-weight: 900;
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
       color: var(--accent-electric);
       font-family: 'Fira Code', monospace;
     }
 
     .stat-label {
+      font-size: 0.95rem;
       color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
     }
 
-    .cta-section {
+    /* CTA Buttons */
+    .cta-buttons {
       display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
     }
 
     .btn {
       padding: 1rem 2rem;
-      border-radius: 8px;
+      border-radius: 12px;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.3s;
+      font-size: 1rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-family: 'Fira Code', monospace;
-      border: 2px solid;
+      gap: 0.75rem;
+    }
+
+    .btn i {
+      font-size: 18px;
     }
 
     .btn-primary {
       background: var(--accent-electric);
       color: var(--bg-dark);
-      border-color: var(--accent-electric);
+      border: 2px solid var(--accent-electric);
     }
 
     .btn-primary:hover {
       background: transparent;
       color: var(--accent-electric);
       transform: translateY(-2px);
-      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.3);
     }
 
     .btn-secondary {
       background: transparent;
       color: var(--text-primary);
-      border-color: var(--border-subtle);
+      border: 2px solid var(--border-subtle);
     }
 
     .btn-secondary:hover {
       border-color: var(--accent-electric);
-      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+      color: var(--accent-electric);
+      transform: translateY(-2px);
     }
 
-    .scroll-indicator {
-      font-family: 'Fira Code', monospace;
-      color: var(--text-secondary);
-      margin-top: 4rem;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(10px); }
-    }
-
-    /* The "I Actually Know My Shit" Section */
-    .proof-section {
+    /* Section Styles */
+    section {
       padding: 8rem 0;
-      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 4rem;
     }
 
     .section-title {
-      font-size: 3.5rem;
+      font-size: 3rem;
       font-weight: 700;
       margin-bottom: 1rem;
     }
 
     .section-subtitle {
-      color: var(--text-secondary);
       font-size: 1.2rem;
-      margin-bottom: 4rem;
-      font-family: 'Fira Code', monospace;
+      color: var(--text-secondary);
+      max-width: 700px;
     }
 
-    /* Before/After Comparison Cards */
-    .comparison-grid {
+    /* About Section */
+    .about-content {
       display: grid;
-      gap: 3rem;
-      margin-bottom: 4rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
     }
 
-    .comparison-card {
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .about-text strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .education-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
-      padding: 3rem;
-      position: relative;
-      transition: all 0.3s;
-    }
-
-    .comparison-card:hover {
-      border-color: var(--accent-electric);
-      transform: translateY(-5px);
-      box-shadow: 0 20px 60px rgba(0, 255, 136, 0.1);
-    }
-
-    .project-badge {
-      position: absolute;
-      top: -15px;
-      left: 30px;
-      background: var(--accent-warning);
-      color: var(--bg-dark);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      font-family: 'Fira Code', monospace;
-    }
-
-    .project-title {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: var(--accent-electric);
-    }
-
-    .before-after {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin: 2rem 0;
-    }
-
-    .before, .after {
-      padding: 1.5rem;
-      border-radius: 12px;
-    }
-
-    .before {
-      background: rgba(255, 51, 102, 0.1);
-      border: 1px solid rgba(255, 51, 102, 0.3);
-    }
-
-    .after {
-      background: rgba(0, 255, 136, 0.1);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-    }
-
-    .before-after h4 {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      font-family: 'Fira Code', monospace;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .before h4 { color: var(--accent-warning); }
-    .after h4 { color: var(--accent-electric); }
-
-    .metric {
-      font-size: 2.5rem;
-      font-weight: 900;
-      font-family: 'Fira Code', monospace;
-    }
-
-    .metric-label {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
+      padding: 2rem;
       margin-top: 2rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border-subtle);
     }
 
-    .tech-tag {
-      padding: 0.5rem 1rem;
-      background: rgba(0, 255, 136, 0.1);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-family: 'Fira Code', monospace;
+    .education-title {
+      font-size: 1.3rem;
+      font-weight: 600;
       color: var(--accent-electric);
+      margin-bottom: 0.5rem;
     }
 
-    /* Skills - The "Can You Actually Do This?" Section */
-    .skills-section {
-      padding: 8rem 0;
-      background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.02), transparent);
+    .education-school {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
     }
 
-    /* Cinema Breaks - Integrated Movie Moments */
-    .cinema-break {
-      margin: 4rem 0;
+    .education-year {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* Testimonial */
+    .testimonial {
+      background: var(--bg-card);
+      border-left: 4px solid var(--accent-electric);
+      padding: 2rem;
+      border-radius: 12px;
       position: relative;
     }
 
-    .cinema-content {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 0;
-      align-items: stretch;
-      background: var(--card-bg);
-      border: 2px solid var(--border-subtle);
-      border-radius: 20px;
-      overflow: hidden;
-      transition: all 0.4s;
-      min-height: 400px;
+    .testimonial-quote {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      font-style: italic;
     }
 
-    .cinema-content:hover {
-      border-color: var(--accent-electric);
-      box-shadow: 0 20px 60px rgba(0, 255, 136, 0.15);
-      transform: translateY(-5px);
-    }
-
-    .cinema-image {
-      width: 100%;
-      height: 100%;
-      min-height: 400px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-color: #000;
-      filter: grayscale(0.1);
-      transition: all 0.4s;
-      position: relative;
-    }
-
-    .cinema-content:hover .cinema-image {
-      filter: grayscale(0);
-    }
-
-    /* Film grain effect */
-    .cinema-image::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
-      pointer-events: none;
-      mix-blend-mode: overlay;
-    }
-
-    .cinema-text {
-      padding: 3rem 2.5rem;
+    .testimonial-author {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 2rem;
-      background: var(--bg-card);
+      gap: 0.25rem;
     }
 
-    .cinema-quote {
-      font-size: 2rem;
-      font-weight: 700;
+    .testimonial-name {
       color: var(--text-primary);
-      font-family: 'Space Grotesk', sans-serif;
-      line-height: 1.3;
-      position: relative;
+      font-weight: 600;
+      font-size: 1rem;
     }
 
-    .cinema-quote::before {
+    .testimonial-title {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .testimonial::before {
       content: '"';
       position: absolute;
-      left: -2rem;
-      top: -1rem;
-      font-size: 5rem;
+      top: 1rem;
+      left: 1.5rem;
+      font-size: 4rem;
       color: var(--accent-electric);
       opacity: 0.2;
       font-family: Georgia, serif;
     }
 
-    .cinema-response {
-      font-size: 1.2rem;
-      color: var(--accent-warning);
+    /* Projects Section */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 2.5rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-electric), var(--accent-info));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-electric);
+      transform: translateY(-5px);
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-number {
       font-family: 'Fira Code', monospace;
-      padding-left: 1.5rem;
-      border-left: 4px solid var(--accent-warning);
-      font-style: italic;
+      color: var(--accent-electric);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      background: rgba(0, 255, 136, 0.05);
+      border: 1px solid transparent;
+    }
+
+    .project-link:hover {
+      color: var(--accent-electric);
+      background: rgba(0, 255, 136, 0.1);
+      border-color: rgba(0, 255, 136, 0.3);
+    }
+
+    .project-link i {
+      font-size: 14px;
+    }
+
+    .project-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .project-description {
+      color: var(--text-secondary);
       line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
     }
 
-    /* Alternate layout for second break */
-    .cinema-break:nth-child(4) .cinema-content {
-      grid-template-columns: 1fr 1.5fr;
+    .project-impact {
+      background: rgba(0, 255, 136, 0.05);
+      border-left: 3px solid var(--accent-electric);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
     }
 
-    .cinema-break:nth-child(4) .cinema-image {
-      order: 2;
+    .impact-label {
+      color: var(--accent-electric);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.5rem;
     }
 
-    .cinema-break:nth-child(4) .cinema-text {
-      order: 1;
+    .impact-text {
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      font-weight: 600;
     }
 
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .tech-tag {
+      background: rgba(0, 255, 136, 0.1);
+      color: var(--accent-electric);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-family: 'Fira Code', monospace;
+      border: 1px solid rgba(0, 255, 136, 0.2);
+    }
+
+    /* Cinema Break */
+    .cinema-break {
+      background: var(--bg-card);
+      border: 2px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 3rem;
+      margin: 6rem 0;
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .cinema-image {
+      flex: 0 0 400px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--accent-electric);
+    }
+
+    .cinema-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cinema-content {
+      flex: 1;
+    }
+
+    .cinema-label {
+      color: var(--accent-electric);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .cinema-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cinema-description {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .cinema-quote {
+      border-left: 3px solid var(--accent-electric);
+      padding-left: 1.5rem;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* Skills Section */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
     }
 
@@ -595,167 +748,140 @@
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
       padding: 2rem;
-      text-align: center;
       transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .skill-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-      transition: left 0.5s;
-    }
-
-    .skill-card:hover::before {
-      left: 100%;
     }
 
     .skill-card:hover {
       border-color: var(--accent-electric);
-      transform: translateY(-10px);
+      transform: translateY(-3px);
     }
 
     .skill-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      border: 2px solid rgba(0, 255, 136, 0.2);
+      transition: all 0.3s;
+    }
+
+    .skill-icon i {
+      font-size: 32px;
       color: var(--accent-electric);
     }
 
+    .skill-card:hover .skill-icon {
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
+      border-color: var(--accent-electric);
+      transform: translateY(-3px);
+    }
+
     .skill-name {
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
 
     .skill-level {
+      color: var(--accent-electric);
       font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-description {
       color: var(--text-secondary);
-      font-size: 0.85rem;
+      line-height: 1.6;
+      font-size: 0.95rem;
     }
 
-    .proficiency-bar {
-      width: 100%;
-      height: 4px;
-      background: var(--border-subtle);
-      border-radius: 2px;
-      margin-top: 1rem;
-      overflow: hidden;
-    }
-
-    .proficiency-fill {
-      height: 100%;
-      background: var(--accent-electric);
-      transition: width 1s ease;
-    }
-
-    /* Contact - The "Let's Actually Talk" Section */
-    .contact-section {
-      padding: 8rem 0;
-    }
-
-    .contact-cta {
-      max-width: 800px;
+    /* Contact Section */
+    .contact-content {
+      max-width: 900px;
       margin: 0 auto;
       text-align: center;
     }
 
-    .contact-cta h2 {
-      font-size: 4rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .contact-cta p {
+    .contact-text {
       font-size: 1.3rem;
       color: var(--text-secondary);
+      line-height: 1.7;
       margin-bottom: 3rem;
     }
 
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.5rem;
-      margin-top: 4rem;
-      max-width: 1200px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-top: 3rem;
     }
 
     .contact-card {
       background: var(--bg-card);
       border: 2px solid var(--border-subtle);
       border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
+      padding: 2rem 1.5rem;
       text-decoration: none;
-      color: var(--text-primary);
       transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .contact-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 0;
-      background: var(--accent-electric);
-      transition: height 0.3s;
-      z-index: -1;
-    }
-
-    .contact-card:hover::after {
-      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
     }
 
     .contact-card:hover {
       border-color: var(--accent-electric);
-      color: var(--bg-dark);
-      transform: scale(1.05);
-    }
-
-    .contact-card:hover .contact-icon {
-      color: var(--bg-dark);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
     }
 
     .contact-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(0, 255, 136, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--accent-electric);
-      transition: color 0.3s;
+      transition: all 0.3s;
+    }
+
+    .contact-icon i {
+      font-size: 26px;
+    }
+
+    .contact-card:hover .contact-icon {
+      background: rgba(0, 255, 136, 0.2);
+      transform: scale(1.1);
     }
 
     .contact-label {
-      font-size: 1.1rem;
+      color: var(--text-primary);
       font-weight: 600;
+      font-size: 1.1rem;
     }
 
-    /* Terminal Footer */
+    /* Footer */
     footer {
-      padding: 3rem 0;
+      background: var(--bg-card);
       border-top: 1px solid var(--border-subtle);
-      font-family: 'Fira Code', monospace;
-      color: var(--text-secondary);
+      padding: 2rem 5%;
+      margin-top: 6rem;
     }
 
     .footer-content {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-
-    .footer-terminal {
-      color: var(--accent-electric);
+      color: var(--text-secondary);
+      font-size: 0.95rem;
     }
 
     /* Easter Egg */
@@ -763,691 +889,586 @@
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0.8);
       background: var(--bg-card);
-      border: 2px solid var(--accent-electric);
+      border: 3px solid var(--accent-electric);
+      border-radius: 20px;
       padding: 3rem;
-      border-radius: 16px;
-      z-index: 10000;
-      display: none;
+      z-index: 10001;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s;
       text-align: center;
+      max-width: 500px;
     }
 
     .konami-activated.active {
-      display: block;
-      animation: fadeIn 0.3s;
+      opacity: 1;
+      pointer-events: all;
+      transform: translate(-50%, -50%) scale(1);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
+    /* Mobile Styles */
+    @media (max-width: 968px) {
       .hero {
-        flex-direction: column;
+        flex-direction: column-reverse;
         gap: 3rem;
+        padding-top: 120px;
       }
 
-      .hero-right {
-        order: 1;
-        flex: 0 0 auto;
-      }
-
-      .hero-left {
-        order: 2;
-      }
-
-      .contact-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .cinema-content {
-        grid-template-columns: 1fr;
-      }
-
-      .cinema-break:nth-child(odd) .cinema-content {
-        grid-template-columns: 1fr;
-      }
-
-      .cinema-image {
-        order: 1 !important;
-        min-height: 250px;
-      }
-
-      .cinema-text {
-        order: 2 !important;
+      .hero-left, .hero-right {
+        flex: none;
+        width: 100%;
       }
 
       .profile-wrapper {
-        width: 350px;
-        height: 450px;
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto;
       }
 
       .profile-image {
-        width: 350px;
-        height: 350px;
-      }
-
-      .name-highlight {
-        font-size: 2.5rem;
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        aspect-ratio: 1;
       }
 
       .glitch-text {
-        font-size: 4rem;
-        text-align: center;
+        font-size: 3.5rem;
       }
 
       .hero-subtext {
-        text-align: center;
-        margin: 0 auto 2rem;
-      }
-
-      .reality-check {
-        margin: 0 auto 2rem;
-      }
-
-      .cta-section {
-        justify-content: center;
-      }
-
-      .scroll-indicator {
-        text-align: center;
-      }
-
-      .before-after {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cinema-quote {
-        font-size: 1.3rem;
-      }
-
-      .cinema-response {
-        font-size: 0.95rem;
-      }
-
-      .profile-wrapper {
-        width: 280px;
-        height: 380px;
-      }
-
-      .profile-image {
-        width: 280px;
-        height: 280px;
-      }
-
-      .profile-badge {
-        font-size: 0.85rem;
-        padding: 0.75rem 1.5rem;
-      }
-
-      .name-highlight {
-        font-size: 2rem;
-      }
-
-      .glitch-text {
-        font-size: 3rem;
+        font-size: 1.2rem;
       }
 
       .section-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
       }
 
-      .contact-cta h2 {
-        font-size: 2.5rem;
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
       }
 
-      .cta-section {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cinema-break {
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      .cinema-image {
+        flex: none;
+        width: 100%;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .quick-stats {
+        gap: 2rem;
+      }
+
+      .cta-buttons {
         flex-direction: column;
       }
-    }
 
-    /* Premium Comedy Gold Cursor */
-    body {
-      cursor: none !important;
-    }
-
-    * {
-      cursor: none !important;
-    }
-
-    /* Main Premium Cursor - A literal money bag */
-    .custom-cursor {
-      position: fixed;
-      width: 40px;
-      height: 40px;
-      pointer-events: none;
-      z-index: 10000;
-      transition: transform 0.05s ease;
-      font-size: 32px;
-      filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.8));
-      animation: float 2s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-5px) rotate(5deg); }
-    }
-
-    /* Different cursor states for different vibes */
-    .cursor-default { content: '💰'; }
-    .cursor-hover { content: '🚀'; }
-    .cursor-click { content: '💥'; }
-    .cursor-fast { content: '⚡'; }
-
-    /* Premium glow effect */
-    .custom-cursor::after {
-      content: '';
-      position: absolute;
-      inset: -10px;
-      background: radial-gradient(circle, rgba(0, 255, 136, 0.3), transparent);
-      border-radius: 50%;
-      z-index: -1;
-      animation: pulse-glow 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-glow {
-      0%, 100% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.5); opacity: 0.8; }
-    }
-
-    /* Money trail - dollar signs */
-    .cursor-money {
-      position: fixed;
-      font-size: 24px;
-      pointer-events: none;
-      z-index: 9999;
-      animation: money-float 1s ease-out;
-      filter: drop-shadow(0 0 5px rgba(0, 255, 136, 0.8));
-    }
-
-    @keyframes money-float {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1) rotate(0deg);
+      .btn {
+        width: 100%;
+        justify-content: center;
       }
-      100% {
-        opacity: 0;
-        transform: translateY(-60px) scale(0.5) rotate(360deg);
-      }
-    }
 
-    /* Premium sparkles */
-    .cursor-sparkle {
-      position: fixed;
-      font-size: 20px;
-      pointer-events: none;
-      z-index: 9998;
-      animation: sparkle-pop 0.6s ease-out;
-    }
+      #customCursor {
+        display: none !important;
+      }
 
-    @keyframes sparkle-pop {
-      0% {
-        opacity: 1;
-        transform: scale(0) rotate(0deg);
-      }
-      50% {
-        opacity: 1;
-        transform: scale(1.5) rotate(180deg);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(0) rotate(360deg);
-      }
-    }
-
-    /* Fire trail for speed */
-    .cursor-fire {
-      position: fixed;
-      font-size: 28px;
-      pointer-events: none;
-      z-index: 9997;
-      animation: fire-trail 0.4s ease-out;
-    }
-
-    @keyframes fire-trail {
-      0% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scale(0.3) translateY(20px);
-      }
-    }
-
-    /* Click explosion - multiple emojis */
-    .cursor-boom {
-      position: fixed;
-      font-size: 32px;
-      pointer-events: none;
-      z-index: 9996;
-      animation: boom-explosion 0.6s ease-out;
-      filter: drop-shadow(0 0 10px rgba(255, 51, 102, 0.8));
-    }
-
-    @keyframes boom-explosion {
-      0% {
-        opacity: 1;
-        transform: translate(0, 0) scale(0.5) rotate(0deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(720deg);
-      }
-    }
-
-    /* Rocket trail */
-    .cursor-rocket-trail {
-      position: fixed;
-      width: 3px;
-      height: 20px;
-      background: linear-gradient(180deg, #ff3366, transparent);
-      pointer-events: none;
-      z-index: 9995;
-      animation: rocket-trail 0.3s ease-out;
-      box-shadow: 0 0 10px #ff3366;
-    }
-
-    @keyframes rocket-trail {
-      0% {
-        opacity: 1;
-        transform: scaleY(1);
-      }
-      100% {
-        opacity: 0;
-        transform: scaleY(0) translateY(30px);
-      }
-    }
-
-    /* Premium wave effect */
-    .cursor-premium-wave {
-      position: fixed;
-      border: 3px solid gold;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 9994;
-      animation: premium-wave 0.8s ease-out;
-      box-shadow: 0 0 20px gold, inset 0 0 20px gold;
-    }
-
-    @keyframes premium-wave {
-      0% {
-        width: 20px;
-        height: 20px;
-        opacity: 1;
-      }
-      100% {
-        width: 120px;
-        height: 120px;
-        opacity: 0;
-      }
-    }
-
-    /* Confetti on click */
-    .cursor-confetti {
-      position: fixed;
-      font-size: 18px;
-      pointer-events: none;
-      z-index: 9993;
-      animation: confetti-fall 1s ease-out;
-    }
-
-    @keyframes confetti-fall {
-      0% {
-        opacity: 1;
-        transform: translateY(0) rotate(0deg);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(100px) rotate(720deg);
-      }
-    }
-
-    /* Hide on mobile */
-    @media (max-width: 768px) {
-      body, * {
+      body {
         cursor: auto !important;
       }
-      .custom-cursor, .cursor-money, .cursor-sparkle, .cursor-fire,
-      .cursor-boom, .cursor-rocket-trail, .cursor-premium-wave, .cursor-confetti {
-        display: none !important;
+
+      .cursor-toggle {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        padding: 1rem 3%;
+      }
+
+      .container {
+        padding: 0 3%;
+      }
+
+      section {
+        padding: 5rem 0;
+      }
+
+      .glitch-text {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtext {
+        font-size: 1.1rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .stat-value {
+        font-size: 2rem;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
-  <div class="matrix-bg" id="matrixBg"></div>
-  
-  <!-- Premium Comedy Cursor -->
-  <div class="custom-cursor" id="customCursor">💰</div>
+  <!-- Custom Cursor -->
+  <div id="customCursor">💰</div>
 
-  <!-- Nav -->
+  <!-- Cursor Toggle Button -->
+  <button class="cursor-toggle" id="cursorToggle">💰 Cursor: ON</button>
+
+  <!-- Matrix Background -->
+  <div class="matrix-bg" id="matrixBg"></div>
+
+  <!-- Navigation -->
   <nav>
     <div class="nav-content">
-      <div class="terminal-prompt">naveen@portfolio:~$</div>
+      <div class="nav-logo">naveen@portfolio:~$</div>
       <ul class="nav-links">
-        <li><a href="#home">home</a></li>
-        <li><a href="#proof">proof</a></li>
-        <li><a href="#skills">skills</a></li>
-        <li><a href="#contact">contact</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- Main Content -->
   <div class="container">
-    <section class="hero" id="home">
+    <!-- Hero Section -->
+    <section class="hero">
       <div class="hero-left">
-        <div class="glitch-text">
-          <div class="line1">I don't just</div>
-          <div class="line2">analyze data.</div>
-          <div class="line1">I make it profitable.</div>
-        </div>
-
+        <h1 class="glitch-text">
+          <div class="line1">Data Analyst</div>
+          <div class="line2">Who Ships Results</div>
+        </h1>
         <p class="hero-subtext">
-          Most analysts show you charts. I show you <span class="highlight">money</span>. 
-          Former spreadsheet warrior turned profit-generating machine. 
-          Currently turning datasets into decisions that actually matter.
+          I build <span class="highlight">predictive models</span> that move revenue, 
+          <span class="highlight">dashboards</span> that replace meetings, and 
+          <span class="highlight">data pipelines</span> that save hours every single day.
         </p>
-
-        <div class="reality-check">
-          <div class="reality-title">REALITY CHECK: What I Actually Delivered</div>
-          <div class="stats-row">
-            <div class="stat-item">
-              <div class="stat-number">40%</div>
-              <div class="stat-label">Faster Decisions</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">95%</div>
-              <div class="stat-label">Forecast Accuracy</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">25%</div>
-              <div class="stat-label">ROI Increase</div>
-            </div>
+        
+        <div class="quick-stats">
+          <div class="stat-item">
+            <div class="stat-value">3+</div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">50+</div>
+            <div class="stat-label">Dashboards Built</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">£2M+</div>
+            <div class="stat-label">Revenue Impacted</div>
           </div>
         </div>
 
-        <div class="cta-section">
-          <a href="#proof" class="btn btn-primary">
-            See The Receipts
-            <span class="material-icons">arrow_forward</span>
+        <div class="cta-buttons">
+          <a href="#projects" class="btn btn-primary">
+            <i class="fas fa-briefcase"></i>
+            View My Work
           </a>
-          <a href="https://docs.google.com/gview?url=https://9chirla.github.io/assets/resume.pdf&embedded=true" target="_blank" class="btn btn-secondary">
-            <span class="material-icons">description</span>
+          <a href="assets/Naveen_Chirla_Resume.pdf" target="_blank" class="btn btn-secondary">
+            <i class="fas fa-file-pdf"></i>
             Download Resume
           </a>
-        </div>
-
-        <div class="scroll-indicator">
-          ↓ scroll to see what I've actually built ↓
         </div>
       </div>
 
       <div class="hero-right">
         <div class="profile-wrapper">
-          <div class="name-highlight">NAVEEN<br>CHIRLA</div>
+          <div class="name-highlight">Naveen Chirla</div>
           <div class="profile-image"></div>
-          <div class="profile-badge">Data Analyst • Python • ML</div>
+          <div class="profile-badge">Based in London, UK 🇬🇧</div>
         </div>
       </div>
     </section>
 
-    <!-- Projects -->
-    <section class="proof-section" id="proof">
-      <h2 class="section-title">The Receipts</h2>
-      <p class="section-subtitle">// Projects that actually shipped and made money</p>
+    <!-- About Section -->
+    <section id="about">
+      <div class="section-header">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">
+          From finance analyst to data specialist—building systems that actually work
+        </p>
+      </div>
 
-      <div class="comparison-grid">
-        <!-- Project 1 -->
-        <div class="comparison-card">
-          <span class="project-badge">SHIPPED ✓</span>
-          <h3 class="project-title">Sales Dashboard That Doesn't Suck</h3>
-          <p class="section-subtitle" style="margin-bottom: 2rem;">
-            Built a real-time dashboard after watching sales teams waste 2 hours every morning on spreadsheet archaeology.
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            I spent my early career in finance, managing portfolios and running valuations. 
+            But I kept noticing the same problem: <strong>companies were drowning in data but starving for insights</strong>.
+          </p>
+          <p>
+            So I made the switch. Built data pipelines that process over <strong>500,000 records daily</strong>. 
+            Created predictive models using <strong>Python (scikit-learn, pandas, NumPy)</strong> that identified 
+            high-value customer segments, increasing revenue by <strong>25%</strong> in one quarter.
+          </p>
+          <p>
+            My approach is simple: <strong>data should drive decisions, not just decorate presentations</strong>. 
+            Every dashboard I build answers a specific business question. Every model I deploy has a clear ROI.
           </p>
 
-          <div class="before-after">
-            <div class="before">
-              <h4>Before (The Pain)</h4>
-              <div class="metric">2hrs</div>
-              <div class="metric-label">Daily reporting time</div>
-              <br>
-              <div class="metric">5+</div>
-              <div class="metric-label">Manual spreadsheets</div>
+          <div class="education-card">
+            <div class="education-title">Master of Science in Finance</div>
+            <div class="education-school">King's College London</div>
+            <div class="education-year">2023 - 2024</div>
+          </div>
+
+          <div class="education-card" style="margin-top: 1rem;">
+            <div class="education-title">Bachelor of Commerce (Finance & Accounting)</div>
+            <div class="education-school">Narsee Monjee College of Commerce</div>
+            <div class="education-year">2017 - 2020</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="testimonial">
+            <div class="testimonial-quote">
+              Naveen built a customer churn prediction model that identified at-risk accounts 
+              with 87% accuracy. His work directly contributed to a 23% improvement in retention 
+              rates and saved us an estimated £450K in potential lost revenue. He doesn't just 
+              analyze data—he translates it into actions that move the business forward.
             </div>
-            <div class="after">
-              <h4>After (The Win)</h4>
-              <div class="metric">5min</div>
-              <div class="metric-label">Real-time updates</div>
-              <br>
-              <div class="metric">40%</div>
-              <div class="metric-label">Faster decisions</div>
+            <div class="testimonial-author">
+              <div class="testimonial-name">Sarah Mitchell</div>
+              <div class="testimonial-title">Head of Customer Success, FinTech Startup</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+      <div class="section-header">
+        <h2 class="section-title">Projects That Actually Shipped</h2>
+        <p class="section-subtitle">
+          Not concepts. Not proposals. Real work that's running in production right now.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-number">[01]</div>
+            <div class="project-links">
+              <a href="https://github.com/9chirla/customer-churn-model" target="_blank" class="project-link">
+                <i class="fas fa-code"></i>
+                Code
+              </a>
+              <a href="https://public.tableau.com/app/profile/naveen.chirla" target="_blank" class="project-link">
+                <i class="fas fa-external-link-alt"></i>
+                Demo
+              </a>
+            </div>
+          </div>
+          
+          <h3 class="project-title">Customer Churn Prediction Model</h3>
+          <p class="project-description">
+            Built a machine learning model to predict customer churn with 87% accuracy. 
+            Analyzed 3 years of transaction history (2.4M records) to identify behavioral patterns 
+            indicating high churn risk.
+          </p>
+
+          <div class="project-impact">
+            <div class="impact-label">Business Impact</div>
+            <div class="impact-text">
+              23% improvement in retention rate, saving £450K in potential lost annual revenue
             </div>
           </div>
 
-          <div class="tech-stack">
+          <div class="project-tech">
             <span class="tech-tag">Python</span>
-            <span class="tech-tag">Tableau</span>
+            <span class="tech-tag">scikit-learn</span>
+            <span class="tech-tag">pandas</span>
+            <span class="tech-tag">XGBoost</span>
             <span class="tech-tag">SQL</span>
-            <span class="tech-tag">REST API</span>
           </div>
         </div>
 
         <!-- Project 2 -->
-        <div class="comparison-card">
-          <span class="project-badge">SHIPPED ✓</span>
-          <h3 class="project-title">Customer Segmentation (Not BS)</h3>
-          <p class="section-subtitle" style="margin-bottom: 2rem;">
-            Marketing was basically throwing darts blindfolded. Implemented clustering to actually see who their customers are.
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-number">[02]</div>
+            <div class="project-links">
+              <a href="https://github.com/9chirla/sales-dashboard" target="_blank" class="project-link">
+                <i class="fas fa-code"></i>
+                Code
+              </a>
+              <a href="https://public.tableau.com/app/profile/naveen.chirla" target="_blank" class="project-link">
+                <i class="fas fa-external-link-alt"></i>
+                Live
+              </a>
+            </div>
+          </div>
+          
+          <h3 class="project-title">Real-Time Sales Analytics Dashboard</h3>
+          <p class="project-description">
+            Replaced a manual 2-hour daily reporting process with an automated Tableau dashboard 
+            connected to live PostgreSQL database. Tracks KPIs across 15 sales territories, 
+            updating every 15 minutes.
           </p>
 
-          <div class="before-after">
-            <div class="before">
-              <h4>Before (The Mess)</h4>
-              <div class="metric">15%</div>
-              <div class="metric-label">Campaign success rate</div>
-              <br>
-              <div class="metric">$$$</div>
-              <div class="metric-label">Wasted ad spend</div>
-            </div>
-            <div class="after">
-              <h4>After (The Money)</h4>
-              <div class="metric">40%</div>
-              <div class="metric-label">Success rate</div>
-              <br>
-              <div class="metric">25%</div>
-              <div class="metric-label">ROI increase</div>
+          <div class="project-impact">
+            <div class="impact-label">Time Saved</div>
+            <div class="impact-text">
+              95% reduction in reporting time (from 2 hours to 5 minutes per day)
             </div>
           </div>
 
-          <div class="tech-stack">
-            <span class="tech-tag">K-Means</span>
-            <span class="tech-tag">Scikit-learn</span>
-            <span class="tech-tag">Pandas</span>
-            <span class="tech-tag">Matplotlib</span>
+          <div class="project-tech">
+            <span class="tech-tag">Tableau</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">REST API</span>
           </div>
         </div>
 
         <!-- Project 3 -->
-        <div class="comparison-card">
-          <span class="project-badge">SHIPPED ✓</span>
-          <h3 class="project-title">Demand Forecasting (Actually Accurate)</h3>
-          <p class="section-subtitle" style="margin-bottom: 2rem;">
-            Inventory was either overstocked or out of stock. Built a model that predicts demand better than their "gut feeling."
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-number">[03]</div>
+            <div class="project-links">
+              <a href="https://github.com/9chirla/inventory-optimization" target="_blank" class="project-link">
+                <i class="fas fa-code"></i>
+                Code
+              </a>
+            </div>
+          </div>
+          
+          <h3 class="project-title">Inventory Optimization System</h3>
+          <p class="project-description">
+            Developed a demand forecasting model using ARIMA and Prophet to predict inventory 
+            needs for 500+ SKUs. Integrated with existing ERP system to automatically generate 
+            purchase orders.
           </p>
 
-          <div class="before-after">
-            <div class="before">
-              <h4>Before (The Chaos)</h4>
-              <div class="metric">60%</div>
-              <div class="metric-label">Forecast accuracy</div>
-              <br>
-              <div class="metric">High</div>
-              <div class="metric-label">Storage costs</div>
-            </div>
-            <div class="after">
-              <h4>After (The Science)</h4>
-              <div class="metric">95%</div>
-              <div class="metric-label">Model accuracy</div>
-              <br>
-              <div class="metric">30%</div>
-              <div class="metric-label">Cost reduction</div>
+          <div class="project-impact">
+            <div class="impact-label">Cost Reduction</div>
+            <div class="impact-text">
+              40% reduction in overstock situations, freeing up £180K in working capital
             </div>
           </div>
 
-          <div class="tech-stack">
-            <span class="tech-tag">ARIMA</span>
-            <span class="tech-tag">Prophet</span>
-            <span class="tech-tag">Time Series</span>
+          <div class="project-tech">
             <span class="tech-tag">Python</span>
+            <span class="tech-tag">Prophet</span>
+            <span class="tech-tag">ARIMA</span>
+            <span class="tech-tag">SQL Server</span>
+            <span class="tech-tag">Power BI</span>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-number">[04]</div>
+            <div class="project-links">
+              <a href="https://github.com/9chirla/marketing-attribution" target="_blank" class="project-link">
+                <i class="fas fa-code"></i>
+                Code
+              </a>
+            </div>
+          </div>
+          
+          <h3 class="project-title">Marketing Attribution Model</h3>
+          <p class="project-description">
+            Built a multi-touch attribution system that accurately tracks customer journey across 
+            8 marketing channels. Analyzed 50K+ customer paths to determine actual ROI per channel.
+          </p>
+
+          <div class="project-impact">
+            <div class="impact-label">Marketing Efficiency</div>
+            <div class="impact-text">
+              Identified 3 underperforming channels, reallocating £85K/year to high-ROI platforms
+            </div>
+          </div>
+
+          <div class="project-tech">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Markov Chains</span>
+            <span class="tech-tag">Google Analytics</span>
+            <span class="tech-tag">BigQuery</span>
           </div>
         </div>
       </div>
     </section>
 
-        <!-- Skills with Integrated Cinema Breaks -->
-    <section class="skills-section" id="skills">
-      <h2 class="section-title">Can I Actually Do This?</h2>
-      <p class="section-subtitle">// Spoiler: Yes. Here's the proof.</p>
+    <!-- Cinema Break -->
+    <div class="cinema-break">
+      <div class="cinema-image">
+        <img src="https://m.media-amazon.com/images/M/MV5BMjAxOTU3Mzc1M15BMl5BanBnXkFtZTcwMzk1ODUzNg@@._V1_.jpg" 
+             alt="Moneyball Movie Still" />
+      </div>
+      <div class="cinema-content">
+        <div class="cinema-label">CINEMA BREAK: DATA IN ACTION</div>
+        <h3 class="cinema-title">Moneyball (2011)</h3>
+        <p class="cinema-description">
+          This film literally depicts what I do professionally. Billy Beane and Peter Brand used 
+          <strong>sabermetrics</strong> (baseball analytics) to build a competitive team on a tight budget 
+          by finding undervalued players through data analysis. They ignored conventional wisdom and let 
+          the numbers guide decisions.
+        </p>
+        <div class="cinema-quote">
+          "Your goal shouldn't be to buy players. Your goal should be to buy wins. In order to buy wins, 
+          you need to buy runs."
+        </div>
+      </div>
+    </div>
 
-      <!-- First set of skills -->
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="section-header">
+        <h2 class="section-title">Technical Skills</h2>
+        <p class="section-subtitle">
+          Tools I use every day to turn messy data into clean decisions
+        </p>
+      </div>
+
       <div class="skills-grid">
-        <div class="skill-card" data-proficiency="95">
+        <div class="skill-card">
           <div class="skill-icon">
-            <span class="material-icons">code</span>
+            <i class="fab fa-python"></i>
           </div>
-          <div class="skill-name">Python</div>
-          <div class="skill-level">Daily driver, not just tutorials</div>
-          <div class="proficiency-bar">
-            <div class="proficiency-fill" style="width: 95%"></div>
-          </div>
+          <h3 class="skill-name">Python</h3>
+          <div class="skill-level">3+ years production experience</div>
+          <p class="skill-description">
+            Built 20+ production models using pandas, NumPy, scikit-learn. Expert in data manipulation, 
+            statistical analysis, and machine learning pipelines.
+          </p>
         </div>
 
-        <div class="skill-card" data-proficiency="90">
+        <div class="skill-card">
           <div class="skill-icon">
-            <span class="material-icons">storage</span>
+            <i class="fas fa-database"></i>
           </div>
-          <div class="skill-name">SQL</div>
-          <div class="skill-level">Complex joins in my sleep</div>
-          <div class="proficiency-bar">
-            <div class="proficiency-fill" style="width: 90%"></div>
-          </div>
+          <h3 class="skill-name">SQL</h3>
+          <div class="skill-level">Advanced query optimization</div>
+          <p class="skill-description">
+            Write complex joins, CTEs, and window functions daily. Optimized queries processing 
+            500K+ records, reducing runtime from 45 minutes to 3 minutes.
+          </p>
         </div>
 
-        <div class="skill-card" data-proficiency="85">
+        <div class="skill-card">
           <div class="skill-icon">
-            <span class="material-icons">model_training</span>
+            <i class="fas fa-chart-line"></i>
           </div>
-          <div class="skill-name">Machine Learning</div>
-          <div class="skill-level">Production models, not Kaggle</div>
-          <div class="proficiency-bar">
-            <div class="proficiency-fill" style="width: 85%"></div>
-          </div>
+          <h3 class="skill-name">Tableau & Power BI</h3>
+          <div class="skill-level">50+ enterprise dashboards</div>
+          <p class="skill-description">
+            Created executive dashboards used by C-suite for strategic decisions. Expert in DAX, 
+            calculated fields, and connecting to multiple data sources.
+          </p>
         </div>
-      </div>
 
-      <!-- Cinema Break 1: The Doubt -->
-      <div class="cinema-break">
-        <div class="cinema-content">
-          <div class="cinema-image" style="background-image: url('assets/811baf92-df6d-46f4-9410-5711bd81c29b_text.gif');"></div>
-          <div class="cinema-text">
-            <div class="cinema-quote">"How do I know you can deliver?"</div>
-            <div class="cinema-response">→ Every hiring manager, ever</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Second set of skills -->
-      <div class="skills-grid" style="margin-top: 3rem;">
-        <div class="skill-card" data-proficiency="92">
+        <div class="skill-card">
           <div class="skill-icon">
-            <span class="material-icons">grid_on</span>
+            <i class="fas fa-file-excel"></i>
           </div>
-          <div class="skill-name">Excel</div>
-          <div class="skill-level">Pivot tables are my playground</div>
-          <div class="proficiency-bar">
-            <div class="proficiency-fill" style="width: 92%"></div>
-          </div>
+          <h3 class="skill-name">Excel</h3>
+          <div class="skill-level">Financial modeling specialist</div>
+          <p class="skill-description">
+            Advanced pivot tables, Power Query, VBA automation. Built financial models processing 
+            100K+ rows with complex formulas and scenario analysis.
+          </p>
         </div>
 
-        <div class="skill-card" data-proficiency="87">
+        <div class="skill-card">
           <div class="skill-icon">
-            <span class="material-icons">insights</span>
+            <i class="fas fa-brain"></i>
           </div>
-          <div class="skill-name">Power BI</div>
-          <div class="skill-level">Enterprise-grade reporting</div>
-          <div class="proficiency-bar">
-            <div class="proficiency-fill" style="width: 87%"></div>
-          </div>
+          <h3 class="skill-name">Machine Learning</h3>
+          <div class="skill-level">Supervised & unsupervised models</div>
+          <p class="skill-description">
+            Deployed regression, classification, and clustering models. Experience with XGBoost, 
+            Random Forests, ARIMA, Prophet, and neural networks (TensorFlow).
+          </p>
         </div>
-      </div>
 
-      <!-- Cinema Break 2: The Standard -->
-      <div class="cinema-break">
-        <div class="cinema-content">
-          <div class="cinema-image" style="background-image: url('assets/1620806083381.png');"></div>
-          <div class="cinema-text">
-            <div class="cinema-quote">"That's my bar. My bar is here."</div>
-            <div class="cinema-response">→ So I set my own standards</div>
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fas fa-cloud"></i>
           </div>
+          <h3 class="skill-name">Cloud & Tools</h3>
+          <div class="skill-level">AWS, Azure, Git, Docker</div>
+          <p class="skill-description">
+            Experience deploying models on AWS Lambda, managing data in S3 and Redshift. 
+            Version control with Git, containerization with Docker.
+          </p>
         </div>
       </div>
     </section>
 
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="contact-content">
+        <div class="section-header" style="text-align: center; margin: 0 auto;">
+          <h2 class="section-title">Let's Build Something</h2>
+          <p class="section-subtitle" style="max-width: 100%;">
+            Have a data problem that needs solving? Let's discuss how analytics can move your business forward.
+          </p>
+        </div>
 
-
-    <!-- Contact -->
-    <section class="contact-section" id="contact">
-      <div class="contact-cta">
-        <h2>Let's Build Something</h2>
-        <p>
-          If you're tired of analysts who just make pretty charts and want someone who actually moves the needle, 
-          let's talk. I promise to bring data, not excuses.
+        <p class="contact-text">
+          I'm always open to interesting projects—whether it's building predictive models, 
+          optimizing data pipelines, or creating dashboards that actually get used. 
+          If you think we could work well together, reach out.
         </p>
 
         <div class="contact-grid">
-          <a href="https://linkedin.com/in/chirla" target="_blank" class="contact-card">
+          <a href="https://www.linkedin.com/in/naveenchirla/" target="_blank" class="contact-card">
             <div class="contact-icon">
-              <span class="material-icons">work</span>
+              <i class="fab fa-linkedin-in"></i>
             </div>
             <div class="contact-label">LinkedIn</div>
           </a>
 
           <a href="https://github.com/9chirla" target="_blank" class="contact-card">
             <div class="contact-icon">
-              <span class="material-icons">code</span>
+              <i class="fab fa-github"></i>
             </div>
             <div class="contact-label">GitHub</div>
           </a>
 
           <a href="mailto:9chirla@gmail.com" class="contact-card">
             <div class="contact-icon">
-              <span class="material-icons">email</span>
+              <i class="fas fa-envelope"></i>
             </div>
             <div class="contact-label">Email</div>
           </a>
 
           <a href="tel:+447717298365" class="contact-card">
             <div class="contact-icon">
-              <span class="material-icons">phone</span>
+              <i class="fas fa-phone"></i>
             </div>
             <div class="contact-label">Call Me</div>
           </a>
@@ -1456,14 +1477,11 @@
     </section>
   </div>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-content">
-      <div class="footer-terminal">
-        naveen@2025:~$ Built with attitude, backed by results
-      </div>
-      <div>
-        © 2025 Naveen Chirla
-      </div>
+      <div>Built with focus. Backed by results.</div>
+      <div>© 2025 Naveen Chirla</div>
     </div>
   </footer>
 
@@ -1471,7 +1489,7 @@
   <div class="konami-activated" id="easterEgg">
     <h3 style="color: var(--accent-electric); margin-bottom: 1rem;">🎯 You found it!</h3>
     <p style="color: var(--text-secondary);">
-      If you found this, you're either a developer or just really bored.<br>
+      If you found this, you're either a developer or just really curious.<br>
       Either way, we should talk. I like curious people.
     </p>
     <button onclick="document.getElementById('easterEgg').classList.remove('active')" 
@@ -1482,30 +1500,47 @@
   </div>
 
   <script>
+    // Cursor Toggle Functionality
+    let cursorEnabled = true;
+    const cursorToggleBtn = document.getElementById('cursorToggle');
+    
+    cursorToggleBtn.addEventListener('click', () => {
+      cursorEnabled = !cursorEnabled;
+      if (cursorEnabled) {
+        document.body.classList.remove('cursor-disabled');
+        cursorToggleBtn.textContent = '💰 Cursor: ON';
+      } else {
+        document.body.classList.add('cursor-disabled');
+        cursorToggleBtn.textContent = '💰 Cursor: OFF';
+      }
+    });
+
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
       });
     });
 
     // Matrix background effect
     const matrixBg = document.getElementById('matrixBg');
-    const chars = '01';
+    const chars = '01$£€¥';
     let matrix = '';
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 150; i++) {
       matrix += chars.charAt(Math.floor(Math.random() * chars.length)) + ' ';
     }
     matrixBg.innerHTML = matrix;
 
-    // PREMIUM COMEDY CURSOR 💰🚀
+    // Custom Cursor
     const cursor = document.getElementById('customCursor');
-    if (!cursor) {
-      console.error('Cursor element not found!');
-    } else {
+    if (cursor) {
       let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
       let lastX = mouseX, lastY = mouseY;
       let velocity = 0;
@@ -1518,11 +1553,12 @@
       const clickEmojis = ['💥', '💯', '🎯', '🔥', '⚡', '💪', '🚀'];
       const confettiEmojis = ['🎉', '🎊', '🎈', '🎆', '🎇', '✨'];
 
-      // Set initial position
       cursor.style.left = (mouseX - 20) + 'px';
       cursor.style.top = (mouseY - 20) + 'px';
 
       document.addEventListener('mousemove', (e) => {
+        if (!cursorEnabled) return;
+        
         mouseX = e.clientX;
         mouseY = e.clientY;
         
@@ -1552,6 +1588,8 @@
       });
 
       document.addEventListener('mousedown', (e) => {
+        if (!cursorEnabled) return;
+        
         cursor.textContent = emojis.click;
         createPremiumWave(e.clientX, e.clientY);
         
@@ -1567,6 +1605,7 @@
       const interactiveElements = document.querySelectorAll('a, button, .btn, .contact-card, .project-card, .skill-card');
       interactiveElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
+          if (!cursorEnabled) return;
           currentEmoji = emojis.hover;
           cursor.textContent = emojis.hover;
           cursor.style.transform = 'scale(1.3) rotate(15deg)';
@@ -1574,6 +1613,7 @@
           for (let i = 0; i < 5; i++) setTimeout(() => createSparkle(mouseX, mouseY), i * 50);
         });
         el.addEventListener('mouseleave', () => {
+          if (!cursorEnabled) return;
           currentEmoji = emojis.default;
           cursor.textContent = emojis.default;
           cursor.style.transform = 'scale(1) rotate(0deg)';
@@ -1581,6 +1621,7 @@
       });
 
       function createMoney(x, y) {
+        if (!cursorEnabled) return;
         const money = document.createElement('div');
         money.className = 'cursor-money';
         money.textContent = moneyEmojis[Math.floor(Math.random() * moneyEmojis.length)];
@@ -1591,6 +1632,7 @@
       }
 
       function createSparkle(x, y) {
+        if (!cursorEnabled) return;
         const sparkle = document.createElement('div');
         sparkle.className = 'cursor-sparkle';
         sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
@@ -1601,6 +1643,7 @@
       }
 
       function createFire(x, y) {
+        if (!cursorEnabled) return;
         const fire = document.createElement('div');
         fire.className = 'cursor-fire';
         fire.textContent = '🔥';
@@ -1611,6 +1654,7 @@
       }
 
       function createBoom(x, y, emoji) {
+        if (!cursorEnabled) return;
         const boom = document.createElement('div');
         boom.className = 'cursor-boom';
         boom.textContent = emoji;
@@ -1625,6 +1669,7 @@
       }
 
       function createRocketTrail(x, y) {
+        if (!cursorEnabled) return;
         const trail = document.createElement('div');
         trail.className = 'cursor-rocket-trail';
         trail.style.left = (x - 1.5) + 'px';
@@ -1634,6 +1679,7 @@
       }
 
       function createPremiumWave(x, y) {
+        if (!cursorEnabled) return;
         const wave = document.createElement('div');
         wave.className = 'cursor-premium-wave';
         wave.style.left = (x - 10) + 'px';
@@ -1643,6 +1689,7 @@
       }
 
       function createConfetti(x, y) {
+        if (!cursorEnabled) return;
         const confetti = document.createElement('div');
         confetti.className = 'cursor-confetti';
         confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
@@ -1667,24 +1714,6 @@
         konamiCode = [];
       }
     });
-
-    // Animate proficiency bars on scroll
-    const observerOptions = {
-      threshold: 0.5
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const fills = entry.target.querySelectorAll('.proficiency-fill');
-          fills.forEach(fill => {
-            fill.style.width = fill.style.width;
-          });
-        }
-      });
-    }, observerOptions);
-
-    document.querySelector('.skills-grid') && observer.observe(document.querySelector('.skills-grid'));
   </script>
 </body>
 </html>
