@@ -488,15 +488,15 @@
 
     .cinema-content {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 2rem;
-      align-items: center;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 0;
+      align-items: stretch;
       background: var(--card-bg);
       border: 2px solid var(--border-subtle);
       border-radius: 20px;
       overflow: hidden;
       transition: all 0.4s;
-      min-height: 300px;
+      min-height: 400px;
     }
 
     .cinema-content:hover {
@@ -508,17 +508,18 @@
     .cinema-image {
       width: 100%;
       height: 100%;
-      min-height: 300px;
-      background-size: cover;
+      min-height: 400px;
+      background-size: contain;
+      background-repeat: no-repeat;
       background-position: center;
-      filter: grayscale(0.2);
+      background-color: #000;
+      filter: grayscale(0.1);
       transition: all 0.4s;
       position: relative;
     }
 
     .cinema-content:hover .cinema-image {
       filter: grayscale(0);
-      transform: scale(1.05);
     }
 
     /* Film grain effect */
@@ -532,14 +533,16 @@
     }
 
     .cinema-text {
-      padding: 2rem;
+      padding: 3rem 2.5rem;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      justify-content: center;
+      gap: 2rem;
+      background: var(--bg-card);
     }
 
     .cinema-quote {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 700;
       color: var(--text-primary);
       font-family: 'Space Grotesk', sans-serif;
@@ -550,33 +553,34 @@
     .cinema-quote::before {
       content: '"';
       position: absolute;
-      left: -1.5rem;
-      top: -0.5rem;
-      font-size: 4rem;
+      left: -2rem;
+      top: -1rem;
+      font-size: 5rem;
       color: var(--accent-electric);
-      opacity: 0.3;
+      opacity: 0.2;
       font-family: Georgia, serif;
     }
 
     .cinema-response {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: var(--accent-warning);
       font-family: 'Fira Code', monospace;
-      padding-left: 1rem;
-      border-left: 3px solid var(--accent-warning);
+      padding-left: 1.5rem;
+      border-left: 4px solid var(--accent-warning);
       font-style: italic;
+      line-height: 1.6;
     }
 
     /* Alternate layout for second break */
-    .cinema-break:nth-child(odd) .cinema-content {
-      grid-template-columns: 1fr 2fr;
+    .cinema-break:nth-child(4) .cinema-content {
+      grid-template-columns: 1fr 1.5fr;
     }
 
-    .cinema-break:nth-child(odd) .cinema-image {
+    .cinema-break:nth-child(4) .cinema-image {
       order: 2;
     }
 
-    .cinema-break:nth-child(odd) .cinema-text {
+    .cinema-break:nth-child(4) .cinema-text {
       order: 1;
     }
 
@@ -1130,7 +1134,7 @@
 </head>
 <body>
   <div class="matrix-bg" id="matrixBg"></div>
-
+  
   <!-- Premium Comedy Cursor -->
   <div class="custom-cursor" id="customCursor">💰</div>
 
@@ -1158,8 +1162,8 @@
         </div>
 
         <p class="hero-subtext">
-          Most analysts show you charts. I show you <span class="highlight">money</span>.
-          Former spreadsheet warrior turned profit-generating machine.
+          Most analysts show you charts. I show you <span class="highlight">money</span>. 
+          Former spreadsheet warrior turned profit-generating machine. 
           Currently turning datasets into decisions that actually matter.
         </p>
 
@@ -1415,7 +1419,7 @@
       <div class="contact-cta">
         <h2>Let's Build Something</h2>
         <p>
-          If you're tired of analysts who just make pretty charts and want someone who actually moves the needle,
+          If you're tired of analysts who just make pretty charts and want someone who actually moves the needle, 
           let's talk. I promise to bring data, not excuses.
         </p>
 
@@ -1470,8 +1474,8 @@
       If you found this, you're either a developer or just really bored.<br>
       Either way, we should talk. I like curious people.
     </p>
-    <button onclick="document.getElementById('easterEgg').classList.remove('active')"
-            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric);
+    <button onclick="document.getElementById('easterEgg').classList.remove('active')" 
+            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric); 
                    color: var(--bg-dark); border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
       Close
     </button>
@@ -1521,14 +1525,14 @@
       document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-
+        
         const dx = mouseX - lastX;
         const dy = mouseY - lastY;
         velocity = Math.sqrt(dx * dx + dy * dy);
-
+        
         cursor.style.left = (mouseX - 20) + 'px';
         cursor.style.top = (mouseY - 20) + 'px';
-
+        
         if (velocity > 40) {
           cursor.textContent = emojis.superFast;
           if (frameCount % 2 === 0) createFire(mouseX, mouseY);
@@ -1537,12 +1541,12 @@
         } else {
           cursor.textContent = currentEmoji;
         }
-
+        
         frameCount++;
         if (frameCount % 5 === 0) createMoney(mouseX, mouseY);
         if (frameCount % 8 === 0) createSparkle(mouseX, mouseY);
         if (currentEmoji === emojis.hover && frameCount % 3 === 0) createRocketTrail(mouseX, mouseY);
-
+        
         lastX = mouseX;
         lastY = mouseY;
       });
@@ -1550,7 +1554,7 @@
       document.addEventListener('mousedown', (e) => {
         cursor.textContent = emojis.click;
         createPremiumWave(e.clientX, e.clientY);
-
+        
         for (let i = 0; i < 12; i++) {
           setTimeout(() => createBoom(e.clientX, e.clientY, clickEmojis[Math.floor(Math.random() * clickEmojis.length)]), i * 30);
         }
@@ -1652,7 +1656,7 @@
     // Konami code easter egg
     let konamiCode = [];
     const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-
+    
     document.addEventListener('keydown', (e) => {
       konamiCode.push(e.key);
       if (konamiCode.length > konamiPattern.length) {
