@@ -8,6 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- GSAP for advanced animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -33,6 +39,34 @@
       line-height: 1.6;
       overflow-x: hidden;
       cursor: none;
+      position: relative;
+    }
+
+    /* Animated Gradient Mesh Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 20% 30%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(255, 51, 102, 0.05) 0%, transparent 60%);
+      animation: gradientShift 20s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+      50% {
+        opacity: 0.8;
+        transform: scale(1.1) rotate(5deg);
+      }
     }
 
     body.cursor-disabled {
@@ -53,7 +87,7 @@
       will-change: transform;
     }
 
-    .cursor-money, .cursor-sparkle, .cursor-fire, .cursor-boom, 
+    .cursor-money, .cursor-sparkle, .cursor-fire, .cursor-boom,
     .cursor-rocket-trail, .cursor-premium-wave, .cursor-confetti {
       position: fixed;
       pointer-events: none;
@@ -169,20 +203,143 @@
       transform: scale(1.05);
     }
 
-    /* Matrix Background */
-    .matrix-bg {
+    /* Floating Orbs Background */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: -1;
+      animation: float 15s ease-in-out infinite;
+    }
+
+    .bg-orb-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.4), transparent);
+      top: -200px;
+      left: -200px;
+      animation-duration: 20s;
+    }
+
+    .bg-orb-2 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.3), transparent);
+      top: 50%;
+      right: -150px;
+      animation-duration: 25s;
+      animation-delay: -8s;
+    }
+
+    .bg-orb-3 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 51, 102, 0.2), transparent);
+      bottom: -250px;
+      left: 20%;
+      animation-duration: 30s;
+      animation-delay: -15s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      33% {
+        transform: translate(50px, -50px) scale(1.15);
+      }
+      66% {
+        transform: translate(-30px, 30px) scale(0.85);
+      }
+    }
+
+    /* Subtle Grid Overlay */
+    .grid-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
-      opacity: 0.03;
+      opacity: 0.025;
       pointer-events: none;
-      font-family: 'Fira Code', monospace;
-      font-size: 14px;
-      color: var(--accent-electric);
-      overflow: hidden;
+      background-image:
+        linear-gradient(rgba(0, 255, 136, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.15) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 10s ease infinite;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.025; }
+      50% { opacity: 0.04; }
+    }
+
+    /* Animated Scan Line */
+    .scan-line {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0, 255, 136, 0.5) 50%,
+        transparent 100%);
+      z-index: 0;
+      pointer-events: none;
+      animation: scan 12s linear infinite;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+    }
+
+    @keyframes scan {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      5% {
+        opacity: 1;
+      }
+      95% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Data Particles */
+    .data-particle {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-electric);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      animation: particleFloat 8s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+    }
+
+    @keyframes particleFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) translateX(0);
+      }
+      10% {
+        opacity: 0.6;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) translateX(100px);
+      }
     }
 
     /* Navbar */
@@ -332,19 +489,53 @@
     .glitch-text {
       font-size: 6rem;
       font-weight: 700;
-      line-height: 0.95;
-      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      position: relative;
+      min-height: 300px;
     }
 
-    .glitch-text .line1 {
+    .hero-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .letter {
+      display: inline-block;
+      font-size: 6rem;
+      font-weight: 700;
+      transition: none; /* Let GSAP handle transitions */
+      will-change: transform, opacity;
+      position: relative;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .line1-container .letter {
       color: var(--text-secondary);
+      text-shadow: 0 0 20px rgba(0, 255, 136, 0);
     }
 
-    .glitch-text .line2 {
+    .line2-container .letter {
       background: linear-gradient(45deg, var(--accent-electric), var(--accent-info));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0));
+    }
+
+    .letter:hover {
+      transform: scale(1.1);
+    }
+
+    .line1-container .letter:hover {
+      text-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+    }
+
+    .line2-container .letter:hover {
+      filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));
     }
 
     .hero-subtext {
@@ -891,6 +1082,11 @@
 
       .glitch-text {
         font-size: 3.5rem;
+        min-height: 200px;
+      }
+
+      .letter {
+        font-size: 3.5rem;
       }
 
       .hero-subtext {
@@ -967,6 +1163,11 @@
 
       .glitch-text {
         font-size: 2.5rem;
+        min-height: 160px;
+      }
+
+      .letter {
+        font-size: 2.5rem;
       }
 
       .hero-subtext {
@@ -996,8 +1197,12 @@
   <!-- Cursor Toggle Button -->
   <button class="cursor-toggle" id="cursorToggle">💰 Cursor: ON</button>
 
-  <!-- Matrix Background -->
-  <div class="matrix-bg" id="matrixBg"></div>
+  <!-- Sophisticated Background Elements -->
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
+  <div class="grid-overlay"></div>
+  <div class="scan-line"></div>
 
   <!-- Navigation -->
   <nav>
@@ -1017,16 +1222,16 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-left">
-        <h1 class="glitch-text">
-          <div class="line1">Business Analyst</div>
-          <div class="line2">Turning Data Into Decisions</div>
+        <h1 class="glitch-text" id="heroText">
+          <div class="hero-line line1-container" data-line="Business Analyst"></div>
+          <div class="hero-line line2-container" data-line="Turning Data Into Decisions"></div>
         </h1>
         <p class="hero-subtext">
-          I build <span class="highlight">predictive models</span> that forecast outcomes, 
-          <span class="highlight">dashboards</span> that drive executive decisions, and 
+          I build <span class="highlight">predictive models</span> that forecast outcomes,
+          <span class="highlight">dashboards</span> that drive executive decisions, and
           <span class="highlight">analysis frameworks</span> that turn complex data into clear action plans.
         </p>
-        
+
         <div class="quick-stats">
           <div class="stat-item">
             <div class="stat-value">10+</div>
@@ -1075,21 +1280,21 @@
       <div class="about-content">
         <div class="about-text">
           <p>
-            I'm completing my <strong>MBA at University of East London</strong> while working as a data analyst 
-            in the Graduate Success Service, where I manage analytics for <strong>1,600+ international graduates</strong>. 
-            But I didn't stop there—I've spent the past year building a portfolio of <strong>10+ data projects</strong> 
+            I'm completing my <strong>MBA at University of East London</strong> while working as a data analyst
+            in the Graduate Success Service, where I manage analytics for <strong>1,600+ international graduates</strong>.
+            But I didn't stop there—I've spent the past year building a portfolio of <strong>10+ data projects</strong>
             that demonstrate real business analyst capabilities.
           </p>
           <p>
-            From <strong>predicting student enrollment using machine learning</strong> to building 
-            <strong>customer segmentation models</strong> for retail businesses, I've analyzed over 
-            <strong>500,000 records</strong> using Python, SQL, and Power BI. My projects don't just showcase 
+            From <strong>predicting student enrollment using machine learning</strong> to building
+            <strong>customer segmentation models</strong> for retail businesses, I've analyzed over
+            <strong>500,000 records</strong> using Python, SQL, and Power BI. My projects don't just showcase
             technical skills—they solve real business problems with measurable outcomes.
           </p>
           <p>
-            My approach combines <strong>business acumen</strong> (from my MBA and BBA), 
-            <strong>technical expertise</strong> (Python, SQL, Power BI, Excel), and 
-            <strong>communication skills</strong> (honed through managing thousands of stakeholder relationships). 
+            My approach combines <strong>business acumen</strong> (from my MBA and BBA),
+            <strong>technical expertise</strong> (Python, SQL, Power BI, Excel), and
+            <strong>communication skills</strong> (honed through managing thousands of stakeholder relationships).
             I don't just crunch numbers—I translate data into stories that drive decisions.
           </p>
 
@@ -1109,11 +1314,11 @@
         <div>
           <div class="testimonial">
             <div class="testimonial-quote">
-              Naveen's analytical capabilities go far beyond his role. While managing graduate engagement 
-              data at scale, he's simultaneously built a portfolio of sophisticated data projects that 
-              demonstrate genuine business analyst skills. His student enrollment prediction model achieved 
-              89% accuracy, and his customer segmentation analysis revealed insights that would be valuable 
-              to any business. What impresses me most is his ability to combine technical depth with clear 
+              Naveen's analytical capabilities go far beyond his role. While managing graduate engagement
+              data at scale, he's simultaneously built a portfolio of sophisticated data projects that
+              demonstrate genuine business analyst skills. His student enrollment prediction model achieved
+              89% accuracy, and his customer segmentation analysis revealed insights that would be valuable
+              to any business. What impresses me most is his ability to combine technical depth with clear
               business communication—he can build complex models and explain them to non-technical stakeholders.
             </div>
             <div class="testimonial-author">
@@ -1150,11 +1355,11 @@
               </a>
             </div>
           </div>
-          
+
           <h3 class="project-title">Student Enrollment Prediction Model</h3>
           <p class="project-description">
-            Built machine learning model to predict student enrollment likelihood using historical admission 
-            data from 50,000+ applicants. Analyzed demographics, academic scores, engagement metrics, and 
+            Built machine learning model to predict student enrollment likelihood using historical admission
+            data from 50,000+ applicants. Analyzed demographics, academic scores, engagement metrics, and
             application timing to identify high-probability enrollees, enabling targeted recruitment strategies.
           </p>
 
@@ -1189,11 +1394,11 @@
               </a>
             </div>
           </div>
-          
+
           <h3 class="project-title">Customer Segmentation & RFM Analysis</h3>
           <p class="project-description">
-            Performed RFM (Recency, Frequency, Monetary) analysis on 100,000+ e-commerce transactions 
-            to segment customers into 11 distinct groups. Used K-means clustering and created interactive 
+            Performed RFM (Recency, Frequency, Monetary) analysis on 100,000+ e-commerce transactions
+            to segment customers into 11 distinct groups. Used K-means clustering and created interactive
             Power BI dashboard showing customer lifetime value, churn risk, and targeted marketing recommendations.
           </p>
 
@@ -1228,11 +1433,11 @@
               </a>
             </div>
           </div>
-          
+
           <h3 class="project-title">Sales Forecasting Dashboard</h3>
           <p class="project-description">
-            Developed time series forecasting model using ARIMA and Prophet to predict next quarter sales 
-            across 45 product categories. Built automated Power BI dashboard that updates weekly with actual 
+            Developed time series forecasting model using ARIMA and Prophet to predict next quarter sales
+            across 45 product categories. Built automated Power BI dashboard that updates weekly with actual
             vs. predicted performance, trend analysis, and inventory planning recommendations.
           </p>
 
@@ -1267,11 +1472,11 @@
               </a>
             </div>
           </div>
-          
+
           <h3 class="project-title">Graduate Employment Outcomes Analysis</h3>
           <p class="project-description">
-            Analyzed 5 years of graduate employment data (200,000+ records) to identify factors influencing 
-            post-graduation outcomes. Used regression analysis, survival analysis, and SQL for data extraction. 
+            Analyzed 5 years of graduate employment data (200,000+ records) to identify factors influencing
+            post-graduation outcomes. Used regression analysis, survival analysis, and SQL for data extraction.
             Built predictive model to identify students at risk of unemployment within 6 months of graduation.
           </p>
 
@@ -1306,11 +1511,11 @@
               </a>
             </div>
           </div>
-          
+
           <h3 class="project-title">Retail Market Basket Analysis</h3>
           <p class="project-description">
-            Performed market basket analysis on 250,000+ retail transactions using Apriori algorithm 
-            to discover product association rules. Identified cross-selling opportunities, optimal product 
+            Performed market basket analysis on 250,000+ retail transactions using Apriori algorithm
+            to discover product association rules. Identified cross-selling opportunities, optimal product
             placement strategies, and bundling recommendations that increase average transaction value.
           </p>
 
@@ -1345,11 +1550,11 @@
               </a>
             </div>
           </div>
-          
+
           <h3 class="project-title">Advanced SQL Business Intelligence</h3>
           <p class="project-description">
-            Created comprehensive SQL portfolio demonstrating complex queries on business datasets. Includes 
-            window functions, CTEs, subqueries, pivoting, and performance optimization. Solved 50+ real-world 
+            Created comprehensive SQL portfolio demonstrating complex queries on business datasets. Includes
+            window functions, CTEs, subqueries, pivoting, and performance optimization. Solved 50+ real-world
             business questions including cohort analysis, revenue attribution, and customer lifetime value calculations.
           </p>
 
@@ -1373,7 +1578,7 @@
 
     <!-- Cinema Break -->
     <div class="cinema-break">
-      <img src="assets/1620806083381.png" alt="Moneyball" style="width: 100%; max-width: 1200px; border-radius: 12px; display: block; margin: 0 auto;" />
+      <img src="assets/moneyball.png" alt="Moneyball" style="width: 100%; max-width: 1200px; border-radius: 12px; display: block; margin: 0 auto;" />
     </div>
 
     <!-- Skills Section -->
@@ -1393,8 +1598,8 @@
           <h3 class="skill-name">Python</h3>
           <div class="skill-level">Advanced data analysis & ML</div>
           <p class="skill-description">
-            Built 10+ projects using pandas, NumPy, scikit-learn, and XGBoost. Experience with data 
-            cleaning, feature engineering, predictive modeling, and statistical analysis. Proficient in 
+            Built 10+ projects using pandas, NumPy, scikit-learn, and XGBoost. Experience with data
+            cleaning, feature engineering, predictive modeling, and statistical analysis. Proficient in
             Jupyter notebooks and Python scripting.
           </p>
         </div>
@@ -1406,8 +1611,8 @@
           <h3 class="skill-name">SQL</h3>
           <div class="skill-level">Complex queries & optimization</div>
           <p class="skill-description">
-            Expert in PostgreSQL and MySQL. Write complex joins, window functions, CTEs, and subqueries 
-            daily. Optimized queries processing 500K+ records with 87% runtime improvement through indexing 
+            Expert in PostgreSQL and MySQL. Write complex joins, window functions, CTEs, and subqueries
+            daily. Optimized queries processing 500K+ records with 87% runtime improvement through indexing
             and query restructuring.
           </p>
         </div>
@@ -1419,8 +1624,8 @@
           <h3 class="skill-name">Power BI & Tableau</h3>
           <div class="skill-level">15+ interactive dashboards</div>
           <p class="skill-description">
-            Created executive dashboards with advanced DAX calculations, drill-throughs, and automated 
-            data refresh. Expert in data modeling, calculated measures, and connecting multiple data sources 
+            Created executive dashboards with advanced DAX calculations, drill-throughs, and automated
+            data refresh. Expert in data modeling, calculated measures, and connecting multiple data sources
             (SQL, Excel, APIs).
           </p>
         </div>
@@ -1432,8 +1637,8 @@
           <h3 class="skill-name">Advanced Excel</h3>
           <div class="skill-level">Power Query, VBA, complex modeling</div>
           <p class="skill-description">
-            Advanced pivot tables, Power Query for ETL, complex formulas (INDEX-MATCH, array formulas), 
-            scenario analysis, and VBA automation. Built financial models processing 100K+ rows with 
+            Advanced pivot tables, Power Query for ETL, complex formulas (INDEX-MATCH, array formulas),
+            scenario analysis, and VBA automation. Built financial models processing 100K+ rows with
             dynamic dashboards.
           </p>
         </div>
@@ -1445,8 +1650,8 @@
           <h3 class="skill-name">Machine Learning</h3>
           <div class="skill-level">Classification, regression, clustering</div>
           <p class="skill-description">
-            Deployed supervised (XGBoost, Random Forest, Logistic Regression) and unsupervised models 
-            (K-means, hierarchical clustering). Experience with time series forecasting (ARIMA, Prophet) 
+            Deployed supervised (XGBoost, Random Forest, Logistic Regression) and unsupervised models
+            (K-means, hierarchical clustering). Experience with time series forecasting (ARIMA, Prophet)
             and model evaluation metrics.
           </p>
         </div>
@@ -1458,8 +1663,8 @@
           <h3 class="skill-name">Statistical Analysis</h3>
           <div class="skill-level">Hypothesis testing, A/B testing</div>
           <p class="skill-description">
-            Strong foundation in statistics: hypothesis testing, confidence intervals, regression analysis, 
-            correlation studies, and A/B testing. Use statistical methods to validate insights and ensure 
+            Strong foundation in statistics: hypothesis testing, confidence intervals, regression analysis,
+            correlation studies, and A/B testing. Use statistical methods to validate insights and ensure
             data-driven decision making.
           </p>
         </div>
@@ -1477,9 +1682,9 @@
         </div>
 
         <p class="contact-text">
-          I'm completing my MBA (Aug 2025) and actively seeking business analyst and data analyst roles 
-          where I can apply machine learning, SQL, and data visualization skills to solve real business 
-          problems. My portfolio demonstrates technical capability—let's discuss how I can contribute to 
+          I'm completing my MBA (Aug 2025) and actively seeking business analyst and data analyst roles
+          where I can apply machine learning, SQL, and data visualization skills to solve real business
+          problems. My portfolio demonstrates technical capability—let's discuss how I can contribute to
           your team's success.
         </p>
 
@@ -1531,8 +1736,8 @@
       If you found this, you're either a developer or just really curious.<br>
       Either way, we should talk. I like curious people.
     </p>
-    <button onclick="document.getElementById('easterEgg').classList.remove('active')" 
-            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric); 
+    <button onclick="document.getElementById('easterEgg').classList.remove('active')"
+            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric);
                    color: var(--bg-dark); border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
       Close
     </button>
@@ -1542,7 +1747,7 @@
     // Cursor Toggle Functionality
     let cursorEnabled = true;
     const cursorToggleBtn = document.getElementById('cursorToggle');
-    
+
     cursorToggleBtn.addEventListener('click', () => {
       cursorEnabled = !cursorEnabled;
       if (cursorEnabled) {
@@ -1552,6 +1757,55 @@
         document.body.classList.add('cursor-disabled');
         cursorToggleBtn.textContent = '💰 Cursor: OFF';
       }
+    });
+
+    // ============================================
+    // GSAP Letter Explosion Animation
+    // ============================================
+    gsap.registerPlugin(ScrollTrigger);
+
+    function initLetterExplosion() {
+      const lines = document.querySelectorAll('.hero-line');
+
+      lines.forEach(lineContainer => {
+        const text = lineContainer.getAttribute('data-line');
+        lineContainer.innerHTML = ''; // Clear
+
+        // Split into letters
+        text.split('').forEach((char, i) => {
+          const letter = document.createElement('span');
+          letter.className = 'letter';
+          letter.textContent = char === ' ' ? '\u00A0' : char; // Preserve spaces
+          letter.setAttribute('data-speed', (0.8 + Math.random() * 0.7).toFixed(2));
+          lineContainer.appendChild(letter);
+        });
+      });
+
+      // Animate letters on scroll
+      const letters = document.querySelectorAll('.letter');
+      letters.forEach(letter => {
+        const speed = parseFloat(letter.getAttribute('data-speed') || '1');
+        const randomRotation = Math.random() * 40 - 20; // ±20 degrees
+
+        gsap.to(letter, {
+          y: () => (1 - speed) * (window.innerHeight * 0.5),
+          rotation: randomRotation,
+          opacity: 0.3,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.5,
+            invalidateOnRefresh: true
+          }
+        });
+      });
+    }
+
+    // Initialize letter explosion on load
+    window.addEventListener('load', () => {
+      initLetterExplosion();
     });
 
     // Smooth scroll
@@ -1568,14 +1822,7 @@
       });
     });
 
-    // Matrix background effect
-    const matrixBg = document.getElementById('matrixBg');
-    const chars = '01$£€¥';
-    let matrix = '';
-    for (let i = 0; i < 150; i++) {
-      matrix += chars.charAt(Math.floor(Math.random() * chars.length)) + ' ';
-    }
-    matrixBg.innerHTML = matrix;
+    // Background is now handled by CSS animations
 
     // Custom Cursor
     const cursor = document.getElementById('customCursor');
@@ -1597,17 +1844,17 @@
 
       document.addEventListener('mousemove', (e) => {
         if (!cursorEnabled) return;
-        
+
         mouseX = e.clientX;
         mouseY = e.clientY;
-        
+
         const dx = mouseX - lastX;
         const dy = mouseY - lastY;
         velocity = Math.sqrt(dx * dx + dy * dy);
-        
+
         cursor.style.left = (mouseX - 20) + 'px';
         cursor.style.top = (mouseY - 20) + 'px';
-        
+
         if (velocity > 40) {
           cursor.textContent = emojis.superFast;
           if (frameCount % 2 === 0) createFire(mouseX, mouseY);
@@ -1616,22 +1863,22 @@
         } else {
           cursor.textContent = currentEmoji;
         }
-        
+
         frameCount++;
         if (frameCount % 5 === 0) createMoney(mouseX, mouseY);
         if (frameCount % 8 === 0) createSparkle(mouseX, mouseY);
         if (currentEmoji === emojis.hover && frameCount % 3 === 0) createRocketTrail(mouseX, mouseY);
-        
+
         lastX = mouseX;
         lastY = mouseY;
       });
 
       document.addEventListener('mousedown', (e) => {
         if (!cursorEnabled) return;
-        
+
         cursor.textContent = emojis.click;
         createPremiumWave(e.clientX, e.clientY);
-        
+
         for (let i = 0; i < 12; i++) {
           setTimeout(() => createBoom(e.clientX, e.clientY, clickEmojis[Math.floor(Math.random() * clickEmojis.length)]), i * 30);
         }
@@ -1742,7 +1989,7 @@
     // Konami code easter egg
     let konamiCode = [];
     const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    
+
     document.addEventListener('keydown', (e) => {
       konamiCode.push(e.key);
       if (konamiCode.length > konamiPattern.length) {
@@ -1753,6 +2000,317 @@
         konamiCode = [];
       }
     });
+
+    // Create floating data particles
+    function createDataParticles() {
+      const particleCount = 15;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'data-particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (8 + Math.random() * 4) + 's';
+        document.body.appendChild(particle);
+      }
+    }
+
+    // Initialize particles
+    createDataParticles();
+
+    // ============================================
+    // GSAP LETTER EXPLOSION ANIMATION
+    // ============================================
+
+    // Register GSAP ScrollTrigger plugin
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Letter explosion animation on load
+    function initLetterExplosion() {
+      const letters = document.querySelectorAll('.letter');
+
+      if (letters.length === 0) return;
+
+      // Initial state: letters scattered randomly
+      gsap.set(letters, {
+        opacity: 0,
+        scale: 0,
+        rotation: () => Math.random() * 360 - 180,
+        x: () => (Math.random() - 0.5) * 1000,
+        y: () => (Math.random() - 0.5) * 1000
+      });
+
+      // Animate letters flying in and settling
+      gsap.to(letters, {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        x: 0,
+        y: 0,
+        duration: 1.2,
+        ease: 'elastic.out(1, 0.5)',
+        stagger: {
+          amount: 0.8,
+          from: 'random'
+        },
+        delay: 0.3
+      });
+
+      // Floating animation on hover
+      letters.forEach(letter => {
+        letter.addEventListener('mouseenter', () => {
+          gsap.to(letter, {
+            y: -20,
+            rotation: () => Math.random() * 20 - 10,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+
+        letter.addEventListener('mouseleave', () => {
+          gsap.to(letter, {
+            y: 0,
+            rotation: 0,
+            duration: 0.5,
+            ease: 'elastic.out(1, 0.3)'
+          });
+        });
+      });
+
+      // Scroll-triggered dispersion effect
+      letters.forEach((letter, index) => {
+        const speed = 0.5 + Math.random() * 1.5; // Random speed multiplier
+        const direction = Math.random() > 0.5 ? 1 : -1; // Random direction
+
+        gsap.to(letter, {
+          y: () => direction * speed * 300, // Vertical drift
+          rotation: () => (Math.random() - 0.5) * 60, // Random rotation
+          opacity: 0.3,
+          scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.5,
+            onLeave: () => {
+              // Reset when scrolled past
+              gsap.set(letter, { y: 0, rotation: 0, opacity: 1 });
+            },
+            onEnterBack: () => {
+              // Re-animate when scrolling back
+              gsap.to(letter, {
+                y: 0,
+                rotation: 0,
+                opacity: 1,
+                duration: 0.5
+              });
+            }
+          }
+        });
+      });
+    }
+
+    // Magnetic effect on mouse move
+    function initMagneticLetters() {
+      const letters = document.querySelectorAll('.letter');
+      const heroText = document.getElementById('heroText');
+
+      if (!heroText) return;
+
+      heroText.addEventListener('mousemove', (e) => {
+        const rect = heroText.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+
+        letters.forEach(letter => {
+          const letterRect = letter.getBoundingClientRect();
+          const letterCenterX = letterRect.left + letterRect.width / 2 - rect.left;
+          const letterCenterY = letterRect.top + letterRect.height / 2 - rect.top;
+
+          const deltaX = mouseX - letterCenterX;
+          const deltaY = mouseY - letterCenterY;
+          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+          // Magnetic effect within 150px radius
+          if (distance < 150) {
+            const force = (150 - distance) / 150;
+            const moveX = (deltaX / distance) * force * 20;
+            const moveY = (deltaY / distance) * force * 20;
+
+            gsap.to(letter, {
+              x: moveX,
+              y: moveY,
+              duration: 0.3,
+              ease: 'power2.out'
+            });
+          } else {
+            gsap.to(letter, {
+              x: 0,
+              y: 0,
+              duration: 0.5,
+              ease: 'elastic.out(1, 0.3)'
+            });
+          }
+        });
+      });
+
+      heroText.addEventListener('mouseleave', () => {
+        letters.forEach(letter => {
+          gsap.to(letter, {
+            x: 0,
+            y: 0,
+            duration: 0.8,
+            ease: 'elastic.out(1, 0.3)'
+          });
+        });
+      });
+    }
+
+    // Glitch effect on stats
+    function initStatsGlitch() {
+      const statValues = document.querySelectorAll('.stat-value');
+
+      statValues.forEach(stat => {
+        // Glitch animation on scroll into view
+        ScrollTrigger.create({
+          trigger: stat,
+          start: 'top 80%',
+          onEnter: () => {
+            // Number count-up animation
+            const finalText = stat.textContent;
+            const isNumber = /^\d+\+?$/.test(finalText.replace(/[K£M,]/g, ''));
+
+            if (isNumber) {
+              const target = parseInt(finalText.replace(/[^\d]/g, ''));
+              gsap.from(stat, {
+                textContent: 0,
+                duration: 2,
+                ease: 'power1.out',
+                snap: { textContent: 1 },
+                onUpdate: function() {
+                  stat.textContent = Math.ceil(this.targets()[0].textContent) + (finalText.includes('+') ? '+' : '');
+                }
+              });
+            }
+
+            // Glitch effect
+            gsap.fromTo(stat,
+              {
+                opacity: 0,
+                scale: 0.5,
+                filter: 'blur(10px)'
+              },
+              {
+                opacity: 1,
+                scale: 1,
+                filter: 'blur(0px)',
+                duration: 0.6,
+                ease: 'back.out(1.7)'
+              }
+            );
+          }
+        });
+      });
+    }
+
+    // Parallax effect on project cards
+    function initProjectParallax() {
+      const projectCards = document.querySelectorAll('.project-card');
+
+      projectCards.forEach((card, index) => {
+        // Stagger entrance
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            end: 'top 20%',
+            toggleActions: 'play none none reverse'
+          },
+          y: 100,
+          opacity: 0,
+          rotation: index % 2 === 0 ? -5 : 5,
+          duration: 0.8,
+          ease: 'power3.out',
+          delay: index * 0.1
+        });
+
+        // Parallax on scroll
+        gsap.to(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          },
+          y: -50,
+          ease: 'none'
+        });
+      });
+    }
+
+    // Skill card animations
+    function initSkillAnimations() {
+      const skillCards = document.querySelectorAll('.skill-card');
+
+      skillCards.forEach((card, index) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          },
+          scale: 0.8,
+          opacity: 0,
+          rotationY: 90,
+          duration: 0.8,
+          ease: 'back.out(1.5)',
+          delay: index * 0.05
+        });
+
+        // Hover effect
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            scale: 1.05,
+            rotationY: 5,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        });
+
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            scale: 1,
+            rotationY: 0,
+            duration: 0.5,
+            ease: 'elastic.out(1, 0.3)'
+          });
+        });
+      });
+    }
+
+    // Initialize all GSAP animations
+    function initAllAnimations() {
+      // Wait for GSAP to be available
+      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+        console.warn('GSAP or ScrollTrigger not loaded');
+        return;
+      }
+
+      initLetterExplosion();
+      initMagneticLetters();
+      initStatsGlitch();
+      initProjectParallax();
+      initSkillAnimations();
+
+      // Refresh ScrollTrigger after all animations are set
+      ScrollTrigger.refresh();
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAllAnimations);
+    } else {
+      // DOM is already ready
+      setTimeout(initAllAnimations, 100);
+    }
   </script>
 </body>
 </html>
