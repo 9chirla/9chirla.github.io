@@ -2,2444 +2,563 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Naveen Reddy Chirla | Business Analyst & Data Scientist</title>
-  <meta name="description" content="Business Analyst specializing in machine learning, SQL, Power BI, and predictive modeling. MBA candidate with 10+ data projects solving real business problems.">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <!-- GSAP for advanced animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naveen Reddy Chirla · Business Analyst & Builder</title>
+  <meta name="description" content="Business Analyst and MBA candidate in London. Shipping data products and full-stack apps — Jacked, Voyager AI, Applylytics, and more." />
+  <meta name="theme-color" content="#C3FA08" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     :root {
-      --bg-dark: #0d0d0d;
-      --bg-card: #1a1a1a;
-      --accent-electric: #00ff88;
-      --accent-warning: #ff3366;
-      --accent-info: #00d4ff;
-      --text-primary: #ffffff;
-      --text-secondary: #a0a0a0;
-      --border-subtle: #2a2a2a;
+      --bg: #0e110d;
+      --surface: #171b15;
+      --surface-2: #1e231c;
+      --ink: #f2f5ee;
+      --muted: #9aa394;
+      --line: #2c3329;
+      --accent: #c3fa08;
+      --accent-ink: #0b0e0c;
+      --accent-glow: rgba(195, 250, 8, 0.16);
+      --radius: 14px;
+      --radius-lg: 22px;
+      --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+      --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+      --nav-h: 64px;
     }
 
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Space Grotesk', sans-serif;
-      background: var(--bg-dark);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-      cursor: none;
-      position: relative;
-    }
-
-    /* Animated Gradient Mesh Background */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+      margin: 0;
+      min-height: 100%;
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--ink);
       background:
-        radial-gradient(ellipse at 20% 30%, rgba(0, 255, 136, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 70%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(255, 51, 102, 0.05) 0%, transparent 60%);
-      animation: gradientShift 20s ease infinite;
+        radial-gradient(120% 80% at 100% -10%, var(--accent-glow), transparent 55%),
+        var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .wrap {
+      width: min(1080px, calc(100% - 2rem));
+      margin-inline: auto;
     }
 
-    @keyframes gradientShift {
-      0%, 100% {
-        opacity: 1;
-        transform: scale(1) rotate(0deg);
-      }
-      50% {
-        opacity: 0.8;
-        transform: scale(1.1) rotate(5deg);
-      }
-    }
-
-    body.cursor-disabled {
-      cursor: auto;
-    }
-
-    body.cursor-disabled #customCursor {
-      display: none;
-    }
-
-    /* Custom Cursor */
-    #customCursor {
-      position: fixed;
-      font-size: 32px;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease;
-      will-change: transform;
-    }
-
-    .cursor-money, .cursor-sparkle, .cursor-fire, .cursor-boom,
-    .cursor-rocket-trail, .cursor-premium-wave, .cursor-confetti {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      font-size: 20px;
-    }
-
-    .cursor-money {
-      animation: float-money 1s ease-out forwards;
-    }
-
-    @keyframes float-money {
-      to {
-        transform: translateY(-60px);
-        opacity: 0;
-      }
-    }
-
-    .cursor-sparkle {
-      animation: sparkle-pop 0.6s ease-out forwards;
-    }
-
-    @keyframes sparkle-pop {
-      0% { transform: scale(0); opacity: 1; }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(0.8); opacity: 0; }
-    }
-
-    .cursor-fire {
-      animation: fire-fade 0.4s ease-out forwards;
-    }
-
-    @keyframes fire-fade {
-      to {
-        transform: scale(1.5);
-        opacity: 0;
-      }
-    }
-
-    .cursor-boom {
-      animation: boom-explode 0.6s ease-out forwards;
-    }
-
-    @keyframes boom-explode {
-      to {
-        transform: translate(var(--tx), var(--ty)) scale(0.5);
-        opacity: 0;
-      }
-    }
-
-    .cursor-rocket-trail {
-      width: 3px;
-      height: 20px;
-      background: linear-gradient(to bottom, var(--accent-electric), transparent);
-      animation: trail-fade 0.3s ease-out forwards;
-    }
-
-    @keyframes trail-fade {
-      to {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-    }
-
-    .cursor-premium-wave {
-      width: 20px;
-      height: 20px;
-      border: 3px solid var(--accent-electric);
-      border-radius: 50%;
-      animation: premium-wave 0.8s ease-out forwards;
-    }
-
-    @keyframes premium-wave {
-      to {
-        width: 80px;
-        height: 80px;
-        opacity: 0;
-      }
-    }
-
-    .cursor-confetti {
-      animation: confetti-fall 1s ease-out forwards;
-    }
-
-    @keyframes confetti-fall {
-      to {
-        transform: translateY(100px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    /* Cursor Toggle Button */
-    .cursor-toggle {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 10000;
-      background: var(--bg-card);
-      border: 2px solid var(--accent-electric);
-      color: var(--accent-electric);
-      padding: 12px 20px;
-      border-radius: 50px;
-      font-family: 'Fira Code', monospace;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 255, 136, 0.3);
-    }
-
-    .cursor-toggle:hover {
-      background: var(--accent-electric);
-      color: var(--bg-dark);
-      transform: scale(1.05);
-    }
-
-    /* Floating Orbs Background */
-    .bg-orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.3;
-      pointer-events: none;
-      z-index: -1;
-      animation: float 15s ease-in-out infinite;
-    }
-
-    .bg-orb-1 {
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(0, 255, 136, 0.4), transparent);
-      top: -200px;
-      left: -200px;
-      animation-duration: 20s;
-    }
-
-    .bg-orb-2 {
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0, 212, 255, 0.3), transparent);
-      top: 50%;
-      right: -150px;
-      animation-duration: 25s;
-      animation-delay: -8s;
-    }
-
-    .bg-orb-3 {
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(255, 51, 102, 0.2), transparent);
-      bottom: -250px;
-      left: 20%;
-      animation-duration: 30s;
-      animation-delay: -15s;
-    }
-
-    @keyframes float {
-      0%, 100% {
-        transform: translate(0, 0) scale(1);
-      }
-      33% {
-        transform: translate(50px, -50px) scale(1.15);
-      }
-      66% {
-        transform: translate(-30px, 30px) scale(0.85);
-      }
-    }
-
-    /* Subtle Grid Overlay */
-    .grid-overlay {
-      position: fixed;
+    /* Nav */
+    .nav {
+      position: sticky;
       top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      opacity: 0.025;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(0, 255, 136, 0.15) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 136, 0.15) 1px, transparent 1px);
-      background-size: 60px 60px;
-      animation: gridPulse 10s ease infinite;
-    }
-
-    @keyframes gridPulse {
-      0%, 100% { opacity: 0.025; }
-      50% { opacity: 0.04; }
-    }
-
-    /* Animated Scan Line */
-    .scan-line {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(0, 255, 136, 0.5) 50%,
-        transparent 100%);
-      z-index: 0;
-      pointer-events: none;
-      animation: scan 12s linear infinite;
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
-    }
-
-    @keyframes scan {
-      0% {
-        transform: translateY(0);
-        opacity: 0;
-      }
-      5% {
-        opacity: 1;
-      }
-      95% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
-    }
-
-    /* Data Particles */
-    .data-particle {
-      position: fixed;
-      width: 4px;
-      height: 4px;
-      background: var(--accent-electric);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0;
-      animation: particleFloat 8s ease-in-out infinite;
-      box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
-    }
-
-    @keyframes particleFloat {
-      0% {
-        opacity: 0;
-        transform: translateY(100vh) translateX(0);
-      }
-      10% {
-        opacity: 0.6;
-      }
-      90% {
-        opacity: 0.6;
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-100px) translateX(100px);
-      }
-    }
-
-    /* Navbar */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1rem 5%;
-      backdrop-filter: blur(20px);
-      background: rgba(13, 13, 13, 0.95);
-      border-bottom: 1px solid var(--border-subtle);
-      z-index: 1000;
-    }
-
-    .nav-content {
-      max-width: 1400px;
-      margin: 0 auto;
+      z-index: 40;
+      height: var(--nav-h);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--bg) 86%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
     }
-
-    .nav-logo {
-      font-family: 'Fira Code', monospace;
-      color: var(--accent-electric);
-      font-size: 1.1rem;
-      font-weight: 600;
+    .nav-inner {
+      width: min(1080px, calc(100% - 2rem));
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
-
+    .brand {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.02em;
+    }
+    .brand span { color: var(--accent); }
     .nav-links {
       display: flex;
-      gap: 2rem;
-      list-style: none;
+      gap: 1.25rem;
+      font-size: 0.9375rem;
+      color: var(--muted);
     }
+    .nav-links a:hover { color: var(--ink); }
 
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      transition: color 0.3s;
-      font-size: 0.95rem;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-electric);
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 5%;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Hero Section */
+    /* Hero — one composition, brand first */
     .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      gap: 5rem;
-      padding-top: 100px;
-    }
-
-    .hero-left {
-      flex: 1;
-    }
-
-    .hero-right {
-      flex: 0 0 400px;
-      position: relative;
-    }
-
-    .profile-wrapper {
-      position: relative;
-      width: 400px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      min-height: calc(100svh - var(--nav-h));
+      display: grid;
+      align-content: center;
+      padding: 3rem 0 4rem;
       gap: 1.5rem;
     }
-
-    .name-highlight {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: var(--accent-electric);
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: -0.02em;
-      text-align: center;
-      margin-bottom: 0.5rem;
+    .hero-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
     }
-
-    .profile-image {
-      width: 400px;
-      height: 400px;
-      border-radius: 24px;
-      background-image: url('assets/FullSizeRender 2.jpg');
-      background-size: cover;
-      background-position: center;
-      border: 3px solid var(--accent-electric);
-      box-shadow: 0 0 60px rgba(0, 255, 136, 0.3);
-      position: relative;
-      z-index: 2;
-    }
-
-    .profile-image::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
-      border-radius: 24px;
-      z-index: -1;
-    }
-
-    .profile-wrapper::before {
-      content: '';
-      position: absolute;
-      top: 60px;
-      left: -20px;
-      right: -20px;
-      bottom: 60px;
-      background: linear-gradient(45deg, var(--accent-electric), var(--accent-info), var(--accent-warning));
-      border-radius: 24px;
-      z-index: 1;
-      opacity: 0.15;
-      filter: blur(25px);
-      animation: rotate-gradient 8s linear infinite;
-    }
-
-    @keyframes rotate-gradient {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .profile-badge {
-      background: var(--bg-dark);
-      border: 2px solid var(--accent-electric);
-      padding: 0.75rem 1.5rem;
-      border-radius: 50px;
-      font-family: 'Fira Code', monospace;
-      font-weight: 600;
-      color: var(--accent-electric);
-      z-index: 3;
-      font-size: 0.9rem;
-    }
-
-    .glitch-text {
-      font-size: 6rem;
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2.75rem, 8vw, 4.5rem);
       font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 2rem;
-      position: relative;
-      min-height: 300px;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin: 0;
+      max-width: 14ch;
     }
-
-    .hero-line {
+    .hero-name em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero-lead {
+      margin: 0;
+      max-width: 36rem;
+      font-size: 1.125rem;
+      color: var(--muted);
+    }
+    .cta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.1rem;
-      margin-bottom: 1rem;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
     }
-
-    .letter {
-      display: inline-block;
-      font-size: 6rem;
-      font-weight: 700;
-      transition: none; /* Let GSAP handle transitions */
-      will-change: transform, opacity;
-      position: relative;
-      transform-style: preserve-3d;
-      cursor: pointer;
-    }
-
-    .line1-container .letter {
-      color: var(--text-secondary);
-      text-shadow: 0 0 20px rgba(0, 255, 136, 0);
-    }
-
-    .line2-container .letter {
-      background: linear-gradient(45deg, var(--accent-electric), var(--accent-info));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0));
-    }
-
-    .letter:hover {
-      transform: scale(1.1);
-    }
-
-    .line1-container .letter:hover {
-      text-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
-    }
-
-    .line2-container .letter:hover {
-      filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.6));
-    }
-
-    .hero-subtext {
-      font-size: 1.4rem;
-      color: var(--text-secondary);
-      max-width: 650px;
-      margin-bottom: 2.5rem;
-      line-height: 1.5;
-    }
-
-    .hero-subtext .highlight {
-      color: var(--accent-electric);
-      font-weight: 600;
-    }
-
-    /* Quick Stats */
-    .quick-stats {
-      display: flex;
-      gap: 3rem;
-      margin-bottom: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .stat-value {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--accent-electric);
-      font-family: 'Fira Code', monospace;
-    }
-
-    .stat-label {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-    }
-
-    /* CTA Buttons */
-    .cta-buttons {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
     .btn {
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s;
-      font-size: 1rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.75rem;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 1.25rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      border: 1px solid transparent;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
     }
-
-    .btn i {
-      font-size: 18px;
-    }
-
+    .btn:hover { transform: translateY(-1px); }
     .btn-primary {
-      background: var(--accent-electric);
-      color: var(--bg-dark);
-      border: 2px solid var(--accent-electric);
+      background: var(--accent);
+      color: var(--accent-ink);
     }
-
-    .btn-primary:hover {
-      background: transparent;
-      color: var(--accent-electric);
-      transform: translateY(-2px);
-    }
-
     .btn-secondary {
       background: transparent;
-      color: var(--text-primary);
-      border: 2px solid var(--border-subtle);
+      border-color: var(--line);
+      color: var(--ink);
+    }
+    .btn-secondary:hover { border-color: var(--muted); }
+
+    .motion-in {
+      animation: settle 520ms ease both;
+    }
+    .motion-in:nth-child(2) { animation-delay: 60ms; }
+    .motion-in:nth-child(3) { animation-delay: 120ms; }
+    .motion-in:nth-child(4) { animation-delay: 180ms; }
+    @keyframes settle {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: none; }
     }
 
-    .btn-secondary:hover {
-      border-color: var(--accent-electric);
-      color: var(--accent-electric);
-      transform: translateY(-2px);
-    }
-
-    /* Section Styles */
+    /* Sections */
     section {
-      padding: 8rem 0;
+      padding: 4.5rem 0;
+      border-top: 1px solid var(--line);
     }
-
-    .section-header {
-      margin-bottom: 4rem;
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0 0 0.75rem;
     }
-
     .section-title {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 650;
+      letter-spacing: -0.03em;
+      margin: 0 0 0.75rem;
+    }
+    .section-lead {
+      margin: 0 0 2rem;
+      max-width: 40rem;
+      color: var(--muted);
     }
 
-    .section-subtitle {
-      font-size: 1.2rem;
-      color: var(--text-secondary);
-      max-width: 700px;
-    }
-
-    /* About Section */
-    .about-content {
+    /* About */
+    .about-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      gap: 2rem;
+      grid-template-columns: 1.2fr 0.8fr;
       align-items: start;
     }
-
-    .about-text p {
-      color: var(--text-secondary);
-      margin-bottom: 1.5rem;
-      font-size: 1.1rem;
-      line-height: 1.7;
+    .about-copy p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      max-width: 40rem;
     }
-
-    .about-text strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .education-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 2rem;
-      margin-top: 2rem;
-    }
-
-    .education-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--accent-electric);
-      margin-bottom: 0.5rem;
-    }
-
-    .education-school {
-      color: var(--text-primary);
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .education-year {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-
-    /* Testimonial */
-    .testimonial {
-      background: var(--bg-card);
-      border-left: 4px solid var(--accent-electric);
-      padding: 2rem;
-      border-radius: 12px;
-      position: relative;
-    }
-
-    .testimonial-quote {
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-      font-style: italic;
-    }
-
-    .testimonial-author {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .testimonial-name {
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: 1rem;
-    }
-
-    .testimonial-title {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    .testimonial::before {
-      content: '"';
-      position: absolute;
-      top: 1rem;
-      left: 1.5rem;
-      font-size: 4rem;
-      color: var(--accent-electric);
-      opacity: 0.2;
-      font-family: Georgia, serif;
-    }
-
-    /* Projects Section */
-    .projects-grid {
+    .about-copy strong { color: var(--ink); font-weight: 600; }
+    .edu {
+      margin-top: 1.5rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 2.5rem;
+      gap: 0.75rem;
     }
-
-    .project-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      padding: 2.5rem;
-      transition: all 0.3s;
-      position: relative;
+    .edu-item {
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .edu-item h3 {
+      margin: 0 0 0.25rem;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .edu-item p { margin: 0; font-size: 0.875rem; color: var(--muted); }
+    .portrait {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
       overflow: hidden;
+      background: var(--surface);
+      aspect-ratio: 4 / 5;
+    }
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .portrait-cap {
+      padding: 0.85rem 1rem;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      border-top: 1px solid var(--line);
     }
 
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent-electric), var(--accent-info));
-      transform: scaleX(0);
-      transition: transform 0.3s;
-    }
-
-    .project-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .project-card:hover {
-      border-color: var(--accent-electric);
-      transform: translateY(-5px);
-    }
-
-    .project-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-      margin-bottom: 1.5rem;
-    }
-
-    .project-number {
-      font-family: 'Fira Code', monospace;
-      color: var(--accent-electric);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .project-links {
-      display: flex;
+    /* Projects */
+    .project-list {
+      display: grid;
       gap: 1rem;
     }
-
-    .project-link {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.9rem;
+    .project {
+      display: grid;
+      gap: 1rem;
+      padding: 1.25rem 1.35rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      transition: border-color 160ms ease, background 160ms ease;
+    }
+    .project:hover {
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+      background: var(--surface-2);
+    }
+    .project-top {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      background: rgba(0, 255, 136, 0.05);
-      border: 1px solid transparent;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem 1rem;
+      align-items: baseline;
+    }
+    .project-id {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+    }
+    .project-links a {
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .project-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .project h3 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .project p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 48rem;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tag {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      padding: 0.3rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
     }
 
-    .project-link:hover {
-      color: var(--accent-electric);
-      background: rgba(0, 255, 136, 0.1);
-      border-color: rgba(0, 255, 136, 0.3);
+    /* Skills */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
     }
-
-    .project-link i {
-      font-size: 14px;
+    .skill {
+      padding: 1.15rem 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
     }
-
-    .project-title {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .project-description {
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
+    .skill h3 {
+      margin: 0 0 0.4rem;
+      font-family: var(--font-display);
       font-size: 1.05rem;
-    }
-
-    .project-impact {
-      background: rgba(0, 255, 136, 0.05);
-      border-left: 3px solid var(--accent-electric);
-      padding: 1rem 1.5rem;
-      margin-bottom: 1.5rem;
-      border-radius: 8px;
-    }
-
-    .impact-label {
-      color: var(--accent-electric);
-      font-weight: 600;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 0.5rem;
-    }
-
-    .impact-text {
-      color: var(--text-primary);
-      font-size: 1.05rem;
       font-weight: 600;
     }
+    .skill p { margin: 0; font-size: 0.9rem; color: var(--muted); }
 
-    .project-tech {
+    /* Contact */
+    .contact-row {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
     }
 
-    .tech-tag {
-      background: rgba(0, 255, 136, 0.1);
-      color: var(--accent-electric);
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-family: 'Fira Code', monospace;
-      border: 1px solid rgba(0, 255, 136, 0.2);
-    }
-
-    /* Cinema Break */
-    .cinema-break {
-      margin: 8rem 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .cinema-break img {
-      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Skills Section */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-
-    .skill-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 2rem;
-      transition: all 0.3s;
-    }
-
-    .skill-card:hover {
-      border-color: var(--accent-electric);
-      transform: translateY(-3px);
-    }
-
-    .skill-icon {
-      width: 70px;
-      height: 70px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 212, 255, 0.1));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      border: 2px solid rgba(0, 255, 136, 0.2);
-      transition: all 0.3s;
-    }
-
-    .skill-icon i {
-      font-size: 32px;
-      color: var(--accent-electric);
-    }
-
-    .skill-card:hover .skill-icon {
-      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 212, 255, 0.2));
-      border-color: var(--accent-electric);
-      transform: translateY(-3px);
-    }
-
-    .skill-name {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .skill-level {
-      color: var(--accent-electric);
-      font-family: 'Fira Code', monospace;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
-
-    .skill-description {
-      color: var(--text-secondary);
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    /* Contact Section */
-    .contact-content {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .contact-text {
-      font-size: 1.3rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 3rem;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
-    }
-
-    .contact-card {
-      background: var(--bg-card);
-      border: 2px solid var(--border-subtle);
-      border-radius: 16px;
-      padding: 2rem 1.5rem;
-      text-decoration: none;
-      transition: all 0.3s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .contact-card:hover {
-      border-color: var(--accent-electric);
-      transform: translateY(-5px);
-      box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
-    }
-
-    .contact-icon {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: rgba(0, 255, 136, 0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-electric);
-      transition: all 0.3s;
-    }
-
-    .contact-icon i {
-      font-size: 26px;
-    }
-
-    .contact-card:hover .contact-icon {
-      background: rgba(0, 255, 136, 0.2);
-      transform: scale(1.1);
-    }
-
-    .contact-label {
-      color: var(--text-primary);
-      font-weight: 600;
-      font-size: 1.1rem;
-    }
-
-    /* Footer */
     footer {
-      background: var(--bg-card);
-      border-top: 1px solid var(--border-subtle);
-      padding: 2rem 5%;
-      margin-top: 6rem;
-    }
-
-    .footer-content {
-      max-width: 1400px;
-      margin: 0 auto;
+      padding: 2rem 0 3rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.875rem;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
-      align-items: center;
-      color: var(--text-secondary);
-      font-size: 0.95rem;
+      gap: 0.75rem;
+    }
+    footer a:hover { color: var(--ink); }
+
+    @media (max-width: 800px) {
+      .about-grid,
+      .skills { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .portrait { max-width: 280px; }
     }
 
-    /* Easter Egg */
-    .konami-activated {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      background: var(--bg-card);
-      border: 3px solid var(--accent-electric);
-      border-radius: 20px;
-      padding: 3rem;
-      z-index: 10001;
-      opacity: 0;
-      pointer-events: none;
-      transition: all 0.3s;
-      text-align: center;
-      max-width: 500px;
-    }
-
-    .konami-activated.active {
-      opacity: 1;
-      pointer-events: all;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    /* Mobile Styles */
-    @media (max-width: 968px) {
-      .hero {
-        flex-direction: column-reverse;
-        gap: 3rem;
-        padding-top: 120px;
-      }
-
-      .hero-left, .hero-right {
-        flex: none;
-        width: 100%;
-      }
-
-      .profile-wrapper {
-        width: 100%;
-        max-width: 350px;
-        margin: 0 auto;
-      }
-
-      .profile-image {
-        width: 100%;
-        max-width: 350px;
-        height: auto;
-        aspect-ratio: 1;
-      }
-
-      .glitch-text {
-        font-size: 3.5rem;
-        min-height: 200px;
-      }
-
-      .letter {
-        font-size: 3.5rem;
-      }
-
-      .hero-subtext {
-        font-size: 1.2rem;
-      }
-
-      .section-title {
-        font-size: 2.2rem;
-      }
-
-      .about-content {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .cinema-break {
-        margin: 4rem 0;
-      }
-
-      .cinema-break img {
-        border-radius: 8px;
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        gap: 1rem;
-      }
-
-      .quick-stats {
-        gap: 2rem;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-        justify-content: center;
-      }
-
-      #customCursor {
-        display: none !important;
-      }
-
-      body {
-        cursor: auto !important;
-      }
-
-      .cursor-toggle {
-        display: none;
-      }
-    }
-
-    @media (max-width: 640px) {
-      nav {
-        padding: 1rem 3%;
-      }
-
-      .container {
-        padding: 0 3%;
-      }
-
-      section {
-        padding: 5rem 0;
-      }
-
-      .glitch-text {
-        font-size: 2.5rem;
-        min-height: 160px;
-      }
-
-      .letter {
-        font-size: 2.5rem;
-      }
-
-      .hero-subtext {
-        font-size: 1.1rem;
-      }
-
-      .section-title {
-        font-size: 1.8rem;
-      }
-
-      .stat-value {
-        font-size: 2rem;
-      }
-
-      .footer-content {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      .motion-in { animation: none; }
+      .btn:hover { transform: none; }
+      html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
-  <!-- Custom Cursor -->
-  <div id="customCursor">💰</div>
-
-  <!-- Cursor Toggle Button -->
-  <button class="cursor-toggle" id="cursorToggle">💰 Cursor: ON</button>
-
-  <!-- Sophisticated Background Elements -->
-  <div class="bg-orb bg-orb-1"></div>
-  <div class="bg-orb bg-orb-2"></div>
-  <div class="bg-orb bg-orb-3"></div>
-  <div class="grid-overlay"></div>
-  <div class="scan-line"></div>
-
-  <!-- Navigation -->
-  <nav>
-    <div class="nav-content">
-      <div class="nav-logo">naveen@portfolio:~$</div>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">Naveen<span>.</span></a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <!-- Main Content -->
-  <div class="container">
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-left">
-        <h1 class="glitch-text" id="heroText">
-          <div class="hero-line line1-container" data-line="Business Analyst"></div>
-          <div class="hero-line line2-container" data-line="Turning Data Into Decisions"></div>
-        </h1>
-        <p class="hero-subtext">
-          I build <span class="highlight">predictive models</span> that forecast outcomes,
-          <span class="highlight">dashboards</span> that drive executive decisions, and
-          <span class="highlight">analysis frameworks</span> that turn complex data into clear action plans.
+  <main id="top">
+    <div class="wrap hero">
+      <p class="hero-kicker motion-in">Business Analyst · MBA · London</p>
+      <h1 class="hero-name motion-in">Naveen Reddy <em>Chirla</em></h1>
+      <p class="hero-lead motion-in">
+        I turn operational data into decisions — and ship small, usable products when a spreadsheet isn’t enough.
+      </p>
+      <div class="cta-row motion-in">
+        <a class="btn btn-primary" href="#work">View work</a>
+        <a class="btn btn-secondary" href="assets/resume.pdf">Download resume</a>
+      </div>
+    </div>
+
+    <section id="work">
+      <div class="wrap">
+        <p class="section-label">Selected work</p>
+        <h2 class="section-title">Projects on GitHub</h2>
+        <p class="section-lead">
+          Public repos I’m actively shipping — product apps and automation, not demo notebooks.
         </p>
 
-        <div class="quick-stats">
-          <div class="stat-item">
-            <div class="stat-value">10+</div>
-            <div class="stat-label">Data Projects Built</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">500K+</div>
-            <div class="stat-label">Records Analyzed</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-value">15+</div>
-            <div class="stat-label">Dashboards Created</div>
-          </div>
-        </div>
+        <div class="project-list">
+          <article class="project">
+            <div class="project-top">
+              <span class="project-id">01 · Product</span>
+              <div class="project-links">
+                <a href="https://github.com/9chirla/jacked">GitHub</a>
+                <a href="https://jacked-gold.vercel.app">Live</a>
+              </div>
+            </div>
+            <h3>Jacked</h3>
+            <p>
+              Offline-first fitness PWA for rotating shifts. Sunday week planner (A→B→A),
+              keypad workout logging, IndexedDB outbox sync, Supabase + Next.js on a $0 stack.
+            </p>
+            <div class="tags">
+              <span class="tag">Next.js</span>
+              <span class="tag">React</span>
+              <span class="tag">Supabase</span>
+              <span class="tag">PWA</span>
+              <span class="tag">TypeScript</span>
+            </div>
+          </article>
 
-        <div class="cta-buttons">
-          <a href="#projects" class="btn btn-primary">
-            <i class="fas fa-briefcase"></i>
-            View My Work
-          </a>
-          <a href="assets/Naveen_Chirla_Resume.pdf" target="_blank" class="btn btn-secondary">
-            <i class="fas fa-file-pdf"></i>
-            Download Resume
-          </a>
-        </div>
-      </div>
+          <article class="project">
+            <div class="project-top">
+              <span class="project-id">02 · Product</span>
+              <div class="project-links">
+                <a href="https://github.com/9chirla/voyager-ai">GitHub</a>
+                <a href="https://9chirla.github.io/voyager-ai/">Live</a>
+              </div>
+            </div>
+            <h3>Voyager AI</h3>
+            <p>
+              Trip planner with a 10-step intake wizard and one streaming itinerary.
+              Day plan, packing checklist, downloadable notes — no endless chat.
+            </p>
+            <div class="tags">
+              <span class="tag">React</span>
+              <span class="tag">Vite</span>
+              <span class="tag">DeepSeek</span>
+              <span class="tag">Express</span>
+            </div>
+          </article>
 
-      <div class="hero-right">
-        <div class="profile-wrapper">
-          <div class="name-highlight">Naveen Reddy Chirla</div>
-          <div class="profile-image"></div>
-          <div class="profile-badge">MBA Candidate | Business Analyst</div>
+          <article class="project">
+            <div class="project-top">
+              <span class="project-id">03 · Product</span>
+              <div class="project-links">
+                <a href="https://github.com/9chirla/Applylytics">GitHub</a>
+              </div>
+            </div>
+            <h3>Applylytics</h3>
+            <p>
+              ATS scoring and AI coaching for CVs. Match score, missing keywords,
+              hiring-manager feedback, and a downloadable Word CV.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">Groq</span>
+              <span class="tag">Render</span>
+            </div>
+          </article>
+
+          <article class="project">
+            <div class="project-top">
+              <span class="project-id">04 · Automation</span>
+              <div class="project-links">
+                <a href="https://github.com/9chirla/bots-over-bosses">GitHub</a>
+              </div>
+            </div>
+            <h3>Bots Over Bosses</h3>
+            <p>
+              Daily UK job search agent: Adzuna search, DeepSeek fit scoring,
+              Telegram digest, and tailored CV + cover letters to Google Drive.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Telegram</span>
+              <span class="tag">DeepSeek</span>
+              <span class="tag">GitHub Actions</span>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- About Section -->
     <section id="about">
-      <div class="section-header">
-        <h2 class="section-title">About Me</h2>
-        <p class="section-subtitle">
-          From business administration to data science—building the skills that turn information into impact
-        </p>
-      </div>
-
-      <div class="about-content">
-        <div class="about-text">
-          <p>
-            I'm completing my <strong>MBA at University of East London</strong> while working as a data analyst
-            in the Graduate Success Service, where I manage analytics for <strong>1,600+ international graduates</strong>.
-            But I didn't stop there—I've spent the past year building a portfolio of <strong>10+ data projects</strong>
-            that demonstrate real business analyst capabilities.
-          </p>
-          <p>
-            From <strong>predicting student enrollment using machine learning</strong> to building
-            <strong>customer segmentation models</strong> for retail businesses, I've analyzed over
-            <strong>500,000 records</strong> using Python, SQL, and Power BI. My projects don't just showcase
-            technical skills—they solve real business problems with measurable outcomes.
-          </p>
-          <p>
-            My approach combines <strong>business acumen</strong> (from my MBA and BBA),
-            <strong>technical expertise</strong> (Python, SQL, Power BI, Excel), and
-            <strong>communication skills</strong> (honed through managing thousands of stakeholder relationships).
-            I don't just crunch numbers—I translate data into stories that drive decisions.
-          </p>
-
-          <div class="education-card">
-            <div class="education-title">Master of Business Administration (MBA)</div>
-            <div class="education-school">University of East London</div>
-            <div class="education-year">Jan 2024 - Aug 2025 | Strategic Analytics, Financial Management, Marketing Strategy</div>
-          </div>
-
-          <div class="education-card" style="margin-top: 1rem;">
-            <div class="education-title">Bachelor of Business Administration (BBA)</div>
-            <div class="education-school">Aditya Global Business School, India</div>
-            <div class="education-year">Aug 2020 - Apr 2023 | Business Statistics, Operations Management, Marketing Research</div>
-          </div>
-        </div>
-
-        <div>
-          <div class="testimonial">
-            <div class="testimonial-quote">
-              Naveen's analytical capabilities go far beyond his role. While managing graduate engagement
-              data at scale, he's simultaneously built a portfolio of sophisticated data projects that
-              demonstrate genuine business analyst skills. His student enrollment prediction model achieved
-              89% accuracy, and his customer segmentation analysis revealed insights that would be valuable
-              to any business. What impresses me most is his ability to combine technical depth with clear
-              business communication—he can build complex models and explain them to non-technical stakeholders.
-            </div>
-            <div class="testimonial-author">
-              <div class="testimonial-name">Dr. Sarah Johnson</div>
-              <div class="testimonial-title">Head of Graduate Success Service, University of East London</div>
+      <div class="wrap">
+        <p class="section-label">About</p>
+        <h2 class="section-title">Analyst who ships</h2>
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>
+              I’m completing my <strong>MBA at the University of East London</strong> while working
+              in graduate success analytics — managing data for <strong>1,600+ international graduates</strong>.
+            </p>
+            <p>
+              I care about clear metrics, honest tooling, and products people can actually use on a phone
+              with bad signal. Same design language as my fitness app <strong>Jacked</strong>: dark UI,
+              Voltage lime accent, no noise.
+            </p>
+            <div class="edu">
+              <div class="edu-item">
+                <h3>MBA</h3>
+                <p>University of East London · Jan 2024 – Aug 2025</p>
+              </div>
+              <div class="edu-item">
+                <h3>BBA</h3>
+                <p>Aditya Global Business School · Aug 2020 – Apr 2023</p>
+              </div>
             </div>
           </div>
+          <figure class="portrait">
+            <img src="assets/portrait.jpg" alt="Portrait of Naveen Reddy Chirla" width="600" height="750" />
+            <figcaption class="portrait-cap">MBA candidate · Business Analyst</figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects">
-      <div class="section-header">
-        <h2 class="section-title">Portfolio Projects</h2>
-        <p class="section-subtitle">
-          Product apps and data projects—from shipping PWAs to predictive models that drive decisions
-        </p>
-      </div>
-
-      <div class="projects-grid">
-        <!-- Featured product: Jacked -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[01]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/jacked" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-              <a href="https://jacked-gold.vercel.app" target="_blank" class="project-link">
-                <i class="fas fa-external-link-alt"></i>
-                Live
-              </a>
-            </div>
-          </div>
-          <h3 class="project-title">Jacked — Fitness PWA</h3>
-          <p class="project-description">
-            Offline-first personal training app for rotating shifts: Sunday week planner (A→B→A),
-            keypad workout logging, IndexedDB outbox sync, Supabase + Next.js on a $0 stack.
-          </p>
-          <div class="project-impact">
-            <div class="impact-label">Product</div>
-            <div class="impact-text">
-              Live on Vercel · installable PWA · RLS-backed data ownership · Phase 11 planner shipped.
-            </div>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Next.js</span>
-            <span class="tech-tag">React</span>
-            <span class="tech-tag">Supabase</span>
-            <span class="tech-tag">PWA</span>
-            <span class="tech-tag">TypeScript</span>
-          </div>
-        </div>
-
-        <!-- Featured product: Voyager -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[02]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/voyager-ai" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-              <a href="https://9chirla.github.io/voyager-ai/" target="_blank" class="project-link">
-                <i class="fas fa-external-link-alt"></i>
-                Live
-              </a>
-            </div>
-          </div>
-          <h3 class="project-title">Voyager AI — Trip Planner</h3>
-          <p class="project-description">
-            10-step intake wizard and one-shot streaming itinerary with DeepSeek. Structured day plan,
-            packing checklist, and downloadable trip notes—no endless chat.
-          </p>
-          <div class="project-impact">
-            <div class="impact-label">Product</div>
-            <div class="impact-text">
-              GitHub Pages demo · React + Vite · Express API · CI + Playwright.
-            </div>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">React</span>
-            <span class="tech-tag">Vite</span>
-            <span class="tech-tag">DeepSeek</span>
-            <span class="tech-tag">Express</span>
-          </div>
-        </div>
-
-        <!-- Featured product: Applylytics -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[03]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/Applylytics" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-            </div>
-          </div>
-          <h3 class="project-title">Applylytics — ATS CV Coach</h3>
-          <p class="project-description">
-            Streamlit app that scores a CV against a job description, surfaces missing keywords,
-            generates hiring-manager feedback, and exports an optimised Word CV.
-          </p>
-          <div class="project-impact">
-            <div class="impact-label">Product</div>
-            <div class="impact-text">
-              Keyword + semantic ATS · Groq/Gemini coaching · optional Redis email worker on Render.
-            </div>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Streamlit</span>
-            <span class="tech-tag">pytest</span>
-            <span class="tech-tag">Render</span>
-          </div>
-        </div>
-
-        <!-- Featured product: Bots Over Bosses -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[04]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/bots-over-bosses" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-            </div>
-          </div>
-          <h3 class="project-title">Bots Over Bosses — Job Agent</h3>
-          <p class="project-description">
-            Daily UK job search pipeline: Adzuna search, AI fit scoring, Telegram digest,
-            and tailored CV + cover letters uploaded to Google Drive.
-          </p>
-          <div class="project-impact">
-            <div class="impact-label">Automation</div>
-            <div class="impact-text">
-              GitHub Actions daily run · DeepSeek scoring · end-to-end apply pack for top matches.
-            </div>
-          </div>
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Telegram</span>
-            <span class="tech-tag">DeepSeek</span>
-            <span class="tech-tag">GitHub Actions</span>
-          </div>
-        </div>
-
-        <!-- Analytics Project -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[05]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/student-enrollment-prediction" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-              <a href="https://github.com/9chirla/student-enrollment-prediction/blob/main/demo.ipynb" target="_blank" class="project-link">
-                <i class="fas fa-external-link-alt"></i>
-                Demo
-              </a>
-            </div>
-          </div>
-
-          <h3 class="project-title">Student Enrollment Prediction Model</h3>
-          <p class="project-description">
-            Built machine learning model to predict student enrollment likelihood using historical admission
-            data from 50,000+ applicants. Analyzed demographics, academic scores, engagement metrics, and
-            application timing to identify high-probability enrollees, enabling targeted recruitment strategies.
-          </p>
-
-          <div class="project-impact">
-            <div class="impact-label">Model Performance</div>
-            <div class="impact-text">
-              89% accuracy in predicting enrollment. Model identified top 20% most likely to enroll with 94% precision.
-            </div>
-          </div>
-
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">scikit-learn</span>
-            <span class="tech-tag">XGBoost</span>
-            <span class="tech-tag">pandas</span>
-            <span class="tech-tag">Feature Engineering</span>
-          </div>
-        </div>
-
-        <!-- Project 6 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[06]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/customer-segmentation-rfm" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-              <a href="https://public.tableau.com/app/profile/naveen.chirla/customer-segments" target="_blank" class="project-link">
-                <i class="fas fa-chart-bar"></i>
-                Dashboard
-              </a>
-            </div>
-          </div>
-
-          <h3 class="project-title">Customer Segmentation & RFM Analysis</h3>
-          <p class="project-description">
-            Performed RFM (Recency, Frequency, Monetary) analysis on 100,000+ e-commerce transactions
-            to segment customers into 11 distinct groups. Used K-means clustering and created interactive
-            Power BI dashboard showing customer lifetime value, churn risk, and targeted marketing recommendations.
-          </p>
-
-          <div class="project-impact">
-            <div class="impact-label">Business Value</div>
-            <div class="impact-text">
-              Identified £450K in high-value customers at risk. Segmentation enabled personalized marketing strategies.
-            </div>
-          </div>
-
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">K-means</span>
-            <span class="tech-tag">RFM Analysis</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">SQL</span>
-          </div>
-        </div>
-
-        <!-- Project 7 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[07]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/sales-forecasting-dashboard" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-              <a href="https://public.tableau.com/app/profile/naveen.chirla/sales-forecast" target="_blank" class="project-link">
-                <i class="fas fa-external-link-alt"></i>
-                Live Demo
-              </a>
-            </div>
-          </div>
-
-          <h3 class="project-title">Sales Forecasting Dashboard</h3>
-          <p class="project-description">
-            Developed time series forecasting model using ARIMA and Prophet to predict next quarter sales
-            across 45 product categories. Built automated Power BI dashboard that updates weekly with actual
-            vs. predicted performance, trend analysis, and inventory planning recommendations.
-          </p>
-
-          <div class="project-impact">
-            <div class="impact-label">Forecast Accuracy</div>
-            <div class="impact-text">
-              92% accuracy over 12-week horizon. Reduced inventory overstock by 35% through better demand planning.
-            </div>
-          </div>
-
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">ARIMA</span>
-            <span class="tech-tag">Prophet</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">Time Series</span>
-          </div>
-        </div>
-
-        <!-- Project 8 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[08]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/graduate-outcomes-analytics" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-              <a href="https://public.tableau.com/app/profile/naveen.chirla/graduate-outcomes" target="_blank" class="project-link">
-                <i class="fas fa-chart-bar"></i>
-                Dashboard
-              </a>
-            </div>
-          </div>
-
-          <h3 class="project-title">Graduate Employment Outcomes Analysis</h3>
-          <p class="project-description">
-            Analyzed 5 years of graduate employment data (200,000+ records) to identify factors influencing
-            post-graduation outcomes. Used regression analysis, survival analysis, and SQL for data extraction.
-            Built predictive model to identify students at risk of unemployment within 6 months of graduation.
-          </p>
-
-          <div class="project-impact">
-            <div class="impact-label">Insights Delivered</div>
-            <div class="impact-text">
-              Identified 7 key predictors of employment success. Model helps target career support to at-risk students.
-            </div>
-          </div>
-
-          <div class="project-tech">
-            <span class="tech-tag">SQL</span>
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Logistic Regression</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">Statistical Analysis</span>
-          </div>
-        </div>
-
-        <!-- Project 9 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[09]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/retail-basket-analysis" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-              <a href="https://github.com/9chirla/retail-basket-analysis/blob/main/analysis.ipynb" target="_blank" class="project-link">
-                <i class="fas fa-book"></i>
-                Report
-              </a>
-            </div>
-          </div>
-
-          <h3 class="project-title">Retail Market Basket Analysis</h3>
-          <p class="project-description">
-            Performed market basket analysis on 250,000+ retail transactions using Apriori algorithm
-            to discover product association rules. Identified cross-selling opportunities, optimal product
-            placement strategies, and bundling recommendations that increase average transaction value.
-          </p>
-
-          <div class="project-impact">
-            <div class="impact-label">Key Findings</div>
-            <div class="impact-text">
-              Discovered 47 high-confidence product associations. Recommendations could increase basket size by 18%.
-            </div>
-          </div>
-
-          <div class="project-tech">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Apriori Algorithm</span>
-            <span class="tech-tag">Association Rules</span>
-            <span class="tech-tag">pandas</span>
-            <span class="tech-tag">mlxtend</span>
-          </div>
-        </div>
-
-        <!-- Project 10 -->
-        <div class="project-card">
-          <div class="project-header">
-            <div class="project-number">[10]</div>
-            <div class="project-links">
-              <a href="https://github.com/9chirla/sql-business-queries" target="_blank" class="project-link">
-                <i class="fas fa-code"></i>
-                GitHub
-              </a>
-              <a href="https://github.com/9chirla/sql-business-queries/blob/main/README.md" target="_blank" class="project-link">
-                <i class="fas fa-database"></i>
-                Queries
-              </a>
-            </div>
-          </div>
-
-          <h3 class="project-title">Advanced SQL Business Intelligence</h3>
-          <p class="project-description">
-            Created comprehensive SQL portfolio demonstrating complex queries on business datasets. Includes
-            window functions, CTEs, subqueries, pivoting, and performance optimization. Solved 50+ real-world
-            business questions including cohort analysis, revenue attribution, and customer lifetime value calculations.
-          </p>
-
-          <div class="project-impact">
-            <div class="impact-label">Technical Depth</div>
-            <div class="impact-text">
-              50+ optimized queries. Reduced query runtime by 87% through indexing and query restructuring.
-            </div>
-          </div>
-
-          <div class="project-tech">
-            <span class="tech-tag">PostgreSQL</span>
-            <span class="tech-tag">Window Functions</span>
-            <span class="tech-tag">CTEs</span>
-            <span class="tech-tag">Query Optimization</span>
-            <span class="tech-tag">Database Design</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Cinema Break -->
-    <div class="cinema-break">
-      <img src="assets/moneyball.png" alt="Moneyball" style="width: 100%; max-width: 1200px; border-radius: 12px; display: block; margin: 0 auto;" />
-    </div>
-
-    <!-- Skills Section -->
     <section id="skills">
-      <div class="section-header">
-        <h2 class="section-title">Technical Skills</h2>
-        <p class="section-subtitle">
-          Full-stack data analyst toolkit—from data extraction to machine learning deployment
-        </p>
-      </div>
-
-      <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fab fa-python"></i>
+      <div class="wrap">
+        <p class="section-label">Skills</p>
+        <h2 class="section-title">How I work</h2>
+        <p class="section-lead">Analytics depth plus enough product engineering to ship.</p>
+        <div class="skills">
+          <div class="skill">
+            <h3>Analytics</h3>
+            <p>Python, SQL, Power BI / Tableau, forecasting, segmentation, stakeholder reporting.</p>
           </div>
-          <h3 class="skill-name">Python</h3>
-          <div class="skill-level">Advanced data analysis & ML</div>
-          <p class="skill-description">
-            Built 10+ projects using pandas, NumPy, scikit-learn, and XGBoost. Experience with data
-            cleaning, feature engineering, predictive modeling, and statistical analysis. Proficient in
-            Jupyter notebooks and Python scripting.
-          </p>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fas fa-database"></i>
+          <div class="skill">
+            <h3>Product</h3>
+            <p>TypeScript, React, Next.js, Streamlit, offline-first / PWA patterns, REST APIs.</p>
           </div>
-          <h3 class="skill-name">SQL</h3>
-          <div class="skill-level">Complex queries & optimization</div>
-          <p class="skill-description">
-            Expert in PostgreSQL and MySQL. Write complex joins, window functions, CTEs, and subqueries
-            daily. Optimized queries processing 500K+ records with 87% runtime improvement through indexing
-            and query restructuring.
-          </p>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fas fa-chart-line"></i>
+          <div class="skill">
+            <h3>Delivery</h3>
+            <p>GitHub Actions, Vercel, Render, Supabase, clear docs, CI, $0-stack pragmatism.</p>
           </div>
-          <h3 class="skill-name">Power BI & Tableau</h3>
-          <div class="skill-level">15+ interactive dashboards</div>
-          <p class="skill-description">
-            Created executive dashboards with advanced DAX calculations, drill-throughs, and automated
-            data refresh. Expert in data modeling, calculated measures, and connecting multiple data sources
-            (SQL, Excel, APIs).
-          </p>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fas fa-file-excel"></i>
-          </div>
-          <h3 class="skill-name">Advanced Excel</h3>
-          <div class="skill-level">Power Query, VBA, complex modeling</div>
-          <p class="skill-description">
-            Advanced pivot tables, Power Query for ETL, complex formulas (INDEX-MATCH, array formulas),
-            scenario analysis, and VBA automation. Built financial models processing 100K+ rows with
-            dynamic dashboards.
-          </p>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fas fa-brain"></i>
-          </div>
-          <h3 class="skill-name">Machine Learning</h3>
-          <div class="skill-level">Classification, regression, clustering</div>
-          <p class="skill-description">
-            Deployed supervised (XGBoost, Random Forest, Logistic Regression) and unsupervised models
-            (K-means, hierarchical clustering). Experience with time series forecasting (ARIMA, Prophet)
-            and model evaluation metrics.
-          </p>
-        </div>
-
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fas fa-chart-pie"></i>
-          </div>
-          <h3 class="skill-name">Statistical Analysis</h3>
-          <div class="skill-level">Hypothesis testing, A/B testing</div>
-          <p class="skill-description">
-            Strong foundation in statistics: hypothesis testing, confidence intervals, regression analysis,
-            correlation studies, and A/B testing. Use statistical methods to validate insights and ensure
-            data-driven decision making.
-          </p>
         </div>
       </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
-      <div class="contact-content">
-        <div class="section-header" style="text-align: center; margin: 0 auto;">
-          <h2 class="section-title">Let's Work Together</h2>
-          <p class="section-subtitle" style="max-width: 100%;">
-            Looking for a business analyst who combines technical depth with business acumen? Let's connect.
-          </p>
-        </div>
-
-        <p class="contact-text">
-          I'm completing my MBA (Aug 2025) and actively seeking business analyst and data analyst roles
-          where I can apply machine learning, SQL, and data visualization skills to solve real business
-          problems. My portfolio demonstrates technical capability—let's discuss how I can contribute to
-          your team's success.
+      <div class="wrap">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let’s talk</h2>
+        <p class="section-lead">
+          Open to Business Analyst / Data Analyst roles where product sense and analytics meet.
         </p>
-
-        <div class="contact-grid">
-          <a href="https://www.linkedin.com/in/chirla" target="_blank" class="contact-card">
-            <div class="contact-icon">
-              <i class="fab fa-linkedin-in"></i>
-            </div>
-            <div class="contact-label">LinkedIn</div>
-          </a>
-
-          <a href="https://github.com/9chirla" target="_blank" class="contact-card">
-            <div class="contact-icon">
-              <i class="fab fa-github"></i>
-            </div>
-            <div class="contact-label">GitHub</div>
-          </a>
-
-          <a href="mailto:9chirla@gmail.com" class="contact-card">
-            <div class="contact-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <div class="contact-label">Email</div>
-          </a>
-
-          <a href="tel:+447717298365" class="contact-card">
-            <div class="contact-icon">
-              <i class="fas fa-phone"></i>
-            </div>
-            <div class="contact-label">Call Me</div>
-          </a>
+        <div class="contact-row">
+          <a class="btn btn-primary" href="mailto:9chirla@gmail.com">Email</a>
+          <a class="btn btn-secondary" href="https://www.linkedin.com/in/chirla" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="btn btn-secondary" href="https://github.com/9chirla" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-secondary" href="assets/resume.pdf">Resume PDF</a>
         </div>
       </div>
     </section>
+  </main>
+
+  <div class="wrap">
+    <footer>
+      <span>© <span id="y"></span> Naveen Reddy Chirla</span>
+      <a href="https://github.com/9chirla">github.com/9chirla</a>
+    </footer>
   </div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-content">
-      <div>Built with focus. Backed by results.</div>
-      <div>© 2025 Naveen Reddy Chirla</div>
-    </div>
-  </footer>
-
-  <!-- Easter Egg -->
-  <div class="konami-activated" id="easterEgg">
-    <h3 style="color: var(--accent-electric); margin-bottom: 1rem;">🎯 You found it!</h3>
-    <p style="color: var(--text-secondary);">
-      If you found this, you're either a developer or just really curious.<br>
-      Either way, we should talk. I like curious people.
-    </p>
-    <button onclick="document.getElementById('easterEgg').classList.remove('active')"
-            style="margin-top: 1rem; padding: 0.75rem 1.5rem; background: var(--accent-electric);
-                   color: var(--bg-dark); border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
-      Close
-    </button>
-  </div>
-
   <script>
-    // Cursor Toggle Functionality
-    let cursorEnabled = true;
-    const cursorToggleBtn = document.getElementById('cursorToggle');
-
-    cursorToggleBtn.addEventListener('click', () => {
-      cursorEnabled = !cursorEnabled;
-      if (cursorEnabled) {
-        document.body.classList.remove('cursor-disabled');
-        cursorToggleBtn.textContent = '💰 Cursor: ON';
-      } else {
-        document.body.classList.add('cursor-disabled');
-        cursorToggleBtn.textContent = '💰 Cursor: OFF';
-      }
-    });
-
-    // ============================================
-    // GSAP Letter Explosion Animation
-    // ============================================
-    gsap.registerPlugin(ScrollTrigger);
-
-    function initLetterExplosion() {
-      const lines = document.querySelectorAll('.hero-line');
-
-      lines.forEach(lineContainer => {
-        const text = lineContainer.getAttribute('data-line');
-        lineContainer.innerHTML = ''; // Clear
-
-        // Split into letters
-        text.split('').forEach((char, i) => {
-          const letter = document.createElement('span');
-          letter.className = 'letter';
-          letter.textContent = char === ' ' ? '\u00A0' : char; // Preserve spaces
-          letter.setAttribute('data-speed', (0.8 + Math.random() * 0.7).toFixed(2));
-          lineContainer.appendChild(letter);
-        });
-      });
-
-      // Animate letters on scroll
-      const letters = document.querySelectorAll('.letter');
-      letters.forEach(letter => {
-        const speed = parseFloat(letter.getAttribute('data-speed') || '1');
-        const randomRotation = Math.random() * 40 - 20; // ±20 degrees
-
-        gsap.to(letter, {
-          y: () => (1 - speed) * (window.innerHeight * 0.5),
-          rotation: randomRotation,
-          opacity: 0.3,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.hero',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.5,
-            invalidateOnRefresh: true
-          }
-        });
-      });
-    }
-
-    // Initialize letter explosion on load
-    window.addEventListener('load', () => {
-      initLetterExplosion();
-    });
-
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-
-    // Background is now handled by CSS animations
-
-    // Custom Cursor
-    const cursor = document.getElementById('customCursor');
-    if (cursor) {
-      let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-      let lastX = mouseX, lastY = mouseY;
-      let velocity = 0;
-      let frameCount = 0;
-      let currentEmoji = '💰';
-
-      const emojis = { default: '💰', hover: '🚀', click: '💥', fast: '⚡', superFast: '🔥' };
-      const moneyEmojis = ['💵', '💴', '💶', '💷', '💸'];
-      const sparkleEmojis = ['✨', '⭐', '🌟', '💫', '⚡'];
-      const clickEmojis = ['💥', '💯', '🎯', '🔥', '⚡', '💪', '🚀'];
-      const confettiEmojis = ['🎉', '🎊', '🎈', '🎆', '🎇', '✨'];
-
-      cursor.style.left = (mouseX - 20) + 'px';
-      cursor.style.top = (mouseY - 20) + 'px';
-
-      document.addEventListener('mousemove', (e) => {
-        if (!cursorEnabled) return;
-
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-
-        const dx = mouseX - lastX;
-        const dy = mouseY - lastY;
-        velocity = Math.sqrt(dx * dx + dy * dy);
-
-        cursor.style.left = (mouseX - 20) + 'px';
-        cursor.style.top = (mouseY - 20) + 'px';
-
-        if (velocity > 40) {
-          cursor.textContent = emojis.superFast;
-          if (frameCount % 2 === 0) createFire(mouseX, mouseY);
-        } else if (velocity > 20) {
-          cursor.textContent = emojis.fast;
-        } else {
-          cursor.textContent = currentEmoji;
-        }
-
-        frameCount++;
-        if (frameCount % 5 === 0) createMoney(mouseX, mouseY);
-        if (frameCount % 8 === 0) createSparkle(mouseX, mouseY);
-        if (currentEmoji === emojis.hover && frameCount % 3 === 0) createRocketTrail(mouseX, mouseY);
-
-        lastX = mouseX;
-        lastY = mouseY;
-      });
-
-      document.addEventListener('mousedown', (e) => {
-        if (!cursorEnabled) return;
-
-        cursor.textContent = emojis.click;
-        createPremiumWave(e.clientX, e.clientY);
-
-        for (let i = 0; i < 12; i++) {
-          setTimeout(() => createBoom(e.clientX, e.clientY, clickEmojis[Math.floor(Math.random() * clickEmojis.length)]), i * 30);
-        }
-        for (let i = 0; i < 20; i++) {
-          setTimeout(() => createConfetti(e.clientX, e.clientY), i * 20);
-        }
-        setTimeout(() => { cursor.textContent = currentEmoji; }, 300);
-      });
-
-      const interactiveElements = document.querySelectorAll('a, button, .btn, .contact-card, .project-card, .skill-card');
-      interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-          if (!cursorEnabled) return;
-          currentEmoji = emojis.hover;
-          cursor.textContent = emojis.hover;
-          cursor.style.transform = 'scale(1.3) rotate(15deg)';
-          createPremiumWave(mouseX, mouseY);
-          for (let i = 0; i < 5; i++) setTimeout(() => createSparkle(mouseX, mouseY), i * 50);
-        });
-        el.addEventListener('mouseleave', () => {
-          if (!cursorEnabled) return;
-          currentEmoji = emojis.default;
-          cursor.textContent = emojis.default;
-          cursor.style.transform = 'scale(1) rotate(0deg)';
-        });
-      });
-
-      function createMoney(x, y) {
-        if (!cursorEnabled) return;
-        const money = document.createElement('div');
-        money.className = 'cursor-money';
-        money.textContent = moneyEmojis[Math.floor(Math.random() * moneyEmojis.length)];
-        money.style.left = (x - 12) + 'px';
-        money.style.top = (y - 12) + 'px';
-        document.body.appendChild(money);
-        setTimeout(() => money.remove(), 1000);
-      }
-
-      function createSparkle(x, y) {
-        if (!cursorEnabled) return;
-        const sparkle = document.createElement('div');
-        sparkle.className = 'cursor-sparkle';
-        sparkle.textContent = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
-        sparkle.style.left = (x + (Math.random() - 0.5) * 40) + 'px';
-        sparkle.style.top = (y + (Math.random() - 0.5) * 40) + 'px';
-        document.body.appendChild(sparkle);
-        setTimeout(() => sparkle.remove(), 600);
-      }
-
-      function createFire(x, y) {
-        if (!cursorEnabled) return;
-        const fire = document.createElement('div');
-        fire.className = 'cursor-fire';
-        fire.textContent = '🔥';
-        fire.style.left = (x - 14) + 'px';
-        fire.style.top = (y - 14) + 'px';
-        document.body.appendChild(fire);
-        setTimeout(() => fire.remove(), 400);
-      }
-
-      function createBoom(x, y, emoji) {
-        if (!cursorEnabled) return;
-        const boom = document.createElement('div');
-        boom.className = 'cursor-boom';
-        boom.textContent = emoji;
-        boom.style.left = (x - 16) + 'px';
-        boom.style.top = (y - 16) + 'px';
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 50 + Math.random() * 80;
-        boom.style.setProperty('--tx', Math.cos(angle) * distance + 'px');
-        boom.style.setProperty('--ty', Math.sin(angle) * distance + 'px');
-        document.body.appendChild(boom);
-        setTimeout(() => boom.remove(), 600);
-      }
-
-      function createRocketTrail(x, y) {
-        if (!cursorEnabled) return;
-        const trail = document.createElement('div');
-        trail.className = 'cursor-rocket-trail';
-        trail.style.left = (x - 1.5) + 'px';
-        trail.style.top = y + 'px';
-        document.body.appendChild(trail);
-        setTimeout(() => trail.remove(), 300);
-      }
-
-      function createPremiumWave(x, y) {
-        if (!cursorEnabled) return;
-        const wave = document.createElement('div');
-        wave.className = 'cursor-premium-wave';
-        wave.style.left = (x - 10) + 'px';
-        wave.style.top = (y - 10) + 'px';
-        document.body.appendChild(wave);
-        setTimeout(() => wave.remove(), 800);
-      }
-
-      function createConfetti(x, y) {
-        if (!cursorEnabled) return;
-        const confetti = document.createElement('div');
-        confetti.className = 'cursor-confetti';
-        confetti.textContent = confettiEmojis[Math.floor(Math.random() * confettiEmojis.length)];
-        confetti.style.left = (x + (Math.random() - 0.5) * 100) + 'px';
-        confetti.style.top = (y - 20) + 'px';
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 1000);
-      }
-    }
-
-    // Konami code easter egg
-    let konamiCode = [];
-    const konamiPattern = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-
-    document.addEventListener('keydown', (e) => {
-      konamiCode.push(e.key);
-      if (konamiCode.length > konamiPattern.length) {
-        konamiCode.shift();
-      }
-      if (JSON.stringify(konamiCode) === JSON.stringify(konamiPattern)) {
-        document.getElementById('easterEgg').classList.add('active');
-        konamiCode = [];
-      }
-    });
-
-    // Create floating data particles
-    function createDataParticles() {
-      const particleCount = 15;
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'data-particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 8 + 's';
-        particle.style.animationDuration = (8 + Math.random() * 4) + 's';
-        document.body.appendChild(particle);
-      }
-    }
-
-    // Initialize particles
-    createDataParticles();
-
-    // ============================================
-    // GSAP LETTER EXPLOSION ANIMATION
-    // ============================================
-
-    // Register GSAP ScrollTrigger plugin
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Letter explosion animation on load
-    function initLetterExplosion() {
-      const letters = document.querySelectorAll('.letter');
-
-      if (letters.length === 0) return;
-
-      // Initial state: letters scattered randomly
-      gsap.set(letters, {
-        opacity: 0,
-        scale: 0,
-        rotation: () => Math.random() * 360 - 180,
-        x: () => (Math.random() - 0.5) * 1000,
-        y: () => (Math.random() - 0.5) * 1000
-      });
-
-      // Animate letters flying in and settling
-      gsap.to(letters, {
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        x: 0,
-        y: 0,
-        duration: 1.2,
-        ease: 'elastic.out(1, 0.5)',
-        stagger: {
-          amount: 0.8,
-          from: 'random'
-        },
-        delay: 0.3
-      });
-
-      // Floating animation on hover
-      letters.forEach(letter => {
-        letter.addEventListener('mouseenter', () => {
-          gsap.to(letter, {
-            y: -20,
-            rotation: () => Math.random() * 20 - 10,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-        });
-
-        letter.addEventListener('mouseleave', () => {
-          gsap.to(letter, {
-            y: 0,
-            rotation: 0,
-            duration: 0.5,
-            ease: 'elastic.out(1, 0.3)'
-          });
-        });
-      });
-
-      // Scroll-triggered dispersion effect
-      letters.forEach((letter, index) => {
-        const speed = 0.5 + Math.random() * 1.5; // Random speed multiplier
-        const direction = Math.random() > 0.5 ? 1 : -1; // Random direction
-
-        gsap.to(letter, {
-          y: () => direction * speed * 300, // Vertical drift
-          rotation: () => (Math.random() - 0.5) * 60, // Random rotation
-          opacity: 0.3,
-          scrollTrigger: {
-            trigger: '.hero',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1.5,
-            onLeave: () => {
-              // Reset when scrolled past
-              gsap.set(letter, { y: 0, rotation: 0, opacity: 1 });
-            },
-            onEnterBack: () => {
-              // Re-animate when scrolling back
-              gsap.to(letter, {
-                y: 0,
-                rotation: 0,
-                opacity: 1,
-                duration: 0.5
-              });
-            }
-          }
-        });
-      });
-    }
-
-    // Magnetic effect on mouse move
-    function initMagneticLetters() {
-      const letters = document.querySelectorAll('.letter');
-      const heroText = document.getElementById('heroText');
-
-      if (!heroText) return;
-
-      heroText.addEventListener('mousemove', (e) => {
-        const rect = heroText.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
-
-        letters.forEach(letter => {
-          const letterRect = letter.getBoundingClientRect();
-          const letterCenterX = letterRect.left + letterRect.width / 2 - rect.left;
-          const letterCenterY = letterRect.top + letterRect.height / 2 - rect.top;
-
-          const deltaX = mouseX - letterCenterX;
-          const deltaY = mouseY - letterCenterY;
-          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-          // Magnetic effect within 150px radius
-          if (distance < 150) {
-            const force = (150 - distance) / 150;
-            const moveX = (deltaX / distance) * force * 20;
-            const moveY = (deltaY / distance) * force * 20;
-
-            gsap.to(letter, {
-              x: moveX,
-              y: moveY,
-              duration: 0.3,
-              ease: 'power2.out'
-            });
-          } else {
-            gsap.to(letter, {
-              x: 0,
-              y: 0,
-              duration: 0.5,
-              ease: 'elastic.out(1, 0.3)'
-            });
-          }
-        });
-      });
-
-      heroText.addEventListener('mouseleave', () => {
-        letters.forEach(letter => {
-          gsap.to(letter, {
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: 'elastic.out(1, 0.3)'
-          });
-        });
-      });
-    }
-
-    // Glitch effect on stats
-    function initStatsGlitch() {
-      const statValues = document.querySelectorAll('.stat-value');
-
-      statValues.forEach(stat => {
-        // Glitch animation on scroll into view
-        ScrollTrigger.create({
-          trigger: stat,
-          start: 'top 80%',
-          onEnter: () => {
-            // Number count-up animation
-            const finalText = stat.textContent;
-            const isNumber = /^\d+\+?$/.test(finalText.replace(/[K£M,]/g, ''));
-
-            if (isNumber) {
-              const target = parseInt(finalText.replace(/[^\d]/g, ''));
-              gsap.from(stat, {
-                textContent: 0,
-                duration: 2,
-                ease: 'power1.out',
-                snap: { textContent: 1 },
-                onUpdate: function() {
-                  stat.textContent = Math.ceil(this.targets()[0].textContent) + (finalText.includes('+') ? '+' : '');
-                }
-              });
-            }
-
-            // Glitch effect
-            gsap.fromTo(stat,
-              {
-                opacity: 0,
-                scale: 0.5,
-                filter: 'blur(10px)'
-              },
-              {
-                opacity: 1,
-                scale: 1,
-                filter: 'blur(0px)',
-                duration: 0.6,
-                ease: 'back.out(1.7)'
-              }
-            );
-          }
-        });
-      });
-    }
-
-    // Parallax effect on project cards
-    function initProjectParallax() {
-      const projectCards = document.querySelectorAll('.project-card');
-
-      projectCards.forEach((card, index) => {
-        // Stagger entrance
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse'
-          },
-          y: 100,
-          opacity: 0,
-          rotation: index % 2 === 0 ? -5 : 5,
-          duration: 0.8,
-          ease: 'power3.out',
-          delay: index * 0.1
-        });
-
-        // Parallax on scroll
-        gsap.to(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1
-          },
-          y: -50,
-          ease: 'none'
-        });
-      });
-    }
-
-    // Skill card animations
-    function initSkillAnimations() {
-      const skillCards = document.querySelectorAll('.skill-card');
-
-      skillCards.forEach((card, index) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          },
-          scale: 0.8,
-          opacity: 0,
-          rotationY: 90,
-          duration: 0.8,
-          ease: 'back.out(1.5)',
-          delay: index * 0.05
-        });
-
-        // Hover effect
-        card.addEventListener('mouseenter', () => {
-          gsap.to(card, {
-            scale: 1.05,
-            rotationY: 5,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-        });
-
-        card.addEventListener('mouseleave', () => {
-          gsap.to(card, {
-            scale: 1,
-            rotationY: 0,
-            duration: 0.5,
-            ease: 'elastic.out(1, 0.3)'
-          });
-        });
-      });
-    }
-
-    // Initialize all GSAP animations
-    function initAllAnimations() {
-      // Wait for GSAP to be available
-      if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
-        console.warn('GSAP or ScrollTrigger not loaded');
-        return;
-      }
-
-      initLetterExplosion();
-      initMagneticLetters();
-      initStatsGlitch();
-      initProjectParallax();
-      initSkillAnimations();
-
-      // Refresh ScrollTrigger after all animations are set
-      ScrollTrigger.refresh();
-    }
-
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initAllAnimations);
-    } else {
-      // DOM is already ready
-      setTimeout(initAllAnimations, 100);
-    }
+    document.getElementById("y").textContent = String(new Date().getFullYear());
   </script>
 </body>
 </html>
