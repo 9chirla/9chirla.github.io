@@ -37,11 +37,56 @@
       font-size: 16px;
       line-height: 1.5;
       color: var(--ink);
-      background:
-        radial-gradient(120% 80% at 100% -10%, var(--accent-glow), transparent 55%),
-        var(--bg);
+      background: var(--bg);
       -webkit-font-smoothing: antialiased;
     }
+
+    /* Minimal atmosphere: soft lime washes + micro grid + film grain */
+    .atmosphere {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+      background:
+        radial-gradient(55% 45% at 88% -8%, rgba(195, 250, 8, 0.14), transparent 58%),
+        radial-gradient(40% 35% at 8% 18%, rgba(195, 250, 8, 0.06), transparent 55%),
+        radial-gradient(70% 50% at 50% 110%, rgba(30, 40, 28, 0.9), transparent 60%),
+        var(--bg);
+    }
+    .atmosphere::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at center, rgba(242, 245, 238, 0.045) 0.65px, transparent 0.7px);
+      background-size: 26px 26px;
+      background-position: 0 0;
+      mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, black 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 30%, black 20%, transparent 75%);
+      opacity: 0.9;
+    }
+    .atmosphere::after {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(35% 30% at 72% 22%, rgba(195, 250, 8, 0.09), transparent 70%);
+      animation: drift 28s ease-in-out infinite alternate;
+      opacity: 0.85;
+    }
+    .atmosphere .grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.045;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    }
+    @keyframes drift {
+      from { transform: translate3d(0, 0, 0) scale(1); }
+      to { transform: translate3d(-3%, 2%, 0) scale(1.06); }
+    }
+
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -352,12 +397,14 @@
 
     @media (prefers-reduced-motion: reduce) {
       .motion-in { animation: none; }
+      .atmosphere::after { animation: none; }
       .btn:hover { transform: none; }
       html { scroll-behavior: auto; }
     }
   </style>
 </head>
 <body>
+  <div class="atmosphere" aria-hidden="true"><div class="grain"></div></div>
   <header class="nav">
     <div class="nav-inner">
       <a class="brand" href="#top">Naveen<span>.</span></a>
