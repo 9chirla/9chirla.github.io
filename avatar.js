@@ -1,19 +1,41 @@
 /* 3D landing avatar — stylized bust from portrait likeness; eyes track pointer */
 (function () {
   const canvas = document.getElementById("avatar-canvas");
-  if (!canvas || typeof THREE === "undefined") return;
+  const stage = canvas && canvas.parentElement;
+  const fallback = document.getElementById("avatar-fallback");
+
+  function fail(reason) {
+    if (stage) stage.classList.add("avatar-failed");
+    if (fallback) fallback.hidden = false;
+    if (reason && typeof console !== "undefined") {
+      console.warn("[avatar]", reason);
+    }
+  }
+
+  if (!canvas || !stage) return;
+  if (typeof THREE === "undefined") {
+    fail("THREE.js failed to load");
+    return;
+  }
 
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const stage = canvas.parentElement;
 
-  const renderer = new THREE.WebGLRenderer({
-    canvas,
-    antialias: true,
-    alpha: true,
-    powerPreference: "high-performance",
-  });
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance",
+    });
+  } catch (e) {
+    fail(e && e.message ? e.message : "WebGL unavailable");
+    return;
+  }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  if ("outputColorSpace" in renderer && THREE.SRGBColorSpace) {
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+  }
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 50);
@@ -281,15 +303,14 @@
   resize();
   window.addEventListener("resize", resize);
 
-  let blinkT = 0;
   let nextBlink = 2.5 + Math.random() * 3;
+  let blinkUntil = 0;
 
   const clock = new THREE.Clock();
 
   function animate() {
     requestAnimationFrame(animate);
     const t = clock.getElapsedTime();
-    const dt = clock.getDelta();
 
     // Map pointer into world look target in front of face
     lookPoint.set(pointer.x * 1.8, 0.35 + pointer.y * 1.1, 2.2);
@@ -327,16 +348,14 @@
 
     // Blink
     if (!reduce) {
-      blinkT += dt;
-      if (blinkT > nextBlink) {
+      if (t > nextBlink && t < nextBlink + 0.12) {
         leftEye.userData.lid.visible = true;
         rightEye.userData.lid.visible = true;
-        if (blinkT > nextBlink + 0.12) {
-          leftEye.userData.lid.visible = false;
-          rightEye.userData.lid.visible = false;
-          blinkT = 0;
-          nextBlink = 2.2 + Math.random() * 4;
-        }
+        blinkUntil = nextBlink + 0.12;
+      } else if (t >= blinkUntil && leftEye.userData.lid.visible) {
+        leftEye.userData.lid.visible = false;
+        rightEye.userData.lid.visible = false;
+        nextBlink = t + 2.2 + Math.random() * 4;
       }
     }
 
