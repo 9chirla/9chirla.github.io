@@ -252,7 +252,7 @@
   loader.load(
     "assets/avatar-3d.jpg",
     (tex) => {
-      tex.colorSpace = THREE.SRGBColorSpace;
+      if (THREE.SRGBColorSpace) tex.colorSpace = THREE.SRGBColorSpace;
       const card = new THREE.Mesh(
         new THREE.PlaneGeometry(1.35, 1.35),
         new THREE.MeshBasicMaterial({
