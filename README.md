@@ -2,28 +2,18 @@
 
 Personal site for **Naveen Reddy Chirla** — Business Analyst · MBA · London.
 
-Designed in the same dark / Voltage lime language as [Jacked](https://github.com/9chirla/jacked).
+Next.js (App Router) + Tailwind + Framer Motion + canvas scroll-frame sequence.
 
-**Live:** https://9chirla.github.io/
-
-## Projects featured
-
-Only public product repos from the account:
-
-| Project | Links |
-|---------|--------|
-| Jacked | [repo](https://github.com/9chirla/jacked) · [live](https://jacked-gold.vercel.app) |
-| Voyager AI | [repo](https://github.com/9chirla/voyager-ai) · [live](https://9chirla.github.io/voyager-ai/) |
-| Applylytics | [repo](https://github.com/9chirla/Applylytics) |
-| Bots Over Bosses | [repo](https://github.com/9chirla/bots-over-bosses) |
-
-## Local
+## Develop
 
 ```bash
-python3 -m http.server 8080
-# http://localhost:8080
+npm install
+npm run generate:sequence
+npm run dev
 ```
 
-## License
+## Deploy
 
-[MIT](LICENSE)
+Push to `main`. GitHub Actions builds the static export and deploys to GitHub Pages.
+
+Repo → Settings → Pages → Source: **GitHub Actions**.
